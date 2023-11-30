@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "886677618828",
+    "project_id": "dhoondle-691f6",
+    "storage_bucket": "dhoondle-691f6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:886677618828:android:ba4092a62897f3e960fba9",
+        "android_client_info": {
+          "package_name": "com.app.dhoondle"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD423y9zvKwMa67HjPBeHnY2E4MKkiola0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
