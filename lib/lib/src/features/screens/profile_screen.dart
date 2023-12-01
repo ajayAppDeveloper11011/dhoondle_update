@@ -13,6 +13,7 @@ import '../../constants/Api.dart';
 import '../../constants/colors.dart';
 import '../../constants/helper.dart';
 import '../../constants/images.dart';
+import '../../constants/text.dart';
 import 'edit_profile.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -62,13 +63,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
         ],
         centerTitle: true,
         elevation: 0,
-        // title: Text(TextScreen.Home,
-        //     style: GoogleFonts.lato(
-        //       textStyle: TextStyle(
-        //           color: Colors.white,
-        //           fontSize: 18,
-        //           fontWeight: FontWeight.w500),
-        //     )),
+        title: Text(TextScreen.Rooms,
+            style: GoogleFonts.lato(
+              textStyle: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500),
+            )),
         // actions: [
         //   Padding(
         //     padding: const EdgeInsets.all(25),

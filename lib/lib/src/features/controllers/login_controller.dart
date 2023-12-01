@@ -123,7 +123,9 @@ class LoginController extends GetxController{
             // setProgress(false);
             //API to call
 
-            Helper.checkInternet( login(verificationId,forceResendingToken ));
+            // Helper.checkInternet( login(verificationId,forceResendingToken ));
+
+
             //  Helper.moveToScreenwithPush(context, OtpVerifyScreen(
             //    forceResendingToken: forceResendingToken,
             //    number: numberController.text.trim(),

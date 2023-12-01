@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/colors.dart';
@@ -88,21 +89,70 @@ class CustomDrawer extends StatelessWidget {
                   //   pressevent: () {},
                   // ),
                   drawerList(
-                    // icon: 'assets/icon/fill1.svg',
+                    image:'assets/logo/tasks.png',
                     title: 'Active Plan',
                     subtitle: 'Pro',
                     pressevent: () {},
                   ),
-
-                  drawerList(
-                    // icon: 'assets/icon/drawricon6.svg',
-                    title: 'Language',
-                    subtitle: 'English',
-                    pressevent: () {},
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                        height:10,
+                        child: Divider(
+                          thickness:1,
+                          color:Colors.grey.withOpacity(0.5),
+                        )),
                   ),
                   drawerList(
-                    // icon: 'assets/icon/drawricon.svg',
-                    title: 'About us',
+                    image: 'assets/logo/language.png',
+                    title: 'Change Language',
+                    subtitle: 'English',
+                    pressevent: () {
+
+                    },
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                        height:10,
+                        child: Divider(
+                          thickness:1,
+                          color:Colors.grey.withOpacity(0.5),
+                        )),
+                  ),
+                  drawerList(
+                    image: 'assets/logo/white-logo.png',
+                    title: 'About App',
+                    subtitle: 'About Dhoondle',
+                    pressevent: () {},
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                        height:10,
+                        child: Divider(
+                          thickness:1,
+                          color:Colors.grey.withOpacity(0.5),
+                        )),
+                  ),
+                  drawerList(
+                    image: 'assets/logo/support.png',
+                    title: 'Help Center',
+                    subtitle: 'About Dhoondle',
+                    pressevent: () {},
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                        height:10,
+                        child: Divider(
+                          thickness:1,
+                          color:Colors.grey.withOpacity(0.5),
+                        )),
+                  ),
+                  drawerList(
+                    image: 'assets/logo/logout.png',
+                    title: 'Log Out',
                     subtitle: 'About Dhoondle',
                     pressevent: () {},
                   ),
@@ -119,13 +169,13 @@ class CustomDrawer extends StatelessWidget {
 class drawerList extends StatelessWidget {
   const drawerList({
     Key? key,
-    // required this.icon,
+    required this.image,
     required this.title,
     required this.subtitle,
     required this.pressevent,
   }) : super(key: key);
 
-  // final String icon;
+  final String image;
   final String title;
   final String subtitle;
   final VoidCallback pressevent;
@@ -140,13 +190,14 @@ class drawerList extends StatelessWidget {
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
           minLeadingWidth: 0,
-          // leading: Container(
-          //   height: double.infinity,
-          //   child: SvgPicture.asset(
-          //     icon,
-          //     width: 20,
-          //   ),
-          // ),
+          leading: Container(
+            height: double.infinity,
+            child:Image.asset(
+              image,
+              width:30,
+              color:AppColors.primaryColor,
+            ),
+          ),
           title: Text(title,
               style: GoogleFonts.lato(
                   fontSize: 14,

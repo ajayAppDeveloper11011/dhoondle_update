@@ -6,6 +6,9 @@ import 'package:dhoondle/lib/src/features/screens/service_screen.dart';
 import 'package:dhoondle/lib/src/features/screens/tabbar_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:google_fonts/google_fonts.dart';
 import '../../constants/colors.dart';
 
 
@@ -18,6 +21,8 @@ class BottomNaigation extends StatefulWidget {
 
 class _BottomNaigationState extends State<BottomNaigation> {
   int _totalNotifications = 10;
+  final GlobalKey<FormState> _changeUserDetailsKey = GlobalKey<FormState>();
+
   int selectedIndex = 0;
   PageController? _pageController;
   GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey();
@@ -306,7 +311,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
         //     ),
         //   ),
         key: _scaffoldKey,
-        resizeToAvoidBottomInset: false,
+        // resizeToAvoidBottomInset: false,
         body: PageView(
           physics: NeverScrollableScrollPhysics(),
           controller: _pageController,
@@ -316,7 +321,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
           children: <Widget>[
             TabbarScreen(),
             ServiceScreen(),
-           
+            TabbarScreen(),
             ProfileScreen(),
             TabbarScreen(),
           ],
@@ -326,30 +331,97 @@ class _BottomNaigationState extends State<BottomNaigation> {
           index: selectedIndex,
           height: 75.0,
           items: <Widget>[
-            SvgPicture.asset(
-              'assets/logo/home.svg', // Replace with your SVG file path
-              width: 22,
-              height: 22,
+            Column(
+              children: [
+                selectedIndex == 0?const SizedBox(height:6,): const SizedBox(height:18,),
+                SvgPicture.asset(
+                  'assets/logo/home.svg', // Replace with your SVG file path
+                  width: 22,
+                  height: 22,
+                ),
+                const SizedBox(height: 10,),
+                selectedIndex == 0?SizedBox.shrink():Text('Home', style: GoogleFonts.lato(
+                    fontSize: 14,
+                    color:Colors.white,
+                    fontWeight: FontWeight.w400),)
+
+              ],
             ),
-            SvgPicture.asset(
-              'assets/logo/history.svg', // Replace with your SVG file path
-              width: 22,
-              height: 22,
+            Column(
+              children: [
+                selectedIndex ==1?const SizedBox(height:6,): const SizedBox(height:18,),
+                SvgPicture.asset(
+                  'assets/logo/history.svg', // Replace with your SVG file path
+                  width: 22,
+                  height: 22,
+                ),
+                const SizedBox(height: 10,),
+                selectedIndex == 1?const SizedBox.shrink():Text('History',style: GoogleFonts.lato(
+                    fontSize: 14,
+                    color:Colors.white,
+                    fontWeight: FontWeight.w400)
+                )
+
+              ],
             ),
-            // Icon(
-            //   Icons.add,
-            //   size: 30,
-            //   color: Colors.white,
-            // ),
-            SvgPicture.asset(
-              'assets/logo/notification.svg', // Replace with your SVG file path
-              width: 22,
-              height: 22,
+            Column(
+              children: [
+                selectedIndex == 2?SizedBox(height:6,): const SizedBox(height:18,),
+                Container(
+                  decoration: BoxDecoration(
+                    color:selectedIndex == 2?AppColors.primaryColor:Colors.white,
+                    borderRadius: BorderRadius.circular(50)
+                  ),
+                  child: Icon(
+                    Icons.add,
+                    size: 30,
+                    color: selectedIndex == 2
+                        ?Colors.white
+                        :AppColors.primaryColor,
+                  ),
+                ),
+                const SizedBox(height: 10,),
+                selectedIndex == 2?SizedBox.shrink():InkWell(
+                    onTap: () {
+                      openChangeUserDetailsBottomSheet(context);
+                    },
+                    child: Text('Add',style: GoogleFonts.lato(
+                              fontSize: 14,
+                              color:Colors.white,
+                              fontWeight: FontWeight.w400)))
+              ],
             ),
-            SvgPicture.asset(
-              'assets/logo/setting.svg', // Replace with your SVG file path
-              width: 22,
-              height: 22,
+            Column(
+              children: [
+                selectedIndex == 3?SizedBox(height:6,): const SizedBox(height:18,),
+                SvgPicture.asset(
+                  'assets/logo/notification.svg', // Replace with your SVG file path
+                  width: 22,
+                  height: 22,
+                ),
+                const SizedBox(height: 10,),
+                selectedIndex == 3?const SizedBox.shrink():Text('Notification',style: GoogleFonts.lato(
+                    fontSize: 14,
+                    color:Colors.white,
+                    fontWeight: FontWeight.w400),)
+
+              ],
+            ),
+            Column(
+              children: [
+                selectedIndex == 4?SizedBox(height:6,): const SizedBox(height:18,),
+                SvgPicture.asset(
+                  'assets/logo/setting.svg', // Replace with your SVG file path
+                  width: 22,
+                  height: 22,
+                ),
+                const SizedBox(height: 10,),
+                selectedIndex == 4?const SizedBox.shrink():Text('Settings',style: GoogleFonts.lato(
+                    fontSize: 14,
+                    color:Colors.white,
+                    fontWeight: FontWeight.w400),)
+
+              ],
             ),
             // Icon(Icons.list, size: 30, color: Colors.white),
             // Icon(Icons.compare_arrows, size: 30, color: Colors.white),
@@ -367,13 +439,26 @@ class _BottomNaigationState extends State<BottomNaigation> {
           backgroundColor: Colors.white,
           animationCurve: Curves.easeInOut,
           animationDuration: Duration(milliseconds: 300),
+          // onTap: (index) {
+          //   setState(() {
+          //     selectedIndex = index;
+          //     _pageController!.animateToPage(index,
+          //         duration: Duration(milliseconds: 300), curve: Curves.ease);
+          //   });
+          // },
           onTap: (index) {
             setState(() {
               selectedIndex = index;
               _pageController!.animateToPage(index,
                   duration: Duration(milliseconds: 300), curve: Curves.ease);
             });
+
+            // Check if the tapped item is the add button (index 2)
+            if (index == 2) {
+              openChangeUserDetailsBottomSheet(context);
+            }
           },
+
           letIndexChange: (index) => true,
         ),
       ),
@@ -417,4 +502,219 @@ class _BottomNaigationState extends State<BottomNaigation> {
       _pageController!.jumpToPage(value);
     });
   }
+
+
+
+
+  void openChangeUserDetailsBottomSheet(context) {
+    showModalBottomSheet(
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(40.0), topRight: Radius.circular(40.0))),
+      isScrollControlled: true,
+      context: context,
+      builder: (context) {
+        return Wrap(
+          children: [
+            Padding(
+              padding: EdgeInsets.only(
+                  bottom: MediaQuery.of(context).viewInsets.bottom),
+              child: Form(
+                key: _changeUserDetailsKey,
+                child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    bottomSheetHandle(context),
+                    const SizedBox(height:8,),
+                    const Text(
+                      'Become A Service Provider',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    const SizedBox(height:20),
+                    SizedBox(
+                      height: Get.height * .20,
+                      child: Center(
+                        child:Column(
+                          children: [
+
+                            Expanded(
+                                child: GestureDetector(
+                                  onTap: () => Get.toNamed('/servicescreen'),
+                                    child:Padding(
+                                      padding: const EdgeInsets.only(left:15.0,right: 15),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Container(
+                                                height:50,
+                                                width: 50,
+                                                decoration: BoxDecoration(
+                                                    color: const Color.fromRGBO(168, 242, 243, 1),
+                                                    borderRadius: BorderRadius.circular(40.0)),
+                                                child: Image.asset(
+                                                  'assets/logo/house.png',
+                                                  scale:1.5,
+                                                ),
+                                              ),
+                                              SizedBox(width:40,),
+                                              SizedBox(
+                                                child: Text('Room for Rent',
+                                                    textAlign: TextAlign.center,
+                                                    style: GoogleFonts.lato(
+                                                        fontSize: 14,
+                                                        color: AppColors.textcolor,
+                                                        fontWeight: FontWeight.bold)
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+
+
+                                          Container(
+                                              height:50,
+                                              width: 50,
+                                              decoration: BoxDecoration(
+                                                  color: const Color.fromRGBO(168, 242, 243, 1),
+                                                  borderRadius: BorderRadius.circular(40.0)),
+
+                                              child: const Icon(Icons.arrow_forward,color: Colors.black,)),
+                                        ],
+                                      ),
+                                    ),
+                                )),
+                            const SizedBox(
+                              height: 16.0,
+                            ),
+                            Expanded(
+                                child: GestureDetector(
+                                  onTap: () => Get.toNamed('/becomeservice'),
+                                  child:Padding(
+                                    padding: const EdgeInsets.only(left:15.0,right: 15),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Container(
+                                              height:50,
+                                              width: 50,
+                                              decoration: BoxDecoration(
+                                                  color: const Color.fromRGBO(168, 242, 243, 1),
+                                                  borderRadius: BorderRadius.circular(40.0)),
+                                              child: Image.asset(
+                                                'assets/logo/for-sale.png',
+                                                scale:1.5,
+                                              ),
+                                            ),
+                                            SizedBox(width:40,),
+                                            SizedBox(
+                                              child: Text('Selling Property',
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.lato(
+                                                      fontSize: 14,
+                                                      color: AppColors.textcolor,
+                                                      fontWeight: FontWeight.bold)),
+                                            )
+                                          ],
+                                        ),
+
+
+                                        Container(
+                                            height:50,
+                                            width: 50,
+                                            decoration: BoxDecoration(
+                                                color: const Color.fromRGBO(168, 242, 243, 1),
+                                                borderRadius: BorderRadius.circular(40.0)),
+
+                                            child: const Icon(Icons.arrow_forward,color: Colors.black,)),
+                                      ],
+                                    ),
+                                  ),
+                                )),
+                            const SizedBox(
+                              height: 16.0,
+                            ),
+                            Expanded(
+                                child: GestureDetector(
+                                  onTap: () => Get.toNamed('/roomscreen'),
+                                  child:Padding(
+                                    padding: const EdgeInsets.only(left:15.0,right: 15),
+                                    child: Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Row(
+                                          children: [
+                                            Container(
+                                              height:50,
+                                              width: 50,
+                                              decoration: BoxDecoration(
+                                                  color: const Color.fromRGBO(168, 242, 243, 1),
+                                                  borderRadius: BorderRadius.circular(40.0)),
+                                              child: Image.asset(
+                                                'assets/logo/room-mate.png',
+                                                scale:1.5,
+                                              ),
+                                            ),
+                                            SizedBox(width:40,),
+                                            SizedBox(
+                                              child: Text('Find Roommate',
+                                                  textAlign: TextAlign.center,
+                                                  style: GoogleFonts.lato(
+                                                      fontSize: 14,
+                                                      color: AppColors.textcolor,
+                                                      fontWeight: FontWeight.bold)),
+                                            )
+                                          ],
+                                        ),
+
+
+                                        Container(
+                                            height:50,
+                                            width: 50,
+                                            decoration: BoxDecoration(
+                                                color: const Color.fromRGBO(168, 242, 243, 1),
+                                                borderRadius: BorderRadius.circular(40.0)),
+
+                                            child: const Icon(Icons.arrow_forward,color: Colors.black,)),
+                                      ],
+                                    ),
+                                  ),
+                                )),
+                          ],
+                        ),
+                      ),
+                    )
+                  ],
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
+
+  Widget bottomSheetHandle(context) {
+    return Padding(
+      padding: const EdgeInsets.only(top:2.0),
+      child: Container(
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(20.0),
+            color:Colors.black.withOpacity(0.2)),
+        height:3,
+        width: MediaQuery.of(context).size.width * 0.27,
+      ),
+    );
+  }
+
+
+
+
 }

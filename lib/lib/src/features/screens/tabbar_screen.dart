@@ -146,7 +146,9 @@ class _TabbarScreenState extends State<TabbarScreen>
                           ),
                           Expanded(
                               child: GestureDetector(
-                            onTap: () {},
+                            onTap: () {
+                              Get.toNamed('/servicescreen');
+                            },
                             child: Container(
                               height: Get.height * .16,
                               decoration: BoxDecoration(

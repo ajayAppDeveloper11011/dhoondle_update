@@ -24,7 +24,8 @@ onDoneLoading() async {
   var user_id=   await prefs.getString('user_id');
   if(user_id == null){
     // Helper.moveToScreenwithPushreplaceemt(context,  PageViewScreen());
-    Get.offAllNamed('/login');
+    // Get.offAllNamed('/login');
+    Get.offAllNamed('/bottom');
   }else
      Get.offAllNamed('/bottom');
     // Get.offAllNamed('/Policy');

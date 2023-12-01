@@ -48,4 +48,5 @@ class TextScreen{
   static const facilities_add ='Facilities';
   static const Categories ='Categories';
   static const City ='City';
+  static const Rooms ='Rooms';
 }
