@@ -80,16 +80,16 @@ class _TabbarScreenState extends State<TabbarScreen>
                               onTap: () =>
                                   scaffoldKey.currentState!.openDrawer(),
                               child: Container(
-                                height: Get.height * .08,
+                                height: Get.height * .07,
                                 width: Get.height * .075,
                                 decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(10.0),
                                     color: const Color.fromARGB(
                                         175, 179, 240, 224)),
                                 child: Image.asset(
-                                  Images.whiteLogo,
-                                  height: 60,
-                                  width: 50,
+                                  'assets/logo/drawer.png',
+                                  height:40,
+                                  width: 40,
                                 ),
                               ),
                             ),

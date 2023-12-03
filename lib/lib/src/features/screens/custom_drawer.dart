@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/colors.dart';
@@ -33,7 +32,7 @@ class CustomDrawer extends StatelessWidget {
                     child: ClipOval(
                         child: Image.asset('assets/logo/white-logo.png')),
                   ),
-                  title: Text('Hello, XYZ',
+                  title: const Text('Hello,John',
                       style: TextStyle(
                           color: Color.fromARGB(255, 70, 68, 68),
                           fontFamily: 'Lato',
@@ -138,6 +137,22 @@ class CustomDrawer extends StatelessWidget {
                   drawerList(
                     image: 'assets/logo/support.png',
                     title: 'Help Center',
+                    subtitle: 'About Dhoondle',
+                    pressevent: () {},
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                        height:10,
+                        child: Divider(
+                          thickness:1,
+                          color:Colors.grey.withOpacity(0.5),
+                        )),
+                  ),
+
+                  drawerList(
+                    image: 'assets/logo/sharing.png',
+                    title: 'Share App',
                     subtitle: 'About Dhoondle',
                     pressevent: () {},
                   ),
