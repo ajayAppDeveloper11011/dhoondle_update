@@ -39,7 +39,7 @@
   "Painter": "पेंटर",
   "Carpenter": "कारपेंटर",
   "AC_Repair": "एसी मरम्मत",
-  "Pandit": "पंडित",
+  "Pandit": "पंडित जी",
   "Home": "घर",
   "History": "इतिहास",
   "Add": "जोड़ना",
@@ -63,6 +63,10 @@
   "Categories": "श्रेणियाँ",
   "No property found": "कोई संपत्ति नहीं मिली",
   "service_provider": "सेवा प्रदाता",
-  "add_property": "संपत्ति जोड़ें"
+  "add_property": "संपत्ति जोड़ें",
+  "Rooms": "कमरा",
+  "Selling Property": "संपत्ति बेचना",
+  "Property": "संपत्ति"
+
 
 }

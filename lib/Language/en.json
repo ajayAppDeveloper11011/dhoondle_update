@@ -38,7 +38,7 @@
   "Painter": "Painter",
   "Carpenter": "Carpenter",
   "AC_Repair": "AC Repair",
-  "Pandit": "Pandit",
+  "Pandit": "Pandit Ji",
   "Home": "Home",
   "History": "History",
   "Add": "Add",
@@ -60,8 +60,11 @@
   "owner_name": "Owner Name ",
   "Categories": "Categories ",
   "No property found": "No property found",
-  "service_provider": "No property found",
-  "add_property": "add property"
+  "service_provider": "Service Provider",
+  "add_property": "add property",
+  "Rooms": "Rooms",
+  "Selling Property": "Selling Property",
+  "Property": "Property"
 
 
 
