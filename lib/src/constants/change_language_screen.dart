@@ -145,17 +145,15 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                 child: Container(
                   height:140,
                   width:MediaQuery.of(context).size.width/1.1,
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(30),
-                      border: Border.all(color: isSelect == true?AppColors.primaryColor:Colors.white)
-                  ),
                   child: Card(
                     elevation:2,
+                    color: isSelect == true?AppColors.primaryColor:Colors.white,
+
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                     child:Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(height:60,),
+                        SizedBox(height:50,),
                         Text('हिंदी',style: TextStyle(fontSize: 17,fontWeight:FontWeight.bold),),
                         SizedBox(height: 5,),
                         Text(getTranslated(context, 'HINDI_LAN'),style: TextStyle(fontWeight: FontWeight.w400)),
@@ -176,17 +174,15 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                 child: Container(
                   height:140,
                   width:MediaQuery.of(context).size.width/1.1,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(30),
-                    border: Border.all(color: isSelect==false?AppColors.primaryColor:Colors.white)
-                  ),
                   child: Card(
                     elevation:2,
+                    color: isSelect==false?AppColors.primaryColor:Colors.white,
+
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                     child:Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        SizedBox(height: 60,),
+                        SizedBox(height: 50,),
                         Text('English',style: TextStyle(fontSize: 17,fontWeight:FontWeight.bold),),
                         SizedBox(height:5,),
                         Text( getTranslated(context, 'ENGLISH_LAN'),style: TextStyle(fontWeight: FontWeight.w400),),
@@ -195,7 +191,7 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                   ),
                 ),
               ),
-              SizedBox(height:300,),
+              SizedBox(height:220,),
               Align(
                 alignment: Alignment.bottomCenter,
                 child: SizedBox(

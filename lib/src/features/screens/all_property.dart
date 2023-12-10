@@ -23,14 +23,15 @@ class AllProperty extends StatefulWidget {
 
 class _AllPropertyState extends State<AllProperty> {
   late PageController _pageController;
-  int _selectedIndex = 0;
+  bool isSelectedResidential = true;
+  String myIndex = '0';
   var searchBar = false;
   var searchController = TextEditingController();
 
   @override
   void initState() {
     super.initState();
-    _pageController = PageController(initialPage: _selectedIndex);
+    // _pageController = PageController(initialPage: _selectedIndex);
   }
 
   @override
@@ -41,7 +42,7 @@ class _AllPropertyState extends State<AllProperty> {
 
   void _onItemTapped(int index) {
     setState(() {
-      _selectedIndex = index;
+      // _selectedIndex = index;
       _pageController.animateToPage(
         index,
         duration: Duration(milliseconds: 300),
@@ -107,80 +108,193 @@ class _AllPropertyState extends State<AllProperty> {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               GestureDetector(
-                onTap: () => _onItemTapped(0),
+                onTap: () {
+                  setState(() {
+                    isSelectedResidential = !isSelectedResidential;
+                  });
+                },
                 child: Container(
                   height: 45,
                   width: Get.width * .46,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      color: _selectedIndex == 0
-                          ? AppColors.primaryColor
-                          : Colors.grey),
+                    borderRadius: BorderRadius.circular(12.0),
+                    color: isSelectedResidential
+                        ? AppColors.primaryColor
+                        : Colors.grey,
+                  ),
                   child: Center(
-                    child: Text('Residential',
-                        style: GoogleFonts.lato(
-                            fontSize: 16,
-                            color: AppColors.FillColor,
-                            fontWeight: FontWeight.w500)),
+                    child: Text(
+                      'Residential',
+                      style: GoogleFonts.lato(
+                        fontSize: 16,
+                        color: AppColors.FillColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
                 ),
               ),
               GestureDetector(
-                onTap: () => _onItemTapped(1),
+                onTap: () {
+                  setState(() {
+                    isSelectedResidential = !isSelectedResidential;
+                  });
+                },
                 child: Container(
                   height: 45,
                   width: Get.width * .46,
                   decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12.0),
-                      color: _selectedIndex == 1
-                          ? AppColors.primaryColor
-                          : Colors.grey),
+                    borderRadius: BorderRadius.circular(12.0),
+                    color: isSelectedResidential
+                        ? Colors.grey
+                        :AppColors.primaryColor ,
+                  ),
                   child: Center(
-                    child: Text('Commercial',
-                        style: GoogleFonts.lato(
-                            fontSize: 16,
-                            color: AppColors.FillColor,
-                            fontWeight: FontWeight.w500)),
+                    child: Text(
+                      'Commercial',
+                      style: GoogleFonts.lato(
+                        fontSize: 16,
+                        color: AppColors.FillColor,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
                   ),
                 ),
               ),
-              // ElevatedButton(
-              //   onPressed: () => _onItemTapped(0),
-              //   style: ElevatedButton.styleFrom(
-              //     primary: _selectedIndex == 0 ? Colors.blue : Colors.grey,
-              //   ),
-              //   child: Text('Residential'),
-              // ),
-              // ElevatedButton(
-              //   onPressed: () => _onItemTapped(1),
-              //   style: ElevatedButton.styleFrom(
-              //     primary: _selectedIndex == 1 ? Colors.blue : Colors.grey,
-              //   ),
-              //   child: Text('Commercial'),
-              // ),
             ],
           ),
+
+
+          // Expanded(
+          //   child: PageView(
+          //     controller: _pageController,
+          //     physics: NeverScrollableScrollPhysics(),
+          //     pageSnapping: false,
+          //     onPageChanged: (index) {
+          //       setState(() {
+          //         _selectedIndex = index;
+          //       });
+          //     },
+          //     children: [
+          //       ResidencialScreen(),
+          //       ResidencialScreen(),
+          //       // CommercialPage(),
+          //     ],
+          //   ),
+          // ),
+
+          SizedBox(height:20,),
           Expanded(
-            child: PageView(
-              controller: _pageController,
-              physics: NeverScrollableScrollPhysics(),
-              pageSnapping: false,
-              onPageChanged: (index) {
-                setState(() {
-                  _selectedIndex = index;
-                });
-              },
+            child:Column(
+              // controller: _tabController,
+              // physics: NeverScrollableScrollPhysics(),
               children: [
-                ResidencialScreen(),
-                ResidencialScreen(),
-                // CommercialPage(),
+                // PropertyScreen(),
+                // ServiceScreenTabbar(),
+
+                Padding(
+                  padding: const EdgeInsets.only(left: 10.0, right: 10),
+                  child: Container(
+                    height: 150,
+                    width: MediaQuery.of(context).size.width,
+                    child: GridView.builder(
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3, // Set the number of items in a row as per your design
+                        mainAxisSpacing: 1,
+                        crossAxisSpacing: 1,
+                        childAspectRatio: 1.5
+                      ),
+                      padding: EdgeInsets.zero,
+                      shrinkWrap: true,
+                      scrollDirection: Axis.vertical,
+                      itemCount: isSelectedResidential
+                          ? categoryList.length
+                          : categoryList2.length,
+                      itemBuilder: (context, index) {
+                        String currentIndex = isSelectedResidential
+                            ? categoryList[index]
+                            : categoryList2[index];
+                        return Padding(
+                          padding: const EdgeInsets.only(left: 5, right: 5),
+                          child: InkWell(
+                            onTap: () {
+                              setState(() {
+                                myIndex = currentIndex;
+                              });
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height:65,
+                                  width: 140,
+                                  decoration: BoxDecoration(
+                                    color: myIndex == currentIndex
+                                        ? AppColors.primaryColor
+                                        : Colors.white,
+                                    borderRadius: BorderRadius.circular(15),
+                                    border: Border.all(color: AppColors.primaryColor),
+                                  ),
+                                  child: Center(
+                                    child: Text(
+                                      currentIndex.toString(),
+                                      overflow: TextOverflow.ellipsis,
+                                      maxLines: 2,
+                                      textAlign: TextAlign.center,
+                                      style: TextStyle(
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 13,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+
+
+
+
+
+
               ],
             ),
           ),
+
+
+
         ],
       ),
     );
   }
+
+  List categoryList = [
+    'RK',
+    '1BHK',
+    '2BHK',
+    '3BHK',
+    'VILLA',
+    'INDEPENDENT HOUSE'
+  ];
+
+  List categoryList2 = [
+    'SHOP',
+    'SHOWROOM',
+    'GODOWN',
+    'OFFICE',
+    'AGRICULTURE LAND',
+
+  ];
+
+
+
+
 }
 
 class ResidencialScreen extends StatefulWidget {
@@ -202,6 +316,7 @@ class _ResidencialScreenState extends State<ResidencialScreen> {
     controller.getpropertyapi();
     Helper.checkInternet(categoryapi());
   }
+
 
   @override
   Widget build(BuildContext context) {

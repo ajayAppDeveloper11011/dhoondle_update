@@ -565,107 +565,192 @@ class _BottomNaigationState extends State<BottomNaigation> {
       isScrollControlled: true,
       context: context,
       builder: (context) {
-        return Wrap(
-          children: [
-            Padding(
-              padding: EdgeInsets.only(
-                  bottom: MediaQuery.of(context).viewInsets.bottom),
-              child: Form(
-                key: _changeUserDetailsKey,
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    bottomSheetHandle(context),
-                    const SizedBox(
-                      height: 8,
-                    ),
-                    // const Text(
-                    //   'Services',
-                    //   style: TextStyle(
-                    //     fontSize: 20,
-                    //     fontWeight: FontWeight.w500,
-                    //   ),
-                    // ),
-                    const SizedBox(height: 10),
-                    SizedBox(
-                      height: Get.height * .20,
-                      child: Center(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Expanded(
-                                child: GestureDetector(
-                                  onTap: () => Get.toNamed('/servicescreen'),
-                                  child: Padding(
-                                    padding: const EdgeInsets.only(
-                                        left: 15.0, right: 15),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Container(
-                                              height:60,
+        return Container(
+          height:MediaQuery.of(context).size.height/2.4,
+          child: Wrap(
+            children: [
+              Padding(
+                padding: EdgeInsets.only(
+                    bottom: MediaQuery.of(context).viewInsets.bottom),
+                child: Form(
+                  key: _changeUserDetailsKey,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      bottomSheetHandle(context),
+                      const SizedBox(
+                        height:40,
+                      ),
+                      // const Text(
+                      //   'Services',
+                      //   style: TextStyle(
+                      //     fontSize: 20,
+                      //     fontWeight: FontWeight.w500,
+                      //   ),
+                      // ),
+                      const SizedBox(height: 10),
+                      SizedBox(
+                        height: Get.height * .20,
+                        child: Center(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            children: [
+                              Expanded(
+                                  child: GestureDetector(
+                                    onTap: () => Get.toNamed('/servicescreen'),
+                                    child: Padding(
+                                      padding: const EdgeInsets.only(
+                                          left: 15.0, right: 15),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Row(
+                                            children: [
+                                              Container(
+                                                height:60,
+                                                width: 50,
+                                                decoration: BoxDecoration(
+                                                    color: const Color.fromRGBO(
+                                                        168, 242, 243, 1),
+                                                    borderRadius:
+                                                    BorderRadius.circular(40.0)),
+                                                child: Image.asset(
+                                                  'assets/logo/support.png',
+                                                  scale: 1.5,
+                                                  color: Colors.orange,
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                width:80,
+                                              ),
+                                              SizedBox(
+                                                child: Text(getTranslated(context, 'service_provider'),
+                                                    textAlign: TextAlign.center,
+                                                    style: GoogleFonts.lato(
+                                                        fontSize: 14,
+                                                        color: AppColors.textcolor,
+                                                        fontWeight: FontWeight.bold)),
+                                              ),
+                                            ],
+                                          ),
+                                          Container(
+                                              height: 50,
                                               width: 50,
                                               decoration: BoxDecoration(
                                                   color: const Color.fromRGBO(
                                                       168, 242, 243, 1),
                                                   borderRadius:
                                                   BorderRadius.circular(40.0)),
-                                              child: Image.asset(
-                                                'assets/logo/support.png',
-                                                scale: 1.5,
-                                                color: Colors.orange,
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              width:80,
-                                            ),
-                                            SizedBox(
-                                              child: Text(getTranslated(context, 'service_provider'),
-                                                  textAlign: TextAlign.center,
-                                                  style: GoogleFonts.lato(
-                                                      fontSize: 14,
-                                                      color: AppColors.textcolor,
-                                                      fontWeight: FontWeight.bold)),
-                                            ),
-                                          ],
-                                        ),
-                                        Container(
+                                              child: const Icon(
+                                                Icons.arrow_forward,
+                                                color: Colors.black,
+                                              )),
+                                        ],
+                                      ),
+                                    ),
+                                  )),
+                              const SizedBox(
+                                height: 16.0,
+                              ),
+
+                              Expanded(
+                                  child: GestureDetector(
+                                onTap: () => Get.toNamed('/servicescreen'),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15.0, right: 15),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Container(
                                             height: 50,
                                             width: 50,
                                             decoration: BoxDecoration(
                                                 color: const Color.fromRGBO(
                                                     168, 242, 243, 1),
                                                 borderRadius:
-                                                BorderRadius.circular(40.0)),
-                                            child: const Icon(
-                                              Icons.arrow_forward,
-                                              color: Colors.black,
-                                            )),
-                                      ],
-                                    ),
+                                                    BorderRadius.circular(40.0)),
+                                            child: Image.asset(
+                                              'assets/logo/house.png',
+                                              scale: 1.5,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width:80,
+                                          ),
+                                          SizedBox(
+                                            child: Text(getTranslated(context, 'Room_for_Rent'),
+                                                textAlign: TextAlign.center,
+                                                style: GoogleFonts.lato(
+                                                    fontSize: 14,
+                                                    color: AppColors.textcolor,
+                                                    fontWeight: FontWeight.bold)),
+                                          ),
+                                        ],
+                                      ),
+                                      Container(
+                                          height: 50,
+                                          width: 50,
+                                          decoration: BoxDecoration(
+                                              color: const Color.fromRGBO(
+                                                  168, 242, 243, 1),
+                                              borderRadius:
+                                                  BorderRadius.circular(40.0)),
+                                          child: const Icon(
+                                            Icons.arrow_forward,
+                                            color: Colors.black,
+                                          )),
+                                    ],
                                   ),
-                                )),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
-
-                            Expanded(
-                                child: GestureDetector(
-                              onTap: () => Get.toNamed('/servicescreen'),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 15.0, right: 15),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Container(
+                                ),
+                              )),
+                              const SizedBox(
+                                height: 16.0,
+                              ),
+                              Expanded(
+                                  child: GestureDetector(
+                                onTap: () => Get.toNamed('/allproperty'),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15.0, right: 15),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Container(
+                                            height: 50,
+                                            width: 50,
+                                            decoration: BoxDecoration(
+                                                color: const Color.fromRGBO(
+                                                    168, 242, 243, 1),
+                                                borderRadius:
+                                                    BorderRadius.circular(40.0)),
+                                            child: Image.asset(
+                                              'assets/logo/for-sale.png',
+                                              scale: 1.5,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width:80,
+                                          ),
+                                          SizedBox(
+                                            child: Text(getTranslated(context, 'Selling Property'),
+                                                textAlign: TextAlign.center,
+                                                style: GoogleFonts.lato(
+                                                    fontSize: 14,
+                                                    color: AppColors.textcolor,
+                                                    fontWeight: FontWeight.bold)),
+                                          )
+                                        ],
+                                      ),
+                                      Container(
                                           height: 50,
                                           width: 50,
                                           decoration: BoxDecoration(
@@ -673,56 +758,56 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                                   168, 242, 243, 1),
                                               borderRadius:
                                                   BorderRadius.circular(40.0)),
-                                          child: Image.asset(
-                                            'assets/logo/house.png',
-                                            scale: 1.5,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width:80,
-                                        ),
-                                        SizedBox(
-                                          child: Text(getTranslated(context, 'Room_for_Rent'),
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts.lato(
-                                                  fontSize: 14,
-                                                  color: AppColors.textcolor,
-                                                  fontWeight: FontWeight.bold)),
-                                        ),
-                                      ],
-                                    ),
-                                    Container(
-                                        height: 50,
-                                        width: 50,
-                                        decoration: BoxDecoration(
-                                            color: const Color.fromRGBO(
-                                                168, 242, 243, 1),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0)),
-                                        child: const Icon(
-                                          Icons.arrow_forward,
-                                          color: Colors.black,
-                                        )),
-                                  ],
+                                          child: const Icon(
+                                            Icons.arrow_forward,
+                                            color: Colors.black,
+                                          )),
+                                    ],
+                                  ),
                                 ),
+                              )),
+                              const SizedBox(
+                                height: 16.0,
                               ),
-                            )),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
-                            Expanded(
-                                child: GestureDetector(
-                              onTap: () => Get.toNamed('/allproperty'),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 15.0, right: 15),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Container(
+                              Expanded(
+                                  child: GestureDetector(
+                                onTap: () => Get.toNamed('/roomscreen'),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15.0, right: 15),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Container(
+                                            height: 50,
+                                            width: 50,
+                                            decoration: BoxDecoration(
+                                                color: const Color.fromRGBO(
+                                                    168, 242, 243, 1),
+                                                borderRadius:
+                                                    BorderRadius.circular(40.0)),
+                                            child: Image.asset(
+                                              'assets/logo/room-mate.png',
+                                              scale: 1.5,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width:80,
+                                          ),
+                                          SizedBox(
+                                            child: Text('Find Roommate',
+                                                textAlign: TextAlign.center,
+                                                style: GoogleFonts.lato(
+                                                    fontSize: 14,
+                                                    color: AppColors.textcolor,
+                                                    fontWeight: FontWeight.bold)),
+                                          )
+                                        ],
+                                      ),
+                                      Container(
                                           height: 50,
                                           width: 50,
                                           decoration: BoxDecoration(
@@ -730,106 +815,24 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                                   168, 242, 243, 1),
                                               borderRadius:
                                                   BorderRadius.circular(40.0)),
-                                          child: Image.asset(
-                                            'assets/logo/for-sale.png',
-                                            scale: 1.5,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width:80,
-                                        ),
-                                        SizedBox(
-                                          child: Text(getTranslated(context, 'Selling Property'),
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts.lato(
-                                                  fontSize: 14,
-                                                  color: AppColors.textcolor,
-                                                  fontWeight: FontWeight.bold)),
-                                        )
-                                      ],
-                                    ),
-                                    Container(
-                                        height: 50,
-                                        width: 50,
-                                        decoration: BoxDecoration(
-                                            color: const Color.fromRGBO(
-                                                168, 242, 243, 1),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0)),
-                                        child: const Icon(
-                                          Icons.arrow_forward,
-                                          color: Colors.black,
-                                        )),
-                                  ],
+                                          child: const Icon(
+                                            Icons.arrow_forward,
+                                            color: Colors.black,
+                                          )),
+                                    ],
+                                  ),
                                 ),
-                              ),
-                            )),
-                            const SizedBox(
-                              height: 16.0,
-                            ),
-                            Expanded(
-                                child: GestureDetector(
-                              onTap: () => Get.toNamed('/roomscreen'),
-                              child: Padding(
-                                padding: const EdgeInsets.only(
-                                    left: 15.0, right: 15),
-                                child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Container(
-                                          height: 50,
-                                          width: 50,
-                                          decoration: BoxDecoration(
-                                              color: const Color.fromRGBO(
-                                                  168, 242, 243, 1),
-                                              borderRadius:
-                                                  BorderRadius.circular(40.0)),
-                                          child: Image.asset(
-                                            'assets/logo/room-mate.png',
-                                            scale: 1.5,
-                                          ),
-                                        ),
-                                        SizedBox(
-                                          width:80,
-                                        ),
-                                        SizedBox(
-                                          child: Text('Find Roommate',
-                                              textAlign: TextAlign.center,
-                                              style: GoogleFonts.lato(
-                                                  fontSize: 14,
-                                                  color: AppColors.textcolor,
-                                                  fontWeight: FontWeight.bold)),
-                                        )
-                                      ],
-                                    ),
-                                    Container(
-                                        height: 50,
-                                        width: 50,
-                                        decoration: BoxDecoration(
-                                            color: const Color.fromRGBO(
-                                                168, 242, 243, 1),
-                                            borderRadius:
-                                                BorderRadius.circular(40.0)),
-                                        child: const Icon(
-                                          Icons.arrow_forward,
-                                          color: Colors.black,
-                                        )),
-                                  ],
-                                ),
-                              ),
-                            )),
-                          ],
+                              )),
+                            ],
+                          ),
                         ),
-                      ),
-                    )
-                  ],
+                      )
+                    ],
+                  ),
                 ),
               ),
-            ),
-          ],
+            ],
+          ),
         );
       },
     );

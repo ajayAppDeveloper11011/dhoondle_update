@@ -147,7 +147,7 @@ class CustomDrawer extends StatelessWidget {
                   drawerList(
                     image: 'assets/logo/white-logo.png',
                     title: 'About App',
-                    subtitle: 'About Dhoondle',
+                    subtitle: 'Dhoondle',
                     pressevent: () {},
                   ),
                   Padding(
@@ -174,6 +174,24 @@ class CustomDrawer extends StatelessWidget {
                           color:Colors.grey.withOpacity(0.5),
                         )),
                   ),
+
+                  drawerList(
+                    image: 'assets/logo/sharing.png',
+                    title: 'Share App',
+                    subtitle: 'Dhoondle',
+                    pressevent: () {},
+                  ),
+
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Container(
+                        height:10,
+                        child: Divider(
+                          thickness:1,
+                          color:Colors.grey.withOpacity(0.5),
+                        )),
+                  ),
+
                   drawerList(
                     image: 'assets/logo/logout.png',
                     title: 'Log Out',
