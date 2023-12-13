@@ -1,4 +1,6 @@
 
+import 'dart:io';
+
 import 'package:dhoondle/src/constants/change_language_screen.dart';
 import 'package:dhoondle/src/constants/helper/demo_localization.dart';
 import 'package:dhoondle/src/constants/helper/session.dart';
@@ -35,7 +37,19 @@ import 'package:get/get_navigation/src/routes/get_route.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 
+
+class MyHttpOverrides extends HttpOverrides {
+  @override
+  HttpClient createHttpClient(SecurityContext? context) {
+    return super.createHttpClient(context)
+      ..badCertificateCallback =
+          (X509Certificate cert, String host, int port) => true;
+  }
+}
+
 Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  HttpOverrides.global =  MyHttpOverrides();
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
     DeviceOrientation.portraitUp,

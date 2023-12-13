@@ -8,6 +8,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
+import '../../Models/add_property_model.dart';
 import '../../api_model/add_property_images_model.dart';
 import '../../api_model/get_property_model.dart';
 import '../../constants/Api.dart';
@@ -16,6 +17,7 @@ import '../../constants/helper.dart';
 import '../../constants/images.dart';
 import '../../constants/text.dart';
 import '../controllers/common_model.dart';
+
 
 class AddPropertynew extends StatefulWidget {
   const AddPropertynew({super.key});
@@ -1578,7 +1580,12 @@ class _AddPropertynewState extends State<AddPropertynew> {
                           Center(
                             child: MaterialButton(
                               onPressed: () {
-                                Helper.checkInternet(addPropertyApi());
+                                // addPropertyApiNow();
+                                Helper.checkInternet(
+                                    // addPropertyApi()
+                                    addPropertyApiNow()
+
+                                );
                                 // Get.to(OtpScreen());
                                 // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ServicesTabbar()));
                               },
@@ -1814,7 +1821,7 @@ class _AddPropertynewState extends State<AddPropertynew> {
     }
     setProgress(false);
   }
-
+  AddPropertyModel? addPropertyModel;
   Future<void> addPropertyApi() async {
     print("<=============addPropertyApi =============>");
     setProgress(true);
@@ -1833,19 +1840,32 @@ class _AddPropertynewState extends State<AddPropertynew> {
       'category': selectedKey.toString(),
       'facilities': facilitiesList.toString(),
       'image': imageList.toString()
+
+
+
     };
+
+
 
     print("Request =============>" + data.toString());
     try {
-      var res = await http.post(Uri.parse(Api.addProperty), body: data);
+      var res = await http.post(Uri.parse(
+          'https://dhoondle.com/Dhoondle/property/create'
+          // Api.addProperty
+      ), body: data);
       print("Response ============>" + res.body);
+      print("Response2 ============>" + res.statusCode.toString());
 
       if (res.statusCode == 200) {
         try {
           final jsonResponse = jsonDecode(res.body);
-          CommonModel model = CommonModel.fromJson(jsonResponse);
+          // CommonModel model = CommonModel.fromJson(jsonResponse);
 
-          if (model.status == "true") {
+          String msg = jsonResponse['message'];
+          print("Response5 ============>" + jsonResponse);
+          print("Response6 ============>" + msg);
+
+          if (jsonResponse['true'] == "true") {
             print("Model status true");
 
             setProgress(false);
@@ -1863,7 +1883,7 @@ class _AddPropertynewState extends State<AddPropertynew> {
             // });
             setProgress(false);
             print("false ### ============>");
-            ToastMessage.msg(model.message.toString());
+            ToastMessage.msg(jsonResponse['massage'].toString());
           }
         } catch (e) {
           print("false ============>");
@@ -1886,7 +1906,7 @@ class _AddPropertynewState extends State<AddPropertynew> {
 
     final prefs = await SharedPreferences.getInstance();
     var user_id = await prefs.getString('user_id');
-    setProgress(true);
+    // setProgress(true);
 
     var request =
         http.MultipartRequest('POST', Uri.parse(Api.addPropertyImages));
@@ -1900,7 +1920,7 @@ class _AddPropertynewState extends State<AddPropertynew> {
     var res = await request.send();
 
     if (res.statusCode == 200) {
-      setProgress(false);
+      // setProgress(false);
       try {
         res.stream.transform(utf8.decoder).listen((value) async {
           final jsonResponse = jsonDecode(value);
@@ -1933,51 +1953,65 @@ class _AddPropertynewState extends State<AddPropertynew> {
     }
     setProgress(false);
   }
+
+
+
+
+
+
+  Future<void> addPropertyApiNow() async {
+    setProgress(true);
+    final prefs = await SharedPreferences.getInstance();
+    var user_id = await prefs.getString('user_id');
+    var headers = {
+      'Accept-Encoding': 'gzip,deflat,br',
+      'Connection': 'keep alive',
+      'Accept': 'application/json',
+      'Cookie': 'ci_session=h6j5stbgghtgmgtsh1gbsh7ni6t4oej4'
+    };
+    var request = http.MultipartRequest('POST', Uri.parse('https://dhoondle.com/Dhoondle/property/create'));
+    request.fields.addAll({
+      'user_id': '1',
+      'local_address':addresscontroller.text,
+      'city':citycontroller.text,
+      'property_type':propertyTypeIndex.toString(),
+      'bath_count':letBathController.text,
+      'parking_available':parkingSpaceType,
+      'furnished':furnishedIndex.toString(),
+      'width_sqft': areaController.text,
+      'price': rentcontroller.text,
+      'description':descriptioncontroller.text,
+      'other_facilities': facilitiescontroller.text
+    });
+    request.files.add(await http.MultipartFile.fromPath('image',_image!.path));
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    print('--------ijk-------${_image!.path}');
+    if (response.statusCode == 200) {
+      var Result = await response.stream.bytesToString();
+      final finalResult = json.decode(Result);
+      String msg = finalResult['message'];
+      print('-------------${msg}');
+      setProgress(false);
+      Get.toNamed('/allproperty');
+    }
+    else {
+      setProgress(true);
+      print(response.reasonPhrase);
+    }
+
+
+
+
+
+
+  }
+
+
+
+
+
+
 }
 
-// class PropertyType extends StatelessWidget {
-//   PropertyType({
-//     super.key,
-//     required this.name,
-//     required this.selectedPropertyIndex,
-//     required this.selectedPropertyType,
-//     required this.onTap,
-//   });
-//   final String name;
-//   final int? selectedPropertyIndex;
-//   final String selectedPropertyType;
-//   final Function() onTap;
-//   int? selectedIndex;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTap: onTap,
-//       child: Container(
-//         height: 80,
-//         width: 100,
-//         decoration: BoxDecoration(
-//             color: selectedIndex == selectedPropertyIndex
-//                 ? AppColors.primaryColor
-//                 : Colors.transparent,
-//             border: Border.all(
-//               color: selectedIndex == selectedPropertyIndex
-//                   ? AppColors.primaryColor
-//                   : Colors.grey,
-//               width: 1.0,
-//             ),
-//             borderRadius: BorderRadius.circular(10.0)),
-//         alignment: Alignment.center,
-//         child: Text(name,
-//             style: GoogleFonts.lato(
-//               textStyle: TextStyle(
-//                 color: selectedIndex == selectedPropertyIndex
-//                     ? Colors.white
-//                     : AppColors.primaryColor,
-//                 fontSize: 16,
-//               ),
-//             )),
-//       ),
-//     );
-//   }
-// }

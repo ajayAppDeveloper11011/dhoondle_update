@@ -591,7 +591,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
                       // ),
                       const SizedBox(height: 10),
                       SizedBox(
-                        height: Get.height * .20,
+                        height: Get.height * .35,
                         child: Center(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -609,7 +609,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                           Row(
                                             children: [
                                               Container(
-                                                height:60,
+                                                height:50,
                                                 width: 50,
                                                 decoration: BoxDecoration(
                                                     color: const Color.fromRGBO(
@@ -618,7 +618,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                                     BorderRadius.circular(40.0)),
                                                 child: Image.asset(
                                                   'assets/logo/support.png',
-                                                  scale: 1.5,
+                                                  scale:2,
                                                   color: Colors.orange,
                                                 ),
                                               ),
@@ -629,7 +629,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                                 child: Text(getTranslated(context, 'service_provider'),
                                                     textAlign: TextAlign.center,
                                                     style: GoogleFonts.lato(
-                                                        fontSize: 14,
+                                                        fontSize: 15,
                                                         color: AppColors.textcolor,
                                                         fontWeight: FontWeight.bold)),
                                               ),
@@ -652,7 +652,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                     ),
                                   )),
                               const SizedBox(
-                                height: 16.0,
+                                height:30,
                               ),
 
                               Expanded(
@@ -668,8 +668,8 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                       Row(
                                         children: [
                                           Container(
-                                            height: 50,
-                                            width: 50,
+                                            height:50,
+                                            width:50,
                                             decoration: BoxDecoration(
                                                 color: const Color.fromRGBO(
                                                     168, 242, 243, 1),
@@ -687,7 +687,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                             child: Text(getTranslated(context, 'Room_for_Rent'),
                                                 textAlign: TextAlign.center,
                                                 style: GoogleFonts.lato(
-                                                    fontSize: 14,
+                                                    fontSize: 15,
                                                     color: AppColors.textcolor,
                                                     fontWeight: FontWeight.bold)),
                                           ),
@@ -710,7 +710,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                 ),
                               )),
                               const SizedBox(
-                                height: 16.0,
+                                height:30.0,
                               ),
                               Expanded(
                                   child: GestureDetector(
@@ -744,7 +744,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                             child: Text(getTranslated(context, 'Selling Property'),
                                                 textAlign: TextAlign.center,
                                                 style: GoogleFonts.lato(
-                                                    fontSize: 14,
+                                                    fontSize:15,
                                                     color: AppColors.textcolor,
                                                     fontWeight: FontWeight.bold)),
                                           )
@@ -767,7 +767,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                 ),
                               )),
                               const SizedBox(
-                                height: 16.0,
+                                height:30.0,
                               ),
                               Expanded(
                                   child: GestureDetector(
@@ -801,7 +801,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                             child: Text('Find Roommate',
                                                 textAlign: TextAlign.center,
                                                 style: GoogleFonts.lato(
-                                                    fontSize: 14,
+                                                    fontSize: 15,
                                                     color: AppColors.textcolor,
                                                     fontWeight: FontWeight.bold)),
                                           )

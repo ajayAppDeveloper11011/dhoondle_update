@@ -7,6 +7,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
+import '../../Models/get_property_response.dart';
 import '../../api_model/get_property_model.dart';
 import '../../constants/Api.dart';
 import '../../constants/colors.dart';
@@ -26,12 +27,24 @@ class _AllPropertyState extends State<AllProperty> {
   bool isSelectedResidential = true;
   String myIndex = '0';
   var searchBar = false;
+  bool _isVisible = false;
   var searchController = TextEditingController();
+
+
+
+  setProgress(bool show) {
+    if (mounted)
+      setState(() {
+        _isVisible = show;
+      });
+  }
+
 
   @override
   void initState() {
+    // TODO: implement initState
+    GetProperty();
     super.initState();
-    // _pageController = PageController(initialPage: _selectedIndex);
   }
 
   @override
@@ -50,6 +63,11 @@ class _AllPropertyState extends State<AllProperty> {
       );
     });
   }
+
+
+
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -99,93 +117,94 @@ class _AllPropertyState extends State<AllProperty> {
         ),
         label: Text('Add New'),
       ),
-      body: Column(
-        children: [
-          SizedBox(
-            height: Get.height * .02,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isSelectedResidential = !isSelectedResidential;
-                  });
-                },
-                child: Container(
-                  height: 45,
-                  width: Get.width * .46,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: isSelectedResidential
-                        ? AppColors.primaryColor
-                        : Colors.grey,
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Residential',
-                      style: GoogleFonts.lato(
-                        fontSize: 16,
-                        color: AppColors.FillColor,
-                        fontWeight: FontWeight.w500,
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            SizedBox(
+              height: Get.height * .02,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isSelectedResidential = !isSelectedResidential;
+                    });
+                  },
+                  child: Container(
+                    height: 45,
+                    width: Get.width * .46,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.0),
+                      color: isSelectedResidential
+                          ? AppColors.primaryColor
+                          : Colors.grey,
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Residential',
+                        style: GoogleFonts.lato(
+                          fontSize: 16,
+                          color: AppColors.FillColor,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  setState(() {
-                    isSelectedResidential = !isSelectedResidential;
-                  });
-                },
-                child: Container(
-                  height: 45,
-                  width: Get.width * .46,
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12.0),
-                    color: isSelectedResidential
-                        ? Colors.grey
-                        :AppColors.primaryColor ,
-                  ),
-                  child: Center(
-                    child: Text(
-                      'Commercial',
-                      style: GoogleFonts.lato(
-                        fontSize: 16,
-                        color: AppColors.FillColor,
-                        fontWeight: FontWeight.w500,
+                GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      isSelectedResidential = !isSelectedResidential;
+                    });
+                  },
+                  child: Container(
+                    height: 45,
+                    width: Get.width * .46,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12.0),
+                      color: isSelectedResidential
+                          ? Colors.grey
+                          :AppColors.primaryColor ,
+                    ),
+                    child: Center(
+                      child: Text(
+                        'Commercial',
+                        style: GoogleFonts.lato(
+                          fontSize: 16,
+                          color: AppColors.FillColor,
+                          fontWeight: FontWeight.w500,
+                        ),
                       ),
                     ),
                   ),
                 ),
-              ),
-            ],
-          ),
+              ],
+            ),
 
 
-          // Expanded(
-          //   child: PageView(
-          //     controller: _pageController,
-          //     physics: NeverScrollableScrollPhysics(),
-          //     pageSnapping: false,
-          //     onPageChanged: (index) {
-          //       setState(() {
-          //         _selectedIndex = index;
-          //       });
-          //     },
-          //     children: [
-          //       ResidencialScreen(),
-          //       ResidencialScreen(),
-          //       // CommercialPage(),
-          //     ],
-          //   ),
-          // ),
+            // Expanded(
+            //   child: PageView(
+            //     controller: _pageController,
+            //     physics: NeverScrollableScrollPhysics(),
+            //     pageSnapping: false,
+            //     onPageChanged: (index) {
+            //       setState(() {
+            //         _selectedIndex = index;
+            //       });
+            //     },
+            //     children: [
+            //       ResidencialScreen(),
+            //       ResidencialScreen(),
+            //       // CommercialPage(),
+            //     ],
+            //   ),
+            // ),
 
-          SizedBox(height:20,),
-          Expanded(
-            child:Column(
+            SizedBox(height:20,),
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               // controller: _tabController,
               // physics: NeverScrollableScrollPhysics(),
               children: [
@@ -195,7 +214,7 @@ class _AllPropertyState extends State<AllProperty> {
                 Padding(
                   padding: const EdgeInsets.only(left: 10.0, right: 10),
                   child: Container(
-                    height: 150,
+                    height: 160,
                     width: MediaQuery.of(context).size.width,
                     child: GridView.builder(
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -257,19 +276,168 @@ class _AllPropertyState extends State<AllProperty> {
                     ),
                   ),
                 ),
+                Padding(
+                  padding: const EdgeInsets.only(left:20.0,right: 20),
+                  child: Text('Recommendation',style: TextStyle(fontWeight: FontWeight.w600,fontSize: 15),),
+                ),
+                SizedBox(height: 10,),
+                getPropertyModel==null ?Center(child: CircularProgressIndicator()):Container(
+                  height:MediaQuery.of(context).size.height/1.9,
+                  child: GridView.builder(
+                    physics: const ScrollPhysics(),
+                    primary: false,
+                    shrinkWrap: true,
+                    padding: const EdgeInsets.only(
+                      top: 16,
+                      left:20,
+                      right:20,
+                    ),
+                    gridDelegate:SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                      crossAxisSpacing:10,
+                      mainAxisSpacing:10,
+                      childAspectRatio:0.66
+                    ),
+                    itemCount: getPropertyModel?.length,
+                    itemBuilder: (context, index) {
+                      return Stack(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              // controller.onTapCard(index);
+                            },
+                            child: Container(
+                              height:260,
+                              width: MediaQuery.of(context).size.width,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(5),
+                                border: Border.all(color: AppColors.primaryColor)
+                              ),
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: [
+                                  Container(
+                                    height:150,
+                                    padding: EdgeInsets.only(left: 5,top: 5,right: 5),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: getPropertyModel?[index].propertyImage==null
+                                          ? Image.asset(
+                                        'assets/images/room_img.png',
+                                        fit: BoxFit.fill,
+                                      )
+                                          : Image.network(
+                                        'https://dhoondle.com/Dhoondle/${getPropertyModel![index].propertyImage.toString()}',
+                                        fit: BoxFit.fill,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(
+                                    width: 20,
+                                  ),
+                                  Expanded(
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        const SizedBox(
+                                          height:10,
+                                        ),
+                                        Text(
+                                          "Type : ${getPropertyModel![index].propertyType.toString()}",
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.w700,
+                                              color: Colors.black,
+                                              fontSize: 13
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height:5,
+                                        ),
+                                        Container(
+                                          width:150,
+                                          child: Text(
+                                            getPropertyModel![index].price==null?"":'Rs. ${getPropertyModel![index].price.toString()}',
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: TextStyle(
+                                                color:Colors.black,
+                                                fontWeight: FontWeight.w500,
+                                                fontSize:12
+                                            ),
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height:5,
+                                        ),
+                                        Text(
+                                          'Parking : ${getPropertyModel![index].parkingAvailable.toString()}',
+                                          style: const TextStyle(
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black,
+                                            fontSize: 12
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height:5,
+                                        ),
+                                        Text(
+                                          '${getPropertyModel![index].furnished.toString()}',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.black,
+                                              fontSize: 12
+                                          ),
+                                        ),
+                                        const SizedBox(
+                                          height:5,
+                                        ),
+                                        Container(
+                                          width: 120,
+                                          child: Text(
+                                            '${getPropertyModel![index].address.toString()}',
+                                            overflow: TextOverflow.ellipsis,
+                                            maxLines: 1,
+                                            style: const TextStyle(
+                                                fontWeight: FontWeight.w600,
+                                                color: Colors.black,
+                                                fontSize: 12
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  SizedBox(height: 5,)
+                                ],
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top:10,
+                            left:130,
+                            child: InkWell(
+                              child: Container(
+                                decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(40)),
+                                child: Icon(Icons.favorite_border,
+                                   size: 25,
+                                ),
+                              ),
+                              onTap: () {
+                              },
+                            ),
+                          ),
 
-
-
-
-
-
+                        ],
+                      );
+                    },
+                  ),
+                ),
               ],
             ),
-          ),
-
-
-
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -292,7 +460,37 @@ class _AllPropertyState extends State<AllProperty> {
 
   ];
 
+  List<PropertyData>? getPropertyModel;
+  Future<void> GetProperty() async {
+    setProgress(true);
+    var headers = {
+      'Accept-Encoding': 'gzip,deflat,br',
+      'Connection': 'keep alive',
+      'Accept': 'application/json',
+      'Cookie': 'ci_session=2hvjhphqe7lbro8oa1cmh8usivopnfaj'
+    };
+    var request = http.Request('GET', Uri.parse('https://dhoondle.com/Dhoondle/api/property/index'));
 
+    request.headers.addAll(headers);
+
+    http.StreamedResponse response = await request.send();
+
+    if (response.statusCode == 200) {
+      var Result = await response.stream.bytesToString();
+      final finalResult =  GetPropertyModel.fromJson(json.decode(Result));
+      setState(() {
+        getPropertyModel = finalResult.data;
+        print('--------------${getPropertyModel?.first.id}');
+        setProgress(false);
+      });
+    }
+    else {
+      setProgress(true);
+      print(response.reasonPhrase);
+    }
+
+
+  }
 
 
 }
@@ -724,6 +922,18 @@ class _ResidencialScreenState extends State<ResidencialScreen> {
     }
     // setProgress(false);
   }
+
+  bool _isVisible = false;
+  setProgress(bool show) {
+    if (mounted)
+      setState(() {
+        _isVisible = show;
+      });
+  }
+
+
+
+
 }
 
 class ResidentialPage extends StatelessWidget {
