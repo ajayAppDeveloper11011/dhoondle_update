@@ -12,11 +12,12 @@ import 'package:dhoondle/src/features/screens/become_service_provider.dart';
 import 'package:dhoondle/src/features/screens/bottomNavigation.dart';
 import 'package:dhoondle/src/features/screens/find_roommate.dart';
 import 'package:dhoondle/src/features/screens/home_screen.dart';
+import 'package:dhoondle/src/features/screens/panditji.dart';
 import 'package:dhoondle/src/features/screens/plumber_screen.dart';
-import 'package:dhoondle/src/features/screens/privacy_policy.dart';
 import 'package:dhoondle/src/features/screens/profile_screen.dart';
 import 'package:dhoondle/src/features/screens/property_details_screen.dart';
 import 'package:dhoondle/src/features/screens/property_screen.dart';
+import 'package:dhoondle/src/features/screens/room_for_rent.dart';
 import 'package:dhoondle/src/features/screens/roommate_screen.dart';
 import 'package:dhoondle/src/features/screens/service_screen.dart';
 import 'package:dhoondle/src/features/screens/services_tabbar.dart';
@@ -24,6 +25,8 @@ import 'package:dhoondle/src/features/screens/setting%202%20(1).dart';
 import 'package:dhoondle/src/features/screens/setting3.dart';
 import 'package:dhoondle/src/features/screens/splash_screen.dart';
 import 'package:dhoondle/src/features/screens/test_screen_tabbar.dart';
+import 'package:dhoondle/src/features/screens/update_Property.dart';
+import 'package:dhoondle/src/features/screens/update_room_mate_details.dart';
 import 'package:dhoondle/src/registration/log_in_screen.dart';
 import 'package:dhoondle/src/registration/otp_screen.dart';
 import 'package:dhoondle/src/registration/signup.dart';
@@ -145,10 +148,12 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/addservice', page: () => AddServiceScreen(service_id: '', service_name: '', service_des: '', number: '', address: '', serviceImage: '', serviceCategory: '', experience: '', whichscreen: '',)),
         GetPage(name: '/plumber', page: () => PlumberScreen(services: '',)),
         GetPage(name: '/propertyscreen', page: () => PropertyScreen()),
-        GetPage(name: '/Policy', page: () => PrivacyPolicyScreen()),
-        GetPage(name: '/tabtext', page: () => TabbarTextNew()),
+        GetPage(name: '/roomforrent', page: () => RoomForRentScreen()),
         GetPage(name: '/roomscreen', page: () =>  RoomMateScreen()),
         GetPage(name: '/findroommate', page: () =>  FindRoomMates()),
+        GetPage(name: '/panditji', page: () =>  PanditJiScreen()),
+        GetPage(name: '/updateproperty', page: () =>  UpDateProperty()),
+        GetPage(name: '/updateroommatesdetail', page: () =>  UpDateRoommatesDetails()),
       ],
       theme: ThemeData(
         primarySwatch: Colors.blue,

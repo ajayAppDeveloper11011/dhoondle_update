@@ -3,6 +3,8 @@ import 'dart:io';
 import 'package:dhoondle/src/features/screens/services_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -115,7 +117,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                       fontSize: 20,
                       fontWeight: FontWeight.w500),
                 ))
-            : Text("Edit Service",
+            : Text("Add Service",
                 style: GoogleFonts.lato(
                   textStyle: const TextStyle(
                       color: Colors.white,
@@ -129,11 +131,13 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
         //   ),
         // ],
       ),
+
       body: Stack(
         children: [
           serviceListApiModel == null
               ? Container()
-              : Container(
+              :
+          Container(
                   height: MediaQuery.of(context).size.height,
                   width: MediaQuery.of(context).size.width,
                   child: Padding(
@@ -698,7 +702,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
                                     Helper.checkInternet(editServiceApi());
                                   }
                                 },
-                                color: AppColors.ButtonColor,
+                                color: AppColors.primaryColor,
                                 textColor: Colors.black,
                                 minWidth: 320,
                                 shape: RoundedRectangleBorder(
@@ -807,9 +811,10 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
 
     final prefs = await SharedPreferences.getInstance();
     var user_id = await prefs.getString('user_id');
+    print('------------${user_id}');
     try {
       var res =
-          await http.get(Uri.parse(Api.getServiceList + "?user_id=${user_id}"));
+          await http.get(Uri.parse(Api.getServiceList + "?user_id=${1}"));
       // var res = await http.post(Uri.parse(Api.getMyServiceList), );
       print("Response ============>" + res.body);
 
@@ -880,7 +885,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
     var user_id = await prefs.getString('user_id');
 
     Map data = {
-      'user_id': user_id.toString(),
+      'user_id':'1',
       'service_id': selectedOption,
       'service': selectedKey.toString(),
       'description': descriptioncontroller.text.toString(),
@@ -998,7 +1003,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
     var user_id = await prefs.getString('user_id');
 
     Map data = {
-      'user_id': user_id.toString(),
+      'user_id': '1',
       'id': widget.serviceCategory.toString(),
       'service_id': selectedOption,
       'service': selectedKey.toString(),

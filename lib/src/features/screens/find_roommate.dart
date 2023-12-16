@@ -14,7 +14,6 @@ import '../../constants/colors.dart';
 import '../../constants/helper.dart';
 import '../../constants/images.dart';
 import '../../constants/text.dart';
-import '../controllers/common_model.dart';
 
 class FindRoomMates extends StatefulWidget {
   const FindRoomMates({super.key});
@@ -107,7 +106,7 @@ class _FindRoomMatesState extends State<FindRoomMates> {
                   fontSize: 20,
                   fontWeight: FontWeight.w500),
             )),
-            
+
         // actions: [
         //   Padding(
         //     padding: const EdgeInsets.all(25),
@@ -377,7 +376,7 @@ class _FindRoomMatesState extends State<FindRoomMates> {
                                             color: AppColors.HintTextColor)),
                                   ),
                                   isExpanded: true,
-                                  value: dropdownvalueOfroom,
+                                  value: dropdownvalueOfCity,
                                   icon: const Icon(Icons.keyboard_arrow_down),
                                   items: city.map((String items) {
                                     return DropdownMenuItem(
@@ -389,7 +388,8 @@ class _FindRoomMatesState extends State<FindRoomMates> {
                                   }).toList(),
                                   onChanged: (String? newValue) {
                                     setState(() {
-                                      dropdownvalueOfroom = newValue!;
+                                      dropdownvalueOfCity = newValue!;
+                                      citycontroller.text = newValue;
                                     });
                                   }),
                             ),
@@ -1364,7 +1364,7 @@ class _FindRoomMatesState extends State<FindRoomMates> {
                           Center(
                             child: MaterialButton(
                               onPressed: () {
-                                // Helper.checkInternet(addPropertyApi());
+                                Helper.checkInternet(addRoommatesApiNow());
                                 // Get.to(OtpScreen());
                                 // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ServicesTabbar()));
                               },
@@ -1622,7 +1622,7 @@ class _FindRoomMatesState extends State<FindRoomMates> {
 
     final prefs = await SharedPreferences.getInstance();
     var user_id = await prefs.getString('user_id');
-    setProgress(true);
+    // setProgress(true);
 
     var request =
         http.MultipartRequest('POST', Uri.parse(Api.addPropertyImages));
@@ -1668,5 +1668,49 @@ class _FindRoomMatesState extends State<FindRoomMates> {
       ToastMessage.msg(StaticMessages.API_ERROR);
     }
     setProgress(false);
+  }
+
+  Future<void> addRoommatesApiNow() async {
+
+    final prefs = await SharedPreferences.getInstance();
+    var user_id = await prefs.getString('user_id');
+    setProgress(true);
+    var headers = {
+      'Accept-Encoding': 'gzip,deflat,br',
+      'Connection': 'keep alive',
+      'Accept': 'application/json',
+      'Cookie': 'ci_session=g32tearkq4b70s55bstrcq6mu6blu0lj'
+    };
+    var request = http.MultipartRequest(
+        'POST', Uri.parse('https://dhoondle.com/Dhoondle/api/roommate/create'));
+    request.fields.addAll({
+      'user_id': '1',
+      'local_address': addresscontroller.text,
+      'contact_no': numbercontroller.text.toString(),
+      'whatsapp_no': whatsAppController.text.toString(),
+      'city_address': addresscontroller.text,
+      'city': 'Indore',
+      'address': roomLocationController.text,
+      'profession': professionController.text,
+      'profession_description': describeProfisionController.text,
+      'live_in': ' indore',
+      'status': ' 1',
+      'image': _image!.path
+    });
+    request.files.add(await http.MultipartFile.fromPath('image', _image!.path));
+    request.headers.addAll(headers);
+    http.StreamedResponse response = await request.send();
+    print('--------ijk-------${_image!.path}');
+    if (response.statusCode == 200) {
+      var Result = await response.stream.bytesToString();
+      final finalResult = json.decode(Result);
+      String msg = finalResult['message'];
+      print('-------------${msg}');
+      setProgress(false);
+      Get.toNamed('/roomscreen');
+    } else {
+      setProgress(true);
+      print(response.reasonPhrase);
+    }
   }
 }

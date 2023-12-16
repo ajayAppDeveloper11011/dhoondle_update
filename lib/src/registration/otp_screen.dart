@@ -17,6 +17,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 import '../constants/Api.dart';
 import '../constants/colors.dart';
 import '../constants/helper.dart';
+import '../constants/images.dart';
+import '../features/screens/bottomNavigation.dart';
+import '../features/screens/otp/widgets/otp_footer.dart';
+import '../features/screens/otp/widgets/otp_form.dart';
 import '../features/screens/otp/widgets/otp_header.dart';
 import 'log_in_screen.dart';
 
@@ -25,11 +29,8 @@ class OtpScreen extends StatefulWidget {
   String verificationId;
   bool afterSignUp;
   int? forceResendingToken;
-  OtpScreen(
-      {required this.number,
-      required this.forceResendingToken,
-      required this.verificationId,
-      required this.afterSignUp});
+  OtpScreen({required this.number, required this.forceResendingToken, required this.verificationId,
+    required this.afterSignUp});
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -39,21 +40,22 @@ class _OtpScreenState extends State<OtpScreen> {
   TextEditingController otpController = TextEditingController();
   bool isValidated = false;
   final _formKey = GlobalKey<FormState>();
-  var number = Get.arguments;
+  var number= Get.arguments;
   bool _isVisible = false;
   Timer? _timer;
   int _start = 60;
-  bool resend_visible = false;
+  bool resend_visible=false;
 
   void startTimer() {
     const oneSec = const Duration(seconds: 1);
     _timer = new Timer.periodic(
       oneSec,
-      (Timer timer) {
+          (Timer timer) {
         if (_start == 0) {
           setState(() {
-            resend_visible = true;
+            resend_visible=true;
             timer.cancel();
+
           });
         } else {
           setState(() {
@@ -63,14 +65,12 @@ class _OtpScreenState extends State<OtpScreen> {
       },
     );
   }
-
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     startTimer();
   }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -140,19 +140,20 @@ class _OtpScreenState extends State<OtpScreen> {
                     // ),
                     //otp form section
                     Pinput(
-                      length: 6, //4
+
+                      length: 6,//4
                       // Without Validator
                       // If true error state will be applied no matter what validator returns
                       forceErrorState: true,
                       // Text will be displayed under the Pinput
                       errorText: '',
-
                       /// ------------
                       /// With Validator
                       /// Auto validate after user tap on keyboard done button, or completes Pinput
-                      pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
+                      pinputAutovalidateMode:
+                      PinputAutovalidateMode.onSubmit,
                       validator: (pin) {
-                        if (pin!.length > 6) return null; //4
+                        if (pin!.length > 6) return null;//4
                         /// Text will be displayed under the Pinput
                         return 'Pin is incorrect';
                       },
@@ -188,7 +189,7 @@ class _OtpScreenState extends State<OtpScreen> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           // Text("Didn’t receive any code? ",
-                          //   style: GoogleFonts.lato(
+                          //   style: GoogleFonts.poppins(
                           //       color: Color(0xFFDEDEDE),
                           //       fontSize: 13,
                           //       fontWeight: FontWeight.w600
@@ -204,7 +205,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           //     mainAxisAlignment: MainAxisAlignment.center,
                           //     children: [
                           //       Text("Didn’t receive any code? ",
-                          //         style: GoogleFonts.lato(
+                          //         style: GoogleFonts.poppins(
                           //             color:  AppColors.primaryColor,
                           //             fontSize: 13,
                           //             fontWeight: FontWeight.w600
@@ -230,7 +231,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           //             maintainSize: true,
                           //             maintainState: true,
                           //             child:  Text("Resend Again",
-                          //               style: GoogleFonts.lato(
+                          //               style: GoogleFonts.poppins(
                           //                   color:  AppColors.primaryColor,
                           //                   fontSize: 13,
                           //                   fontWeight: FontWeight.bold
@@ -243,7 +244,7 @@ class _OtpScreenState extends State<OtpScreen> {
                           //             maintainSize: true,
                           //             maintainState: true,
                           //             child:  Text("Resend Again",
-                          //               style: GoogleFonts.lato(
+                          //               style: GoogleFonts.poppins(
                           //                   color:  AppColors.primaryColor,
                           //                   fontSize: 13,
                           //                   fontWeight: FontWeight.w500
@@ -255,29 +256,27 @@ class _OtpScreenState extends State<OtpScreen> {
                           //     ],
                           //   ),
                           // ),
+
                         ],
                       ),
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Text(
-                          "Otp expires in :",
-                          style: GoogleFonts.lato(
+                        Text("Otp expires in :",
+                          style: GoogleFonts.poppins(
                               color: Color(0xff1D1D1D),
                               fontSize: 17,
-                              fontWeight: FontWeight.w400),
+                              fontWeight: FontWeight.w400
+                          ),
                         ),
-                        Text(
-                          '${(_start / 60).floor()}'.padLeft(2, '0') +
-                              ':' +
-                              '${_start % 60}'.padLeft(2, '0') +
-                              "${" mins"}",
-                          style: GoogleFonts.lato(
+                        Text('${(_start/60).floor()}'.padLeft(2, '0')+':'+'${_start%60}'.padLeft(2, '0') + "${" mins"}" ,
+                          style: GoogleFonts.poppins(
                               color: Color(0xff1D1D1D),
                               fontSize: 17,
-                              fontWeight: FontWeight.w400),
-                        ),
+                              fontWeight: FontWeight.w400
+                          ),),
+
                       ],
                     ),
                     SizedBox(
@@ -289,55 +288,60 @@ class _OtpScreenState extends State<OtpScreen> {
                           otpVerificationFirebase();
                           // otpController.otpApi();
                           // Get.to(BottomNaigation());
+
                         },
-                        color: AppColors.ButtonColor,
+                        color: AppColors.primaryColor,
                         textColor: Colors.black,
                         minWidth: 320,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(13)),
                         padding:
-                            EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+                        EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                         child: Text("Submit",
-                            style: GoogleFonts.lato(
+                            style: GoogleFonts.roboto(
                                 fontSize: 18,
                                 color: AppColors.ButtonTextColor,
-                                fontWeight: FontWeight.w500))),
+                                fontWeight: FontWeight.w500))
+                    ),
                     SizedBox(
                       height: 30,
                     ),
                     InkWell(
-                        onTap: _start == 0
+
+                        onTap:
+                        _start==0
                             ? () {
-                                _start = 300;
-                                startTimer();
-                                print("resend botton called");
-                                resendVerificationCode("+91" + widget.number,
-                                    widget.forceResendingToken);
-                              }
-                            : null,
-                        child: _start == 0
-                            ? Visibility(
-                                visible: true,
-                                maintainAnimation: true,
-                                maintainSize: true,
-                                maintainState: true,
-                                child: Text("Resend",
-                                    style: GoogleFonts.lato(
-                                        fontSize: 20,
-                                        color: Color(0xff1D1D1D),
-                                        fontWeight: FontWeight.w500)),
-                              )
-                            : Visibility(
-                                visible: true,
-                                maintainAnimation: true,
-                                maintainSize: true,
-                                maintainState: true,
-                                child: Text("Resend",
-                                    style: GoogleFonts.lato(
-                                        fontSize: 20,
-                                        color: Color(0xff1D1D1D),
-                                        fontWeight: FontWeight.w500)),
-                              )),
+                          _start=300;
+                          startTimer();
+                          print("resend botton called");
+                          resendVerificationCode("+91"+widget.number, widget.forceResendingToken);
+                        }
+                            :null,
+                        child:_start==0? Visibility(
+                          visible: true,
+                          maintainAnimation: true,
+                          maintainSize: true,
+                          maintainState: true,
+                          child:  Text("Resend",
+                              style: GoogleFonts.roboto(
+                                  fontSize: 20,
+                                  color: Color(0xff1D1D1D),
+                                  fontWeight: FontWeight.w500)
+                          ),
+                        )
+                            :Visibility(
+                          visible: true,
+                          maintainAnimation: true,
+                          maintainSize: true,
+                          maintainState: true,
+                          child:  Text("Resend",
+                              style: GoogleFonts.roboto(
+                                  fontSize: 20,
+                                  color: Color(0xff1D1D1D),
+                                  fontWeight: FontWeight.w500)
+                          ),
+                        )
+                    ),
                   ],
                 ),
               ),
@@ -355,49 +359,49 @@ class _OtpScreenState extends State<OtpScreen> {
     });
   }
 
-  otpApi() async {
+   otpApi() async{
     print("================otp api=============");
     setProgress(true);
-    try {
-      final response = await post(Uri.parse(Api.verifyOtp), body: {
-        'number': widget.number,
-        'otp': otpController.text.toString(),
-        'device_token': "13446"
-      });
+    try{
+      final response= await post(Uri.parse(Api.verifyOtp),
+          body: {
+            'number':widget.number,
+            'otp':otpController.text.toString(),
+            'device_token':"13446"
+          });
       var data = jsonDecode(response.body);
       print(number);
       print(otpController.text.toString());
       print(data);
-      if (response.statusCode == 200) {
+      if(response.statusCode == 200){
         // Get.snackbar('Your otp is', otpController.value.text.toString());
 
-        if (data['status'] == 'true') {
+        if(data['status']== 'true'){
           // print("isverified==>${model.isVerified.toString()}");
           // String customerId = model.userId!;
           // print("customerId===>${customerId}");
-          var docRef = FirebaseFirestore.instance
-              .collection("customer_details")
-              .doc(data['data']['user_id'].toString());
-          docRef
-              .set({
-                "customer_id": data['data']['user_id'].toString(),
-                "customer_phone": widget.number.toString(),
-                "isUserOnline": ""
-              })
-              .then((_) => print("id stored on firebase"))
-              .catchError((error) => print("failed to add id"));
+          var docRef= FirebaseFirestore.instance.collection("customer_details").doc(data['data']['user_id'].toString());
+          docRef.set({
+            "customer_id":data['data']['user_id'].toString(),
+            "customer_phone": widget.number.toString(),
+            "isUserOnline":""
+          }).then((_) => print("id stored on firebase"))
+              .catchError((error)=>print("failed to add id"));
 
           final prefs = await SharedPreferences.getInstance();
           await prefs.setString('user_id', data['data']['user_id'].toString());
           print(prefs.get('user_id'));
           Get.toNamed('/bottom');
-        } else {
+        }
+        else{
           Get.snackbar('Something went wrong', data['message']);
         }
-      } else {
+      }
+      else{
         Get.snackbar('Exception', 'something went wrong');
       }
-    } catch (e) {
+    }
+    catch(e){
       Get.snackbar('Exception', e.toString());
     }
   }
@@ -412,6 +416,7 @@ class _OtpScreenState extends State<OtpScreen> {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
       verificationId: widget.verificationId,
       smsCode: otp,
+
     );
 
     print("sms code 1==>${credential.smsCode.toString()}");
@@ -419,7 +424,7 @@ class _OtpScreenState extends State<OtpScreen> {
     log("widget.phone===============>${widget.number}");
     try {
       UserCredential userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
+      await FirebaseAuth.instance.signInWithCredential(credential);
       if (userCredential.user != null) {
         //setProgress(false);
         if (widget.afterSignUp == true) {
@@ -431,8 +436,9 @@ class _OtpScreenState extends State<OtpScreen> {
 
           Fluttertoast.showToast(msg: "Login successful");
 
-          Helper.checkInternet(otpApi());
+          Helper.checkInternet( otpApi());
         } else {
+
           Fluttertoast.showToast(msg: "login successfully");
           Helper.moveToScreenwithPushreplaceemt(context, LogInScreen());
         }
@@ -444,7 +450,7 @@ class _OtpScreenState extends State<OtpScreen> {
     }
   }
 
-  void resendVerificationCode(String phoneNumber, int? token) async {
+  void resendVerificationCode(String phoneNumber, int? token) async{
     await FirebaseAuth.instance.verifyPhoneNumber(
         phoneNumber: phoneNumber,
         verificationCompleted: (credential) {
@@ -458,10 +464,23 @@ class _OtpScreenState extends State<OtpScreen> {
           setProgress(false);
           otpVerificationFirebase();
         },
-        forceResendingToken: token,
+        forceResendingToken:token,
+
         codeAutoRetrievalTimeout: (verificationId) {
           setProgress(false);
         },
-        timeout: Duration(seconds: 300));
+
+        timeout: Duration(seconds: 300)
+    );
+
   }
+
+
+
 }
+
+
+
+
+
+

@@ -96,12 +96,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         ),
         body: Stack(
           children: [
-            _getprofileApi == null
-                ? Container(
-                    height: MediaQuery.of(context).size.height,
-                    child: Center(child: Text("No property found")),
-                  )
-                : Container(
+            // _getprofileApi == null
+            //     ? Container(
+            //         height: MediaQuery.of(context).size.height,
+            //         child: Center(child: Text("No property found")),
+            //       )
+            //     :
+            Container(
                     // color: Colors.black,
                     height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.width,
@@ -126,8 +127,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   child: _image == null
                                       ? ClipOval(
                                           child: CachedNetworkImage(
-                                            imageUrl: _getprofileApi!.data.image
-                                                .toString(),
+                                            imageUrl:'assets/images/img1.png',
+                                            // _getprofileApi!.data.image
+                                            //     .toString(),
                                             fit: BoxFit.fill,
                                             width: 100,
                                             height: 100,

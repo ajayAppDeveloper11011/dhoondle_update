@@ -18,11 +18,12 @@ class PlumberScreen extends StatefulWidget {
 
 class _PlumberScreenState extends State<PlumberScreen> {
   final servicedetailController = Get.put(ServiceDetailsController());
-  var service = Get.arguments;
+  var service;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
+    service = Get.arguments;
     print(service);
     servicedetailController.servicedetailApi(service);
   }
@@ -32,19 +33,19 @@ class _PlumberScreenState extends State<PlumberScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.primaryColor,
-        toolbarHeight: 80,
-        leading: InkWell(
-          onTap: () {
-            Helper.popScreen(context);
-          },
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 5.0),
-            child: Icon(
-              Icons.arrow_back,
-              color: Colors.white,
-            ),
-          ),
-        ),
+        // toolbarHeight: 80,
+        // leading: InkWell(
+        //   onTap: () {
+        //     Helper.popScreen(context);
+        //   },
+        //   child: Padding(
+        //     padding: const EdgeInsets.symmetric(horizontal: 5.0),
+        //     child: Icon(
+        //       Icons.arrow_back,
+        //       color: Colors.white,
+        //     ),
+        //   ),
+        // ),
         centerTitle: true,
         elevation: 0,
         title: Text(service,
@@ -55,6 +56,18 @@ class _PlumberScreenState extends State<PlumberScreen> {
                   fontWeight: FontWeight.w500),
             )),
       ),
+
+
+      floatingActionButton: FloatingActionButton.extended(
+        backgroundColor: AppColors.primaryColor,
+        onPressed: () => Get.toNamed('/addservice'),
+        icon: Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
+        label: Text('Add New'),
+      ),
+
       body: SafeArea(
         child: ServiceDetailDesign(),
       ),
@@ -82,7 +95,7 @@ class _PlumberScreenState extends State<PlumberScreen> {
                       width: 80,
                       height: 80,
                       decoration: new BoxDecoration(
-                        color: Colors.red,
+                        color: AppColors.primaryColor,
                         shape: BoxShape.circle,
                       ),
                       child: Image.asset(Images.delete),

@@ -74,6 +74,7 @@ class ServiceDetailsController extends GetxController{
     final prefs = await SharedPreferences.getInstance();
     var user_id=   await prefs.getString('user_id');
     print("==============userId=======${user_id}");
+    print("==============userId=======${service}");
     // print("==============userId=======${category}");
     var res = await dio.get(Api.getServiceProviderList+"?user_id=${user_id}&service=${service}");
     if(res.statusCode == 200){

@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 import '../../constants/colors.dart';
+import 'edit_profile.dart';
 
 class CustomDrawer extends StatelessWidget {
   const CustomDrawer({
@@ -25,24 +26,45 @@ class CustomDrawer extends StatelessWidget {
                 ),
                 child: Row(
                   children: [
-                    Container(
-                      margin: const EdgeInsetsDirectional.only(end: 20),
-                      height:100,
-                      width:90,
-                      decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                              width: 1.0, color:Colors.white)),
-                      child: Card(
-                        elevation: 5,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-                        child: ClipRRect(
-                            borderRadius: BorderRadius.circular(50.0),
-                            child:Image.asset("assets/images/man.jpg",fit: BoxFit.fill,)
+                    Stack(
+                      children: [
+                        Container(
+                          margin: const EdgeInsetsDirectional.only(end: 20),
+                          height:100,
+                          width:90,
+                          decoration: BoxDecoration(
+                              shape: BoxShape.circle,
+                              border: Border.all(
+                                  width: 1.0, color:Colors.white)),
+                          child: Card(
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
+                            child: ClipRRect(
+                                borderRadius: BorderRadius.circular(50.0),
+                                child:Image.asset("assets/images/man.jpg",fit: BoxFit.fill,)
 
+                            ),
+                          ),
                         ),
-                      ),
+                        Positioned(
+                          top:55,
+                          left: 63,
+                          child: Container(
+                            height:30,
+                            width: 30,
+                            decoration: BoxDecoration(
+                                color:Colors.white,
+                                borderRadius: BorderRadius.circular(40)),
+                            child: InkWell(
+                                onTap: () {
+                                  Get.offAll(EditProfileScreen());
+                                },
+                                child: const Icon(Icons.edit_outlined,color:AppColors.primaryColor,)),
+                          ),
+                        )
+                      ],
                     ),
+
                     SizedBox(width: 10),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,

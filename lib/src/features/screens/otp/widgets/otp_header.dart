@@ -23,7 +23,7 @@ class Otpheader extends StatelessWidget {
         ),
         Text(
           "Enter OTP",
-          style: GoogleFonts.lato(
+          style: GoogleFonts.roboto(
             textStyle: Theme.of(context).textTheme.displayLarge,
             fontSize: 30,
             color: AppColors.HeaderTextColor,

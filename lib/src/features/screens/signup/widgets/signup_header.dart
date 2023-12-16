@@ -1,44 +1,26 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
-import '../../../../constants/colors.dart';
+
 import '../../../../constants/images.dart';
+import '../../../../registration/signup.dart';
+import '../../../models/sign_up_model.dart';
 
 class SignupHeader extends StatelessWidget {
-  SignupHeader({
-    Key? key,
-    // required this.model,
-    required this.header,
-    required this.description,
+  const SignupHeader({
+    Key? key, required this.model,
   }) : super(key: key);
-  // final SignupModel model;
-  final header;
-  final description;
+ final SignupModel model;
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Image.asset(
-          Images.logo,
-          height: 100,
-          width: 100,
-        ),
-        const SizedBox(
-          height: 20,
-        ),
-        Text(header,
-            style: GoogleFonts.lato(
-                fontSize: 20,
-                color: AppColors.NewHeaderTextColor,
-                fontWeight: FontWeight.w600)),
-        const SizedBox(
-          height: 6.0,
-        ),
-        Text(description,
-            style: GoogleFonts.lato(
-                fontSize: 16,
-                color: AppColors.HintTextColor,
-                fontWeight: FontWeight.w400)),
+        Image.asset(Images.logo,height: 100,width: 100,),
+        SizedBox(height: 20,),
+        Text(model.headertext ,
+          style: GoogleFonts.roboto(
+            textStyle: TextStyle(color: Colors.black, fontWeight: FontWeight.w500, fontSize: 30),
+          ),),
       ],
     );
   }

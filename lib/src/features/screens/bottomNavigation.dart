@@ -322,8 +322,8 @@ class _BottomNaigationState extends State<BottomNaigation> {
             TabbarScreen(),
             ServiceScreen(),
             TabbarScreen(),
-            ProfileScreen(),
             TabbarScreen(),
+            ProfileScreen(),
           ],
         ),
         bottomNavigationBar: CurvedNavigationBar(
@@ -350,7 +350,8 @@ class _BottomNaigationState extends State<BottomNaigation> {
                 ),
                 selectedIndex == 0
                     ? SizedBox.shrink()
-                    : Text(getTranslated(context, 'Home'),
+                    : Text(
+                        getTranslated(context, 'Home'),
                         style: GoogleFonts.lato(
                             fontSize: 10,
                             color: Colors.white,
@@ -377,7 +378,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
                 ),
                 selectedIndex == 1
                     ? const SizedBox.shrink()
-                    : Text(getTranslated(context,'History'),
+                    : Text(getTranslated(context, 'History'),
                         style: GoogleFonts.lato(
                             fontSize: 10,
                             color: Colors.white,
@@ -442,7 +443,8 @@ class _BottomNaigationState extends State<BottomNaigation> {
                 ),
                 selectedIndex == 3
                     ? const SizedBox.shrink()
-                    : Text(getTranslated(context,'Notification'),
+                    : Text(
+                        getTranslated(context, 'Notification'),
                         style: GoogleFonts.lato(
                             fontSize: 10,
                             color: Colors.white,
@@ -459,8 +461,8 @@ class _BottomNaigationState extends State<BottomNaigation> {
                     : const SizedBox(
                         height: 18,
                       ),
-                SvgPicture.asset(
-                  'assets/logo/setting.svg', // Replace with your SVG file path
+                Image.asset(
+                  'assets/images/profile.png', // Replace with your SVG file path
                   width: 22,
                   height: 22,
                 ),
@@ -469,7 +471,8 @@ class _BottomNaigationState extends State<BottomNaigation> {
                 ),
                 selectedIndex == 4
                     ? const SizedBox.shrink()
-                    : Text(getTranslated(context, 'Settings'),
+                    : Text(
+                        getTranslated(context, 'Profile'),
                         style: GoogleFonts.lato(
                             fontSize: 10,
                             color: Colors.white,
@@ -566,7 +569,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
       context: context,
       builder: (context) {
         return Container(
-          height:MediaQuery.of(context).size.height/2.4,
+          height: MediaQuery.of(context).size.height / 2.4,
           child: Wrap(
             children: [
               Padding(
@@ -580,7 +583,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
                     children: [
                       bottomSheetHandle(context),
                       const SizedBox(
-                        height:40,
+                        height: 40,
                       ),
                       // const Text(
                       //   'Services',
@@ -598,65 +601,6 @@ class _BottomNaigationState extends State<BottomNaigation> {
                             children: [
                               Expanded(
                                   child: GestureDetector(
-                                    onTap: () => Get.toNamed('/servicescreen'),
-                                    child: Padding(
-                                      padding: const EdgeInsets.only(
-                                          left: 15.0, right: 15),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Row(
-                                            children: [
-                                              Container(
-                                                height:50,
-                                                width: 50,
-                                                decoration: BoxDecoration(
-                                                    color: const Color.fromRGBO(
-                                                        168, 242, 243, 1),
-                                                    borderRadius:
-                                                    BorderRadius.circular(40.0)),
-                                                child: Image.asset(
-                                                  'assets/logo/support.png',
-                                                  scale:2,
-                                                  color: Colors.orange,
-                                                ),
-                                              ),
-                                              SizedBox(
-                                                width:80,
-                                              ),
-                                              SizedBox(
-                                                child: Text(getTranslated(context, 'service_provider'),
-                                                    textAlign: TextAlign.center,
-                                                    style: GoogleFonts.lato(
-                                                        fontSize: 15,
-                                                        color: AppColors.textcolor,
-                                                        fontWeight: FontWeight.bold)),
-                                              ),
-                                            ],
-                                          ),
-                                          Container(
-                                              height: 50,
-                                              width: 50,
-                                              decoration: BoxDecoration(
-                                                  color: const Color.fromRGBO(
-                                                      168, 242, 243, 1),
-                                                  borderRadius:
-                                                  BorderRadius.circular(40.0)),
-                                              child: const Icon(
-                                                Icons.arrow_forward,
-                                                color: Colors.black,
-                                              )),
-                                        ],
-                                      ),
-                                    ),
-                                  )),
-                              const SizedBox(
-                                height:30,
-                              ),
-
-                              Expanded(
-                                  child: GestureDetector(
                                 onTap: () => Get.toNamed('/servicescreen'),
                                 child: Padding(
                                   padding: const EdgeInsets.only(
@@ -668,28 +612,33 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                       Row(
                                         children: [
                                           Container(
-                                            height:50,
-                                            width:50,
+                                            height: 50,
+                                            width: 50,
                                             decoration: BoxDecoration(
                                                 color: const Color.fromRGBO(
                                                     168, 242, 243, 1),
                                                 borderRadius:
-                                                    BorderRadius.circular(40.0)),
+                                                    BorderRadius.circular(
+                                                        40.0)),
                                             child: Image.asset(
-                                              'assets/logo/house.png',
-                                              scale: 1.5,
+                                              'assets/logo/support.png',
+                                              scale: 2,
+                                              color: Colors.orange,
                                             ),
                                           ),
                                           SizedBox(
-                                            width:80,
+                                            width: 80,
                                           ),
                                           SizedBox(
-                                            child: Text(getTranslated(context, 'Room_for_Rent'),
+                                            child: Text(
+                                                getTranslated(context,
+                                                    'service_provider'),
                                                 textAlign: TextAlign.center,
                                                 style: GoogleFonts.lato(
                                                     fontSize: 15,
                                                     color: AppColors.textcolor,
-                                                    fontWeight: FontWeight.bold)),
+                                                    fontWeight:
+                                                        FontWeight.bold)),
                                           ),
                                         ],
                                       ),
@@ -710,7 +659,68 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                 ),
                               )),
                               const SizedBox(
-                                height:30.0,
+                                height: 30,
+                              ),
+                              Expanded(
+                                  child: GestureDetector(
+                                onTap: () => Get.toNamed('/servicescreen'),
+                                child: Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 15.0, right: 15),
+                                  child: Row(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    children: [
+                                      Row(
+                                        children: [
+                                          Container(
+                                            height: 50,
+                                            width: 50,
+                                            decoration: BoxDecoration(
+                                                color: const Color.fromRGBO(
+                                                    168, 242, 243, 1),
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        40.0)),
+                                            child: Image.asset(
+                                              'assets/logo/house.png',
+                                              scale: 1.5,
+                                            ),
+                                          ),
+                                          SizedBox(
+                                            width: 80,
+                                          ),
+                                          SizedBox(
+                                            child: Text(
+                                                getTranslated(
+                                                    context, 'Room_for_Rent'),
+                                                textAlign: TextAlign.center,
+                                                style: GoogleFonts.lato(
+                                                    fontSize: 15,
+                                                    color: AppColors.textcolor,
+                                                    fontWeight:
+                                                        FontWeight.bold)),
+                                          ),
+                                        ],
+                                      ),
+                                      Container(
+                                          height: 50,
+                                          width: 50,
+                                          decoration: BoxDecoration(
+                                              color: const Color.fromRGBO(
+                                                  168, 242, 243, 1),
+                                              borderRadius:
+                                                  BorderRadius.circular(40.0)),
+                                          child: const Icon(
+                                            Icons.arrow_forward,
+                                            color: Colors.black,
+                                          )),
+                                    ],
+                                  ),
+                                ),
+                              )),
+                              const SizedBox(
+                                height: 30.0,
                               ),
                               Expanded(
                                   child: GestureDetector(
@@ -731,22 +741,26 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                                 color: const Color.fromRGBO(
                                                     168, 242, 243, 1),
                                                 borderRadius:
-                                                    BorderRadius.circular(40.0)),
+                                                    BorderRadius.circular(
+                                                        40.0)),
                                             child: Image.asset(
                                               'assets/logo/for-sale.png',
                                               scale: 1.5,
                                             ),
                                           ),
                                           SizedBox(
-                                            width:80,
+                                            width: 80,
                                           ),
                                           SizedBox(
-                                            child: Text(getTranslated(context, 'Selling Property'),
+                                            child: Text(
+                                                getTranslated(context,
+                                                    'Selling Property'),
                                                 textAlign: TextAlign.center,
                                                 style: GoogleFonts.lato(
-                                                    fontSize:15,
+                                                    fontSize: 15,
                                                     color: AppColors.textcolor,
-                                                    fontWeight: FontWeight.bold)),
+                                                    fontWeight:
+                                                        FontWeight.bold)),
                                           )
                                         ],
                                       ),
@@ -767,7 +781,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                 ),
                               )),
                               const SizedBox(
-                                height:30.0,
+                                height: 30.0,
                               ),
                               Expanded(
                                   child: GestureDetector(
@@ -788,22 +802,24 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                                 color: const Color.fromRGBO(
                                                     168, 242, 243, 1),
                                                 borderRadius:
-                                                    BorderRadius.circular(40.0)),
+                                                    BorderRadius.circular(
+                                                        40.0)),
                                             child: Image.asset(
                                               'assets/logo/room-mate.png',
                                               scale: 1.5,
                                             ),
                                           ),
                                           SizedBox(
-                                            width:80,
+                                            width: 80,
                                           ),
                                           SizedBox(
-                                            child: Text('Find Roommate',
+                                            child: Text(getTranslated(context, 'Find_Roommate'),
                                                 textAlign: TextAlign.center,
                                                 style: GoogleFonts.lato(
                                                     fontSize: 15,
                                                     color: AppColors.textcolor,
-                                                    fontWeight: FontWeight.bold)),
+                                                    fontWeight:
+                                                        FontWeight.bold)),
                                           )
                                         ],
                                       ),

@@ -30,6 +30,15 @@ class _TabbarScreenState extends State<TabbarScreen>
   ApiController controller = Get.put(ApiController());
   int selectedContainerIndex = -1;
   var scaffoldKey = GlobalKey<ScaffoldState>();
+var services = [
+    'Plumber',
+    'Electrican',
+    'Carpenter',
+    'Painter',
+    'AC Repair',
+    'Pandit'
+  ];
+
 
   void initState() {
     super.initState();
@@ -111,7 +120,7 @@ class _TabbarScreenState extends State<TabbarScreen>
                         children: [
                           Expanded(
                               child: GestureDetector(
-                            onTap: () => Get.toNamed('/profile'),
+                            onTap: () => Get.toNamed('/roomforrent'),
                             child: Container(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 15.0, vertical: 15.0),
@@ -120,15 +129,15 @@ class _TabbarScreenState extends State<TabbarScreen>
                                   color: const Color.fromRGBO(168, 242, 243, 1),
                                   borderRadius: BorderRadius.circular(12.0)),
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
+                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Image.asset(
                                     'assets/logo/house.png',
                                     height: Get.height * .06,
                                   ),
-                                  const SizedBox(
-                                    height: 12.0,
-                                  ),
+                                  // const SizedBox(
+                                  //   height: 12.0,
+                                  // ),
                                   SizedBox(
                                     child: Text(getTranslated(context, 'Room_for_Rent'),
                                         textAlign: TextAlign.center,
@@ -243,20 +252,30 @@ class _TabbarScreenState extends State<TabbarScreen>
                                   fontWeight: FontWeight.w600)),
                         ),
                       ),
-                      Container(
+                     Container(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: Row(
                           children: [
                             buildContainer(
-                                0, 'Plumber', 'assets/logo/plumber.png', () {
-                              Get.toNamed('/plumber');
-                            }),
+                                0,
+                                'Plumber',
+                                'assets/logo/plumber.png',
+                                () => Get.toNamed('/plumber',
+                                    arguments: services[0])),
                             const SizedBox(width: 16.0),
-                            buildContainer(1, 'Electrician',
-                                'assets/logo/electrician.png', () {}),
+                            buildContainer(
+                                1,
+                                'Electrician',
+                                'assets/logo/electrician.png',
+                                () => Get.toNamed('/plumber',
+                                    arguments: services[1])),
                             const SizedBox(width: 16.0),
-                            buildContainer(2, 'Carpenter',
-                                'assets/logo/cappainter.png', () {}),
+                            buildContainer(
+                                2,
+                                'Carpenter',
+                                'assets/logo/cappainter.png',
+                                () => Get.toNamed('/plumber',
+                                    arguments: services[2])),
                           ],
                         ),
                       ),
@@ -265,13 +284,24 @@ class _TabbarScreenState extends State<TabbarScreen>
                         child: Row(
                           children: [
                             buildContainer(
-                                3, 'Painter', 'assets/logo/painter.png', () {}),
-                            const SizedBox(width: 16.0),
-                            buildContainer(4, 'AC_Repair',
-                                'assets/logo/ac-repair.png', () {}),
+                                3,
+                                'Painter',
+                                'assets/logo/painter.png',
+                                () => Get.toNamed('/plumber',
+                                    arguments: services[3])),
                             const SizedBox(width: 16.0),
                             buildContainer(
-                                5, 'Pandit', 'assets/logo/pandit.png', () {}),
+                                4,
+                                'AC_Repair',
+                                'assets/logo/ac-repair.png',
+                                () => Get.toNamed('/plumber',
+                                    arguments: services[4])),
+                            const SizedBox(width: 16.0),
+                            buildContainer(
+                                5,
+                                'Pandit',
+                                'assets/logo/pandit.png',
+                                () => Get.toNamed('/panditji')),
                           ],
                         ),
                       ),
@@ -288,12 +318,13 @@ class _TabbarScreenState extends State<TabbarScreen>
     return Expanded(
       child: GestureDetector(
         onTap: () {
+          onTap();
           if (selectedContainerIndex != index) {
             selectContainer(index);
           } else {
             selectContainer(-1);
           }
-          onTap;
+          
         },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),

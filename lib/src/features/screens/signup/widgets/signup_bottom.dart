@@ -9,12 +9,11 @@ import '../../../controllers/signup_controller.dart';
 import '../../../models/sign_up_model.dart';
 
 class SignupBottom extends StatelessWidget {
-  SignupBottom({
-    Key? key,
-    required this.model,
+   SignupBottom({
+    Key? key, required this.model,
   }) : super(key: key);
   final SignupModelfooter model;
-  final signUpController = Get.put(SignUpController());
+  final signUpController=Get.put(SignUpController());
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -23,7 +22,7 @@ class SignupBottom extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text("By continuing, you agree to the",
-                style: GoogleFonts.lato(
+                style: GoogleFonts.roboto(
                     fontSize: 16,
                     color: AppColors.HintTextColor,
                     fontWeight: FontWeight.w400)),
@@ -31,9 +30,11 @@ class SignupBottom extends StatelessWidget {
               width: 8,
             ),
             InkWell(
-              onTap: () => {Get.toNamed('/Policy')},
+              onTap: () => {
+                Get.toNamed('/Policy')
+              },
               child: Text("Privacy Policy",
-                  style: GoogleFonts.lato(
+                  style: GoogleFonts.roboto(
                       fontSize: 16,
                       color: AppColors.RedTextColor,
                       fontWeight: FontWeight.w500)),
@@ -42,7 +43,7 @@ class SignupBottom extends StatelessWidget {
         ),
         SizedBox(height: 50),
         MaterialButton(
-            onPressed: () {
+            onPressed: (){
               // if (_formKey.currentState!.validate())
               if (signUpController.isValid.value) {
                 signUpController.signUp();
@@ -53,34 +54,32 @@ class SignupBottom extends StatelessWidget {
                 // Display an error message or take appropriate action
               }
 
+
+
               // print(signUpController.nameController.value.text.toString());
               // Get.toNamed('/otp');
               // Get.to(LogInScreen());
             },
-            color: Color(0xffD70404),
-            textColor: Colors.black,
-            minWidth: 320,
-            shape:
-                RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-            padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            child: Text(
-              model.footertext,
-              style: GoogleFonts.lato(
-                textStyle: Theme.of(context).textTheme.displayLarge,
-                fontSize: 20,
-                color: AppColors.ButtonTextColor,
-                fontWeight: FontWeight.bold,
-              ),
-            )),
-        SizedBox(
-          height: 100,
+            color:  Color(0xffD70404),textColor: Colors.black,
+            minWidth: 320,shape:RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(12)),
+            padding: EdgeInsets.symmetric(horizontal: 20,vertical: 15),
+            child:
+            Text(model.footertext, style: GoogleFonts.roboto(
+              textStyle: Theme.of(context).textTheme.displayLarge,
+              fontSize: 20,
+              color: AppColors.ButtonTextColor,
+              fontWeight: FontWeight.bold,
+            ),)
+
         ),
+        SizedBox(height: 100,),
         Center(
-          child: Row(
+          child:Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               Text("Already have an account?",
-                  style: GoogleFonts.lato(
+                  style: GoogleFonts.roboto(
                       fontSize: 16,
                       color: AppColors.HintTextColor,
                       fontWeight: FontWeight.w400)),
@@ -88,9 +87,11 @@ class SignupBottom extends StatelessWidget {
                 width: 8,
               ),
               InkWell(
-                onTap: () => {Get.toNamed('/login')},
+                onTap: () => {
+                  Get.toNamed('/login')
+                },
                 child: Text("Log In",
-                    style: GoogleFonts.lato(
+                    style: GoogleFonts.roboto(
                         fontSize: 16,
                         color: AppColors.RedTextColor,
                         fontWeight: FontWeight.w500)),

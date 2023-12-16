@@ -1,4 +1,6 @@
+import 'dart:convert';
 
+import 'package:dhoondle/src/Models/get_roommates_response.dart';
 import 'package:dhoondle/src/features/screens/property_details_screen.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/cupertino.dart';
@@ -6,15 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whatsapp_unilink/whatsapp_unilink.dart';
 import '../../api_model/get_property_list_model.dart';
 import '../../constants/colors.dart';
 import '../../constants/helper.dart';
 import '../../constants/images.dart';
-import '../../constants/text.dart';
-import '../controllers/api_controller.dart';
-import '../controllers/home_controller_property_list.dart';
 import 'package:http/http.dart' as http;
 
 class RoomMateScreen extends StatefulWidget {
@@ -32,11 +32,13 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
   bool _isVisible = false;
   bool _hasData = true;
   var searchBar = false;
+  String? phoneNumber;
   var searchController = TextEditingController();
   // ApiController controller = Get.put(ApiController());
   // HomePropertyController homePropertyController = Get.put(HomePropertyController());
   void initState() {
     // TODO: implement initState
+    getRoommates();
     super.initState();
     // Helper.checkInternet(homeApi(widget.category)); // Main
     // // controller.getpropertyapi();
@@ -103,6 +105,7 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
             //   ),
             // ],
             ),
+        // floatingActionButton: MultiFab(),
         floatingActionButton: FloatingActionButton.extended(
             backgroundColor: AppColors.primaryColor,
             onPressed: () {
@@ -132,7 +135,7 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
                           )
                         : ListView.builder(
                             // itemCount: getPropertyList!.propertyList.length,
-                            itemCount: 6,
+                            itemCount: roommatesData?.length,
                             itemBuilder: (BuildContext context, int index) {
                               return InkWell(
                                 onTap: () => {
@@ -191,16 +194,26 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
                                               //             fit: BoxFit.cover)),
                                               //   ),
                                               // ),
-                                              child: Container(
-                                                height: size.height * 0.25,
-                                                width: size.width,
-                                                // padding: EdgeInsets.symmetric(horizontal: 20),
-                                                // margin: EdgeInsets.symmetric(horizontal: 20),
-                                                decoration: BoxDecoration(
-                                                    image: DecorationImage(
-                                                        image: AssetImage(
-                                                            'assets/images/room_img.png'),
-                                                        fit: BoxFit.cover)),
+                                              child: roommatesData?[index].photos==null?Container(
+                                                height:
+                                                Get.height *
+                                                    .25,
+                                                width:MediaQuery.of(context).size.width/1,
+                                                child:
+                                                Image.asset(
+                                                  'assets/images/room_img.png',
+                                                  fit:
+                                                  BoxFit.fill,
+                                                ),
+                                              )
+                                                  : Container(
+                                                     height:
+                                                     Get.height * .25,
+                                                     width:Get.width,
+                                                    child: Image.network(
+                                                      'https://dhoondle.com/Dhoondle/${roommatesData![index].photos}',
+                                                       fit: BoxFit.fill,
+                                                ),
                                               ),
                                             ),
                                           ),
@@ -222,8 +235,7 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 20.0, vertical: 2.0),
                                         child: Text(
-                                          // "${getPropertyList!.propertyList![index].category.toString()} available for rent",
-                                          "Govind",
+                                          "${roommatesData?[index].name}",
                                           style: GoogleFonts.lato(
                                               color: AppColors.textcolor,
                                               fontWeight: FontWeight.w400,
@@ -237,7 +249,7 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
                                           // getPropertyList!
                                           //     .propertyList[index]!.address
                                           //     .toString(),
-                                          '123, Jail Road, Indore',
+                                          '${roommatesData?[index].address}',
                                           style: GoogleFonts.lato(
                                               color: AppColors.greycolor,
                                               fontWeight: FontWeight.w400,
@@ -250,7 +262,7 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
                                         child: Text(
                                           // getPropertyList!.propertyList[index]!.city
                                           //     .toString(),
-                                          'Indore',
+                                          '${roommatesData?[index].city}',
                                           style: GoogleFonts.lato(
                                               color: AppColors.greycolor,
                                               fontWeight: FontWeight.w400,
@@ -264,7 +276,7 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
                                           // getPropertyList!
                                           //     .propertyList[index]!.description
                                           //     .toString(),
-                                          'Good Location Near bus Stop, xyz',
+                                          '${roommatesData?[index].localAddress}',
                                           style: GoogleFonts.lato(
                                               color: AppColors.greycolor,
                                               fontWeight: FontWeight.w400,
@@ -282,7 +294,7 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
                                               child: GestureDetector(
                                                 onTap: () => _launchPhoneCall(
                                                     getPropertyList!
-                                                        .propertyList[index]!
+                                                        .propertyList[index]
                                                         .mobile
                                                         .toString()),
                                                 child: Container(
@@ -307,14 +319,19 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
                                                       SizedBox(
                                                         width: 12.0,
                                                       ),
-                                                      Text('Call',
-                                                          style: GoogleFonts.lato(
-                                                              color: AppColors
-                                                                  .primaryColor,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                              fontSize: 16))
+                                                      InkWell(
+                                                        onTap: () {
+                                                          _launchPhoneCall(phoneNumber);
+                                                        },
+                                                        child: Text('Call',
+                                                            style: GoogleFonts.lato(
+                                                                color: AppColors
+                                                                    .primaryColor,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                                fontSize: 16)),
+                                                      )
                                                     ],
                                                   ),
                                                 ),
@@ -352,14 +369,19 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
                                                       SizedBox(
                                                         width: 12.0,
                                                       ),
-                                                      Text('WhatsApp',
-                                                          style: GoogleFonts.lato(
-                                                              color: AppColors
-                                                                  .primaryColor,
-                                                              fontWeight:
-                                                                  FontWeight
-                                                                      .w400,
-                                                              fontSize: 16))
+                                                      InkWell(
+                                                        onTap: () {
+                                                          launchWhatsApp(phoneNumber);
+                                                        },
+                                                        child: Text('WhatsApp',
+                                                            style: GoogleFonts.lato(
+                                                                color: AppColors
+                                                                    .primaryColor,
+                                                                fontWeight:
+                                                                    FontWeight
+                                                                        .w400,
+                                                                fontSize: 16)),
+                                                      )
                                                     ],
                                                   ),
                                                 ),
@@ -420,7 +442,7 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
         ));
   }
 
-  _launchPhoneCall(String phoneNumber) async {
+  _launchPhoneCall(phoneNumber) async {
     // final url = 'tel:$phoneNumber';
     final url = 'tel: 91838232983';
     if (await canLaunch(url)) {
@@ -430,7 +452,7 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
     }
   }
 
-  launchWhatsApp(String phoneNumber) async {
+  launchWhatsApp(phoneNumber) async {
     final link = WhatsAppUnilink(
       phoneNumber: '+91 9034459823',
       // phoneNumber: '+91 ${phoneNumber}',
@@ -449,59 +471,87 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
       });
   }
 
-  Future<void> homeApi(String category) async {
-    print("<=============homeApi =============>");
+  List<RoommatesData>? roommatesData = [];
+  Future<void> getRoommates() async {
+    print("<=============Roommates=============>");
 
-    //   final prefs = await SharedPreferences.getInstance();
-    //   var user_id = await prefs.getString('user_id');
+      final prefs = await SharedPreferences.getInstance();
+      var user_id = await prefs.getString('user_id');
+      setProgress(true);
 
-    //   setProgress(true);
-    //   Map data = {'user_id': user_id.toString(), 'category': category.toString()};
+    var headers = {
+      'Cookie': 'ci_session=k82572jhkqgu80jvlk01685lnb5c1065'
+    };
+    var request = http.Request('GET', Uri.parse('https://dhoondle.com/Dhoondle/api/roommate/index'));
 
-    //   print("Request =============>" + data.toString());
-    //   try {
-    //     var res = await http.post(Uri.parse(Api.getPropertyList), body: data);
-    //     print("Response ============>" + res.body);
+    request.headers.addAll(headers);
 
-    //     if (res.statusCode == 200) {
-    //       print("jaydeep ============>");
-    //       try {
-    //         final jsonResponse = jsonDecode(res.body);
-    //         GetPropertyList model = GetPropertyList.fromJson(jsonResponse);
+    http.StreamedResponse response = await request.send();
 
-    //         if (model.status == "true") {
-    //           print("Model status true");
+    if (response.statusCode == 200) {
+     var Result  = await response.stream.bytesToString();
+     final finalResult = GetRoommatesModel.fromJson(json.decode(Result));
+     setState(() {
+       roommatesData = finalResult.data;
+     });
+     setProgress(false);
+    }
+    else {
+      print(response.reasonPhrase);
+    }
 
-    //           setProgress(false);
 
-    //           setState(() {
-    //             getPropertyList = model;
-    //           });
 
-    //           // ToastMessage.msg(model.message.toString());
-    //         } else {
-    //           setState(() {
-    //             _hasData = false;
-    //           });
-    //           setProgress(false);
-    //           print("false ### ============>");
-    //           ToastMessage.msg(model.message.toString());
-    //         }
-    //       } catch (e) {
-    //         _hasData = false;
-    //         print("false ============>");
-    //         ToastMessage.msg(StaticMessages.API_ERROR);
-    //         print('exception ==> ' + e.toString());
-    //       }
-    //     } else {
-    //       print("status code ==> " + res.statusCode.toString());
-    //       ToastMessage.msg(StaticMessages.API_ERROR);
-    //     }
-    //   } catch (e) {
-    //     _hasData = false;
-    //     ToastMessage.msg(StaticMessages.API_ERROR);
-    //     print('Exception ======> ' + e.toString());
-    //   }
-    //   setProgress(false);
+
+
+
+  }
+}
+
+class MultiFab extends StatelessWidget {
+  const MultiFab({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        Align(
+          alignment: const Alignment(-0.75, 1.0),
+          child: FloatingActionButton.extended(
+            foregroundColor: Colors.white,
+            backgroundColor: AppColors.primaryColor,
+            icon: const Padding(
+              padding: EdgeInsets.only(left: 4.0),
+              child: Icon(Icons.update),
+            ),
+            label: const Padding(
+              padding: EdgeInsets.only(right: 4.0),
+              child: Text("Update"),
+            ),
+            onPressed: () => Get.toNamed('/updateroommatesdetail'),
+          ),
+        ),
+        Align(
+          alignment: const Alignment(1.0, 1.0),
+          child: FloatingActionButton.extended(
+              foregroundColor: Colors.white,
+              backgroundColor: AppColors.primaryColor,
+              icon: const Padding(
+                padding: EdgeInsets.only(left: 8.0),
+                child: Icon(
+                  Icons.add,
+                  size: 22,
+                ),
+              ),
+              label: const Padding(
+                padding: EdgeInsets.only(right: 8.0),
+                child: Text(" Add "),
+              ),
+              onPressed: () => Get.toNamed('/findroommate')),
+        ),
+      ],
+    );
   }
 }

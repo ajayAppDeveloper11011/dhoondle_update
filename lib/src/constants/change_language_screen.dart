@@ -201,7 +201,7 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                     child: ElevatedButton(onPressed: (){
                       Get.toNamed('/bottom');
                     },
-                        style: ElevatedButton.styleFrom(backgroundColor: Colors.green,
+                        style: ElevatedButton.styleFrom(backgroundColor: AppColors.primaryColor,
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
                         child:Text('Continue',style: TextStyle(color: Colors.white),)),
                   ),

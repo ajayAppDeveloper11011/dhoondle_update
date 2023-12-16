@@ -18,7 +18,6 @@ import '../../constants/images.dart';
 import '../../constants/text.dart';
 import '../controllers/common_model.dart';
 
-
 class AddPropertynew extends StatefulWidget {
   const AddPropertynew({super.key});
 
@@ -1466,7 +1465,9 @@ class _AddPropertynewState extends State<AddPropertynew> {
                           //
                           //   ],
                           // ),
-
+                          SizedBox(
+                            height: 12.0,
+                          ),
                           GestureDetector(
                             onTap: (() => _showPicker(context)),
                             child: Container(
@@ -1531,49 +1532,65 @@ class _AddPropertynewState extends State<AddPropertynew> {
                           //
                           //   ],
                           // ),
-                          ListView.builder(
-                              itemCount: _assetImgList.length,
-                              shrinkWrap: true,
-                              itemBuilder: (BuildContext context, int index) {
-                                File asset = _assetImgList[index];
-                                return Stack(
-                                  children: [
-                                    Container(
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.18,
-                                      width: MediaQuery.of(context).size.width,
-                                      margin: const EdgeInsets.only(top: 10),
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(10),
-                                        color: Colors.transparent,
-                                      ),
-                                      child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(10),
-                                          child: Image.file(
-                                            asset,
-                                            fit: BoxFit.fill,
-                                          )),
-                                    ),
-                                    Positioned(
-                                        top: 0,
-                                        right: 0,
-                                        child: InkWell(
-                                            onTap: () {
-                                              setState(() {
-                                                print(_assetImgList.length);
-                                                _assetImgList.removeAt(index);
-                                                print(_assetImgList.length);
-                                              });
-                                            },
-                                            child: Image.asset(
-                                              Images.cross,
-                                              height: 40,
-                                            ))),
-                                  ],
-                                );
-                              }),
+                          _assetImgList.isEmpty || _assetImgList == null
+                              ? Container()
+                              : SizedBox(
+                                  height: Get.height * .42,
+                                  child: ListView.builder(
+                                      itemCount: _assetImgList.length,
+                                      scrollDirection: Axis.horizontal,
+                                      shrinkWrap: true,
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        File asset = _assetImgList[index];
+                                        return Stack(
+                                          children: [
+                                            Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  0.4,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  .5,
+                                              margin: const EdgeInsets.only(
+                                                  top: 10),
+                                              decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                                color: Colors.transparent,
+                                              ),
+                                              child: ClipRRect(
+                                                  borderRadius:
+                                                      BorderRadius.circular(10),
+                                                  child: Image.file(
+                                                    asset,
+                                                    fit: BoxFit.fill,
+                                                  )),
+                                            ),
+                                            Positioned(
+                                                top: 0,
+                                                right: 0,
+                                                child: InkWell(
+                                                    onTap: () {
+                                                      setState(() {
+                                                        print(_assetImgList
+                                                            .length);
+                                                        _assetImgList
+                                                            .removeAt(index);
+                                                        print(_assetImgList
+                                                            .length);
+                                                      });
+                                                    },
+                                                    child: Image.asset(
+                                                      Images.cross,
+                                                      height: 40,
+                                                    ))),
+                                          ],
+                                        );
+                                      }),
+                                ),
                           const SizedBox(
                             height: 12,
                           ),
@@ -1583,9 +1600,7 @@ class _AddPropertynewState extends State<AddPropertynew> {
                                 // addPropertyApiNow();
                                 Helper.checkInternet(
                                     // addPropertyApi()
-                                    addPropertyApiNow()
-
-                                );
+                                    addPropertyApiNow());
                                 // Get.to(OtpScreen());
                                 // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => ServicesTabbar()));
                               },
@@ -1821,6 +1836,7 @@ class _AddPropertynewState extends State<AddPropertynew> {
     }
     setProgress(false);
   }
+
   AddPropertyModel? addPropertyModel;
   Future<void> addPropertyApi() async {
     print("<=============addPropertyApi =============>");
@@ -1840,19 +1856,15 @@ class _AddPropertynewState extends State<AddPropertynew> {
       'category': selectedKey.toString(),
       'facilities': facilitiesList.toString(),
       'image': imageList.toString()
-
-
-
     };
-
-
 
     print("Request =============>" + data.toString());
     try {
-      var res = await http.post(Uri.parse(
-          'https://dhoondle.com/Dhoondle/property/create'
-          // Api.addProperty
-      ), body: data);
+      var res = await http.post(
+          Uri.parse('https://dhoondle.com/Dhoondle/property/create'
+              // Api.addProperty
+              ),
+          body: data);
       print("Response ============>" + res.body);
       print("Response2 ============>" + res.statusCode.toString());
 
@@ -1954,11 +1966,6 @@ class _AddPropertynewState extends State<AddPropertynew> {
     setProgress(false);
   }
 
-
-
-
-
-
   Future<void> addPropertyApiNow() async {
     setProgress(true);
     final prefs = await SharedPreferences.getInstance();
@@ -1969,21 +1976,22 @@ class _AddPropertynewState extends State<AddPropertynew> {
       'Accept': 'application/json',
       'Cookie': 'ci_session=h6j5stbgghtgmgtsh1gbsh7ni6t4oej4'
     };
-    var request = http.MultipartRequest('POST', Uri.parse('https://dhoondle.com/Dhoondle/property/create'));
+    var request = http.MultipartRequest(
+        'POST', Uri.parse('https://dhoondle.com/Dhoondle/property/create'));
     request.fields.addAll({
       'user_id': '1',
-      'local_address':addresscontroller.text,
-      'city':citycontroller.text,
-      'property_type':propertyTypeIndex.toString(),
-      'bath_count':letBathController.text,
-      'parking_available':parkingSpaceType,
-      'furnished':furnishedIndex.toString(),
+      'local_address': addresscontroller.text,
+      'city': citycontroller.text,
+      'property_type': propertyTypeIndex.toString(),
+      'bath_count': letBathController.text,
+      'parking_available': parkingSpaceType,
+      'furnished': furnishedIndex.toString(),
       'width_sqft': areaController.text,
       'price': rentcontroller.text,
-      'description':descriptioncontroller.text,
+      'description': descriptioncontroller.text,
       'other_facilities': facilitiescontroller.text
     });
-    request.files.add(await http.MultipartFile.fromPath('image',_image!.path));
+    request.files.add(await http.MultipartFile.fromPath('image', _image!.path));
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
     print('--------ijk-------${_image!.path}');
@@ -1994,24 +2002,9 @@ class _AddPropertynewState extends State<AddPropertynew> {
       print('-------------${msg}');
       setProgress(false);
       Get.toNamed('/allproperty');
-    }
-    else {
+    } else {
       setProgress(true);
       print(response.reasonPhrase);
     }
-
-
-
-
-
-
   }
-
-
-
-
-
-
 }
-
-

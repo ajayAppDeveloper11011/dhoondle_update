@@ -60,7 +60,7 @@
 //           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 15),
 //           child: Text(
 //             'Log In',
-//             style: GoogleFonts.lato(
+//             style: GoogleFonts.roboto(
 //               textStyle: Theme.of(context).textTheme.displayLarge,
 //               fontSize: 20,
 //               color: AppColors.ButtonTextColor,
@@ -75,7 +75,7 @@
 //           mainAxisAlignment: MainAxisAlignment.center,
 //           children: [
 //             Text("By continuing, you agree to the",
-//                 style: GoogleFonts.lato(
+//                 style: GoogleFonts.roboto(
 //                     fontSize: 16,
 //                     color: AppColors.HintTextColor,
 //                     fontWeight: FontWeight.w400)),
@@ -87,7 +87,7 @@
 //                 HelperClass.moveToScreenwithPush(context, Terms())
 //               },
 //               child: Text("Privacy Policy",
-//                   style: GoogleFonts.lato(
+//                   style: GoogleFonts.roboto(
 //                       fontSize: 16,
 //                       color: AppColors.RedTextColor,
 //                       fontWeight: FontWeight.w500)),
@@ -101,7 +101,7 @@
 //           mainAxisAlignment: MainAxisAlignment.center,
 //           children: [
 //             Text("Do not have an account",
-//                 style: GoogleFonts.lato(
+//                 style: GoogleFonts.roboto(
 //                     fontSize: 16,
 //                     color: AppColors.HintTextColor,
 //                     fontWeight: FontWeight.w400)),
@@ -113,7 +113,7 @@
 //                 Get.toNamed('/signup')
 //               },
 //               child: Text("Signup",
-//                   style: GoogleFonts.lato(
+//                   style: GoogleFonts.roboto(
 //                       fontSize: 16,
 //                       color: AppColors.RedTextColor,
 //                       fontWeight: FontWeight.w500)),

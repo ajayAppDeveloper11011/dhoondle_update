@@ -203,53 +203,53 @@ class _ServicesTabbarState extends State<ServicesTabbar>
                             // PropertyScreen(),
                             // ServiceScreenTabbar(),
 
-                            Padding(
-                              padding: const EdgeInsets.only(left: 10.0, right: 10),
-                              child: Container(
-                                height: 50,
-                                width: MediaQuery.of(context).size.width,
-                                child: ListView.builder(
-                                  padding: EdgeInsets.zero,
-                                  scrollDirection: Axis.horizontal,
-                                  shrinkWrap: true,
-                                  itemCount:_tabController.index == 0?categoryList.length:categoryList2.length,
-                                  itemBuilder: (context, index) {
-                                    return Padding(
-                                      padding: const EdgeInsets.only(left: 5, right: 5),
-                                      child: InkWell(
-                                        onTap: () {
-
-
-                                        },
-                                        child: Column(
-                                          crossAxisAlignment: CrossAxisAlignment.center,
-                                          children: [
-                                            Container(
-                                              height: 35,
-                                              width: 100,
-                                              decoration: BoxDecoration(
-                                                  color: AppColors.primaryColor,
-                                                  borderRadius: BorderRadius.circular(20),
-                                                  border: Border.all(color: AppColors.primaryColor)
-                                              ),
-                                              child: Center(
-                                                child: Text(_tabController.index == 0?categoryList[index]:categoryList2[index],
-                                                  style: TextStyle(
-                                                    color:Colors.black,
-                                                    fontWeight: FontWeight.w500,
-                                                    fontSize: 15,
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                ),
-                              ),
-                            ),
+                            // Padding(
+                            //   padding: const EdgeInsets.only(left: 10.0, right: 10),
+                            //   child: Container(
+                            //     height: 50,
+                            //     width: MediaQuery.of(context).size.width,
+                            //     child: ListView.builder(
+                            //       padding: EdgeInsets.zero,
+                            //       scrollDirection: Axis.horizontal,
+                            //       shrinkWrap: true,
+                            //       itemCount:_tabController.index == 0?categoryList.length:categoryList2.length,
+                            //       itemBuilder: (context, index) {
+                            //         return Padding(
+                            //           padding: const EdgeInsets.only(left: 5, right: 5),
+                            //           child: InkWell(
+                            //             onTap: () {
+                            //
+                            //
+                            //             },
+                            //             child: Column(
+                            //               crossAxisAlignment: CrossAxisAlignment.center,
+                            //               children: [
+                            //                 Container(
+                            //                   height: 35,
+                            //                   width: 100,
+                            //                   decoration: BoxDecoration(
+                            //                       color: AppColors.primaryColor,
+                            //                       borderRadius: BorderRadius.circular(20),
+                            //                       border: Border.all(color: AppColors.primaryColor)
+                            //                   ),
+                            //                   child: Center(
+                            //                     child: Text(_tabController.index == 0?categoryList[index]:categoryList2[index],
+                            //                       style: TextStyle(
+                            //                         color:Colors.black,
+                            //                         fontWeight: FontWeight.w500,
+                            //                         fontSize: 15,
+                            //                       ),
+                            //                     ),
+                            //                   ),
+                            //                 ),
+                            //               ],
+                            //             ),
+                            //           ),
+                            //         );
+                            //       },
+                            //     ),
+                            //   ),
+                            // ),
 
                           ],
                         ),

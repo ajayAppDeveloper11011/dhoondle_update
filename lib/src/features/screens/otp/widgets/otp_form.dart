@@ -8,43 +8,49 @@ import 'package:pinput/pinput.dart';
 import '../../../controllers/otp_controller.dart';
 
 class OtpForm extends StatelessWidget {
-  OtpForm({
+   OtpForm({
     Key? key,
     required GlobalKey<FormState> formKey,
-  })  : _formKey = formKey,
-        super(key: key);
+  }) : _formKey = formKey, super(key: key);
 
   final GlobalKey<FormState> _formKey;
-  final otpContoller = Get.put(OtpController());
 
-  @override
+
+
+
+   @override
   Widget build(BuildContext context) {
-    return Form(
-      key: _formKey,
-      child: Column(
-        children: [
-          Pinput(
-            controller: otpContoller.otpController.value,
-            length: 6,
-            obscureText: false,
-          ),
-          SizedBox(
-            height: 20,
-          ),
-          Text(
-            "OTP expires in : 53 sec",
-            style: GoogleFonts.lato(
-              textStyle: Theme.of(context).textTheme.displayLarge,
-              fontSize: 19,
-              color: Color(0xff1D1D1D),
-              fontWeight: FontWeight.w400,
+    return GetBuilder(
+
+      init: OtpController(),
+      builder:(controller) {
+      return Form(
+        key: _formKey,
+        child: Column(
+          children: [
+            Pinput(
+              controller: controller.otpController,
+              length: 6,
+              obscureText: false,
             ),
-          ),
-          SizedBox(
-            height: 40,
-          ),
-        ],
-      ),
-    );
+            SizedBox(
+              height: 20,
+            ),
+            Text(
+              "OTP expires in : 53 sec",
+              style: GoogleFonts.poppins(
+                textStyle: Theme.of(context).textTheme.displayLarge,
+                fontSize: 19,
+                color: Color(0xff1D1D1D),
+                fontWeight: FontWeight.w400,
+              ),
+            ),
+            SizedBox(
+              height: 40,
+            ),
+          ],
+        ),
+      );
+    },);
   }
 }
