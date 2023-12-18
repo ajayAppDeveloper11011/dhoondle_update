@@ -1795,11 +1795,15 @@ class _AddPropertynewState extends State<AddPropertynew> {
   void _selectContainer(int index) {
     setState(() {
       propertyTypeIndex = propertyTypeIndex == index ? null : index;
+
     });
 
     if (propertyTypeIndex != null) {
       selectedPropertyType = '';
       selectedPropertyType = propertyType[propertyTypeIndex!];
+      String? typeProperty = propertyType[index];
+      print('-----type of property------${typeProperty}');
+
     }
 
     print('Selected Container Index: $selectedPropertyType');
@@ -2108,10 +2112,10 @@ class _AddPropertynewState extends State<AddPropertynew> {
     var request = http.MultipartRequest(
         'POST', Uri.parse('https://dhoondle.com/Dhoondle/property/create'));
     request.fields.addAll({
-      'user_id': '1',
+      'user_id': user_id.toString(),
       'local_address': addresscontroller.text,
       'city': dropdownvalueOfCity.toString(),
-      'property_type': propertyTypeIndex.toString(),
+      'property_type':selectedPropertyType.toString(),
       'bath_count': letBathController.text,
       'parking_available': parkingSpaceType,
       'furnished': selectFurnised.toString(),

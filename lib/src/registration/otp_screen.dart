@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:developer';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:dhoondle/src/registration/signup.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
@@ -30,8 +31,9 @@ class OtpScreen extends StatefulWidget {
   bool afterSignUp;
   int? forceResendingToken;
   String? otp;
+  String? signUpOtp;
   OtpScreen({required this.number, required this.forceResendingToken, required this.verificationId,
-    required this.afterSignUp,required this.otp});
+    required this.afterSignUp,required this.otp,required this.signUpOtp});
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -43,6 +45,7 @@ class _OtpScreenState extends State<OtpScreen> {
   final _formKey = GlobalKey<FormState>();
   var number = Get.arguments;
   var otp;
+  var sign_up_Otp;
   bool _isVisible = false;
   Timer? _timer;
   int _start = 60;
@@ -71,6 +74,7 @@ class _OtpScreenState extends State<OtpScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    sign_up_Otp = widget.signUpOtp;
    otp =  widget.otp;
     startTimer();
   }
@@ -91,7 +95,7 @@ class _OtpScreenState extends State<OtpScreen> {
                     SizedBox(
                       height:10,
                     ),
-                    Text('OTP : ${widget.otp}'),
+                    widget.afterSignUp==false?Text('OTP : ${widget.otp}'):Text('OTP : ${widget.signUpOtp}'),
                     SizedBox(
                       height: 40,
                     ),
@@ -382,7 +386,7 @@ class _OtpScreenState extends State<OtpScreen> {
       // await FirebaseAuth.instance.signInWithCredential(credential);
       // if (userCredential.user != null) {
         //setProgress(false);
-        if (widget.afterSignUp == true) {
+        if (widget.afterSignUp == false) {
           // print("sms code 2==>${credential.smsCode.toString()}");
           // var userDeatils = FirebaseAuth.instance.currentUser;
           // userDeatils!.updatePhoneNumber(credential).toString();
@@ -393,9 +397,7 @@ class _OtpScreenState extends State<OtpScreen> {
 
           Helper.checkInternet( otpApi());
         } else {
-
-          Fluttertoast.showToast(msg: "login successfully");
-          Helper.moveToScreenwithPushreplaceemt(context, LogInScreen());
+          Helper.moveToScreenwithPushreplaceemt(context, Signup());
         }
       // }
     } on FirebaseAuthException catch (ex) {

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -146,7 +147,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
       children: [
         Column(
           children: [
-            SizedBox(
+            _getprofileApi == null? Text('Please Wait....'):SizedBox(
               height:120,
               child: DrawerHeader(
                 decoration: BoxDecoration(
@@ -169,7 +170,36 @@ class _CustomDrawerState extends State<CustomDrawer> {
                             shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
                             child: ClipRRect(
                                 borderRadius: BorderRadius.circular(50.0),
-                                child:Image.asset("assets/images/man.jpg",fit: BoxFit.fill,)
+                                child:CachedNetworkImage(
+                                  imageUrl:
+                                  _getprofileApi!.data.image,
+                                  fit: BoxFit.fill,
+                                  height: 100,
+                                  width: 100,
+                                  placeholder: (context, url) =>
+                                      LinearProgressIndicator(
+                                        color: Colors.white.withOpacity(0.2),
+                                        backgroundColor: Colors.white.withOpacity(.5),
+                                      ),
+                                  errorWidget: (context, url, error) => Container(
+                                    height: 100,
+                                    width: 100,
+                                    decoration: const BoxDecoration(
+                                      borderRadius: BorderRadius.all(
+                                        Radius.circular(20),
+                                      ),
+                                      color:Colors.transparent,
+                                    ),
+                                    child: Center(
+                                        child: Image.asset(
+                                         'assets/images/profile_new.png',
+                                          height: 100,
+                                          width: 100,
+                                        )),
+                                  ),
+                                )
+
+
 
                             ),
                           ),

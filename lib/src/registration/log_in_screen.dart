@@ -293,8 +293,8 @@ class _LogInScreenState extends State<LogInScreen> {
             forceResendingToken: forceResendingToken,
             number: numberController.text.trim(),
             verificationId: verificationId??'',
-            afterSignUp: true,
-             otp:otp,
+            afterSignUp:false,
+             otp:otp, signUpOtp: '',
           ));
           // Get.toNamed('/otp',arguments: mobileController.value.text.toString());
         }

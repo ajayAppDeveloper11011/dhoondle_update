@@ -292,7 +292,7 @@ class _AllPropertyState extends State<AllProperty> {
                               child: Text("No property found")),
                       )
                           : Container(
-                              height: Get.height,
+                              height: Get.height/1.7,
                             child: ListView.builder(
                             itemCount: getPropertyModel!.length,
                             shrinkWrap: true,

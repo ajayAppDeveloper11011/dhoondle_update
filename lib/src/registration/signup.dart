@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:email_validator/email_validator.dart';
@@ -352,7 +353,8 @@ class _SignupState extends State<Signup> {
                               // if (_formKey.currentState!.validate())
                               if (_formKey.currentState!.validate()) {
                                 _formKey.currentState!.save();
-                                Helper.checkInternet(phoneCheckWithFirebase());
+                                Helper.checkInternet(signUp());
+                                // Helper.checkInternet(phoneCheckWithFirebase());
                               }
 
                               // print(signUpController.nameController.value.text.toString());
@@ -441,14 +443,14 @@ class _SignupState extends State<Signup> {
           },
           verificationFailed: (ex) {
             ToastMessage.msg(ex.code.toString());
-            log("ex"+ ex.code.toString());
+            // log("ex"+ ex.code.toString());
             setProgress(false);
           },
           codeSent: (verificationId, forceResendingToken) {
             setProgress(false);
             //API to call
 
-            Helper.checkInternet( signUp(verificationId,forceResendingToken ));
+            Helper.checkInternet( signUp());
             //  Helper.moveToScreenwithPush(context, OtpVerifyScreen(
             //    forceResendingToken: forceResendingToken,
             //    number: numberController.text.trim(),
@@ -472,7 +474,7 @@ class _SignupState extends State<Signup> {
     }
   }
 
-   signUp (String verificationId, int? forceResendingToken)async{
+   signUp ({String? verificationId, int? forceResendingToken})async{
     try{
       final response= await post(Uri.parse(Api.signup),
           body: {
@@ -489,12 +491,14 @@ class _SignupState extends State<Signup> {
 
         if(data['status']== 'true'){
           // Get.snackbar('Your otp is', data['data']['otp']);
+           String? signUpOtp = data['data']['otp'];
 
+           print('-------->--------${signUpOtp}');
           Helper.moveToScreenwithPush(context, OtpScreen(
             forceResendingToken: forceResendingToken,
             number: mobileController.text.trim(),
-            verificationId: verificationId,
-            afterSignUp: true, otp: '',
+            verificationId: verificationId??'',
+            afterSignUp: true, otp:'', signUpOtp:signUpOtp,
           ));
         }
         else{

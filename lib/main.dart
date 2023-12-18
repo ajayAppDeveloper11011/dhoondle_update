@@ -131,7 +131,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/changeLanguage', page: () =>ChangeLanguageScreen()),
         GetPage(name: '/signup', page: () => Signup()),
         GetPage(name: '/login', page: () => LogInScreen()),
-        GetPage(name: '/otp', page: () => OtpScreen(number: '', forceResendingToken: null, verificationId: '', afterSignUp: true, otp: '',)),
+        GetPage(name: '/otp', page: () => OtpScreen(number: '', forceResendingToken: null, verificationId: '', afterSignUp: true, otp: '', signUpOtp: '',)),
         GetPage(name: '/bottom', page: () => BottomNaigation()),
         GetPage(name: '/becomeservice', page: () => BecomeServiceProvider()),
         GetPage(name: '/service', page: () => ServicesTabbar()),

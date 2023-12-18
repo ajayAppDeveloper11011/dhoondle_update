@@ -885,7 +885,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
     var user_id = await prefs.getString('user_id');
 
     Map data = {
-      'user_id':'1',
+      'user_id':user_id,
       'service_id': selectedOption,
       'service': selectedKey.toString(),
       'description': descriptioncontroller.text.toString(),
@@ -1003,7 +1003,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
     var user_id = await prefs.getString('user_id');
 
     Map data = {
-      'user_id': '1',
+      'user_id':user_id,
       'id': widget.serviceCategory.toString(),
       'service_id': selectedOption,
       'service': selectedKey.toString(),
