@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:io';
+import 'dart:ui';
 import 'package:dhoondle/src/features/screens/services_tabbar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,7 +17,7 @@ import '../../constants/colors.dart';
 import '../../constants/helper.dart';
 import '../../constants/images.dart';
 import '../../constants/text.dart';
-import '../controllers/common_model.dart';
+import 'package:image/image.dart' as img;
 
 class AddPropertynew extends StatefulWidget {
   const AddPropertynew({super.key});
@@ -26,6 +27,7 @@ class AddPropertynew extends StatefulWidget {
 }
 
 class _AddPropertynewState extends State<AddPropertynew> {
+
   var city = [
     "Indore",
     "Bhopal",
@@ -34,12 +36,22 @@ class _AddPropertynewState extends State<AddPropertynew> {
     "Devas",
     "Delhi",
   ];
+
+
   var selectedCity = '';
   int? selectedIndex;
+  String? selectFurnised;
 
   var propertyType = ['Residencial', 'Commerical'];
+
+
+  var property = ['Owner', 'Broker'];
+
+
   var selectedPropertyType = '';
+  var selectedOB = '';
   int? propertyTypeIndex;
+  int? selectProperty;
 
   var residencialType = ['1RK', '1BHK', '2BHK', '3BHK', 'VILLA', 'HOUSE'];
   var commercialType = [
@@ -422,7 +434,7 @@ class _AddPropertynewState extends State<AddPropertynew> {
                                             color: AppColors.HintTextColor)),
                                   ),
                                   isExpanded: true,
-                                  value: dropdownvalueOfroom,
+                                  value: dropdownvalueOfCity,
                                   icon: const Icon(Icons.keyboard_arrow_down),
                                   items: city.map((String items) {
                                     return DropdownMenuItem(
@@ -434,7 +446,8 @@ class _AddPropertynewState extends State<AddPropertynew> {
                                   }).toList(),
                                   onChanged: (String? newValue) {
                                     setState(() {
-                                      dropdownvalueOfroom = newValue!;
+                                      dropdownvalueOfCity = newValue!;
+                                      print('${dropdownvalueOfCity}');
                                     });
                                   }),
                             ),
@@ -481,6 +494,88 @@ class _AddPropertynewState extends State<AddPropertynew> {
                           //     ),
                           //   ),
                           // ),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          Text('Property',
+                              style: GoogleFonts.lato(
+                                textStyle: const TextStyle(
+                                    color: AppColors.textcolor,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500),
+                              )),
+                          const SizedBox(
+                            height: 5,
+                          ),
+                          SizedBox(
+                            height: 80,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () =>_selectPropertyS(0),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: selectProperty == 0
+                                              ? AppColors.primaryColor
+                                              : Colors.transparent,
+                                          border: Border.all(
+                                            color: selectProperty == 0
+                                                ? AppColors.primaryColor
+                                                : Colors.grey,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                          BorderRadius.circular(10.0)),
+                                      alignment: Alignment.center,
+                                      child: Text(property[0],
+                                          style: GoogleFonts.lato(
+                                            textStyle: TextStyle(
+                                              color: selectProperty == 0
+                                                  ? Colors.white
+                                                  : AppColors.primaryColor,
+                                              fontSize: 16,
+                                            ),
+                                          )),
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: 16,
+                                ),
+                                Expanded(
+                                  child: GestureDetector(
+                                    onTap: () =>_selectPropertyS(1),
+                                    child: Container(
+                                      decoration: BoxDecoration(
+                                          color: selectProperty == 1
+                                              ? AppColors.primaryColor
+                                              : Colors.transparent,
+                                          border: Border.all(
+                                            color: selectProperty == 1
+                                                ? AppColors.primaryColor
+                                                : Colors.grey,
+                                            width: 1.0,
+                                          ),
+                                          borderRadius:
+                                          BorderRadius.circular(10.0)),
+                                      alignment: Alignment.center,
+                                      child: Text(property[1],
+                                          style: GoogleFonts.lato(
+                                            textStyle: TextStyle(
+                                              color: selectProperty == 1
+                                                  ? Colors.white
+                                                  : AppColors.primaryColor,
+                                              fontSize: 16,
+                                            ),
+                                          )),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+
                           const SizedBox(
                             height: 12,
                           ),
@@ -1671,6 +1766,21 @@ class _AddPropertynewState extends State<AddPropertynew> {
         });
   }
 
+  void _selectPropertyS(int index) {
+    setState(() {
+      selectProperty = selectProperty == index ? null : index;
+    });
+
+    if (selectProperty != null) {
+      selectedOB = '';
+      selectedOB = property[selectProperty!];
+    }
+
+    print('Selected Container Index: $selectedPropertyType');
+  }
+  
+  
+
   void _selectCity(int index) {
     setState(() {
       selectedIndex = selectedIndex == index ? null : index;
@@ -1711,6 +1821,8 @@ class _AddPropertynewState extends State<AddPropertynew> {
   void _selectFurinshed(int index) {
     setState(() {
       furnishedIndex = furnishedIndex == index ? null : index;
+      selectFurnised = furnished[index];
+      print('---------furnished---${selectFurnised}');
     });
 
     if (furnishedIndex != null) {
@@ -1733,20 +1845,24 @@ class _AddPropertynewState extends State<AddPropertynew> {
     }
   }
 
+
+
+// ...
+
   _imgFromCamera() async {
     final XFile? image = await _picker.pickImage(
       source: ImageSource.camera,
       imageQuality: 50,
     );
-    setState(() {
-      _image = File(image!.path);
-      print("_image====${_image}");
-      print("_image=====2==${_image!.path}");
-      // imageList.insert(imageList.length, image as File);
-      _assetImgList.insert(_assetImgList.length, _image as File);
-      // print("imageList=======${imageList.toString()}");
-      Helper.checkInternet(addPropertyImagesApi(image.path));
-    });
+
+    if (image != null) {
+      File compressedImage = await compressImage(File(image.path));
+      setState(() {
+        _image = compressedImage;
+        _assetImgList.insert(_assetImgList.length, _image as File);
+        Helper.checkInternet(addPropertyImagesApi(_image?.path));
+      });
+    }
   }
 
   _imgFromGallery() async {
@@ -1754,17 +1870,37 @@ class _AddPropertynewState extends State<AddPropertynew> {
       source: ImageSource.gallery,
       imageQuality: 50,
     );
-    // _image=_cropImage(image);
-    setState(() {
-      _image = File(image!.path);
-      // String path = _image.toString();
-      print("path" + _image!.path);
-      _assetImgList.insert(_assetImgList.length, _image as File);
-      Helper.checkInternet(addPropertyImagesApi(image.path));
-    });
 
-    // Helper.checkInternet(uploadImage(_image!.path));
+    if (image != null) {
+      File compressedImage = await compressImage(File(image.path));
+      setState(() {
+        _image = compressedImage;
+        _assetImgList.insert(_assetImgList.length, _image as File);
+        Helper.checkInternet(addPropertyImagesApi(_image?.path));
+      });
+    }
   }
+
+  Future<File> compressImage(File imageFile) async {
+    // Read the image file
+    List<int> imageBytes = await imageFile.readAsBytes();
+
+    // Decode the image
+    img.Image image = img.decodeImage(Uint8List.fromList(imageBytes))!;
+
+    // Resize the image
+    img.Image resizedImage = img.copyResize(image, width: 800);
+
+    // Encode the image to bytes
+    List<int> compressedBytes = img.encodeJpg(resizedImage, quality: 80);
+
+    // Create a new File with the compressed bytes
+    File compressedImage = File(imageFile.path)
+      ..writeAsBytesSync(compressedBytes);
+    print('------image-----${compressedImage}');
+    return compressedImage;
+  }
+
 
   Future<void> getPropertyCategoryapi() async {
     print("<=============getPropertyCategoryapi=============>");
@@ -1807,14 +1943,7 @@ class _AddPropertynewState extends State<AddPropertynew> {
             });
 
             setProgress(false);
-            // ToastMessage.msg(model.message.toString());
 
-            // Helper.moveToScreenwithPush(context, OtpVerifyScreen(number: model.data!.phone.toString(),));
-            // sessionHelper.put(SessionHelper.NAME,model.data!.name.toString());
-            // sessionHelper.put(SessionHelper.EMAIL,model.data!.email.toString());
-            // sessionHelper.put(SessionHelper.IMAGE,model.data!.image.toString());
-            // sessionHelper.put(SessionHelper.DOB,model.data!.dob.toString());
-            // sessionHelper.put(SessionHelper.USER_ID,model.data!.userId.toString());
           } else {
             getPropertyCategoryModel = null;
             setProgress(false);
@@ -1843,7 +1972,7 @@ class _AddPropertynewState extends State<AddPropertynew> {
     setProgress(true);
     final prefs = await SharedPreferences.getInstance();
     var user_id = await prefs.getString('user_id');
-
+    print('----cityName------${dropdownvalueOfCity}');
     Map data = {
       'user_id': user_id.toString(),
       'title': nameController.text.tr,
@@ -1851,7 +1980,7 @@ class _AddPropertynewState extends State<AddPropertynew> {
       'address': addresscontroller.text.toString(),
       'mobile': numbercontroller.text.toString(),
       'rent': rentcontroller.text.toString(),
-      'city': citycontroller.text.toString(),
+      'city':dropdownvalueOfCity,
       'roomtype': dropdownvalueOfroom.toString(),
       'category': selectedKey.toString(),
       'facilities': facilitiesList.toString(),
@@ -1941,7 +2070,7 @@ class _AddPropertynewState extends State<AddPropertynew> {
               AddPropertyImagesModel.fromJson(jsonResponse);
 
           if (model.status == "true") {
-            setProgress(false);
+            // setProgress(false);
             ToastMessage.msg("Image uploaded successfully");
 
             print("imagesss========================>>>>>>>>${model.image}");
@@ -1981,11 +2110,11 @@ class _AddPropertynewState extends State<AddPropertynew> {
     request.fields.addAll({
       'user_id': '1',
       'local_address': addresscontroller.text,
-      'city': citycontroller.text,
+      'city': dropdownvalueOfCity.toString(),
       'property_type': propertyTypeIndex.toString(),
       'bath_count': letBathController.text,
       'parking_available': parkingSpaceType,
-      'furnished': furnishedIndex.toString(),
+      'furnished': selectFurnised.toString(),
       'width_sqft': areaController.text,
       'price': rentcontroller.text,
       'description': descriptioncontroller.text,
@@ -1995,6 +2124,7 @@ class _AddPropertynewState extends State<AddPropertynew> {
     request.headers.addAll(headers);
     http.StreamedResponse response = await request.send();
     print('--------ijk-------${_image!.path}');
+    print('--------lmn-------${request.fields}');
     if (response.statusCode == 200) {
       var Result = await response.stream.bytesToString();
       final finalResult = json.decode(Result);

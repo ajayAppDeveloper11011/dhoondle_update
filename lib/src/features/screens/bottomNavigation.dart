@@ -32,8 +32,14 @@ class _BottomNaigationState extends State<BottomNaigation> {
   @override
   void initState() {
     super.initState();
+
     _pageController = PageController();
+
+
   }
+
+
+
 
   @override
   void dispose() {
@@ -320,7 +326,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
           },
           children: <Widget>[
             TabbarScreen(),
-            ServiceScreen(),
+            // ServiceScreen(),
             TabbarScreen(),
             TabbarScreen(),
             ProfileScreen(),
@@ -472,7 +478,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
                 selectedIndex == 4
                     ? const SizedBox.shrink()
                     : Text(
-                        getTranslated(context, 'Profile'),
+                        getTranslated(context, 'Settings'),
                         style: GoogleFonts.lato(
                             fontSize: 10,
                             color: Colors.white,

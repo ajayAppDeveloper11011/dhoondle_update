@@ -24,6 +24,7 @@ class TabbarScreen extends StatefulWidget {
 
 class _TabbarScreenState extends State<TabbarScreen>
     with SingleTickerProviderStateMixin {
+  String? full_name,user_mob,user_email,user_add;
   int initPosition = 0;
   GetPropertyCategoryModel? _getPropertyCategoryModel;
   late TabController _tabController;
@@ -44,7 +45,18 @@ var services = [
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
     controller.getpropertyapi();
+    getUserData ();
     Helper.checkInternet(categoryapi());
+  }
+
+  getUserData () async {
+    SharedPreferences preferences = await SharedPreferences.getInstance();
+    full_name = preferences.getString('user_name');
+    user_mob  = preferences.getString('user_mobile');
+    user_email= preferences.getString('user_email');
+    user_add = preferences.getString('user_address');
+
+    print('-----0---------${full_name}');
   }
 
   @override

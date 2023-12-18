@@ -50,7 +50,6 @@ class _AddPropertyScreenState extends State<AddPropertyScreen> {
         // ],
       ),
       body: Container(
-        color: Colors.red,
         height: MediaQuery.of(context).size.height,
         // height: 900,
         width: size.width,

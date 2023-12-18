@@ -7,6 +7,7 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
@@ -68,7 +69,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           toolbarHeight: 80,
           leading: InkWell(
             onTap: () {
-              Helper.popScreen(context);
+              // Helper.popScreen(context);
+
+              Get.toNamed('/bottom');
             },
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5.0),
@@ -96,12 +99,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         ),
         body: Stack(
           children: [
-            // _getprofileApi == null
-            //     ? Container(
-            //         height: MediaQuery.of(context).size.height,
-            //         child: Center(child: Text("No property found")),
-            //       )
-            //     :
+            _getprofileApi == null
+                ? Container(
+                    height: MediaQuery.of(context).size.height,
+                    child: Center(child: Text("No property found")),
+                  )
+                :
             Container(
                     // color: Colors.black,
                     height: MediaQuery.of(context).size.height,
@@ -723,7 +726,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
               emailController.text = _getprofileApi!.data.email.toString();
               mobileController.text = _getprofileApi!.data.mobile.toString();
             });
-
+            SharedPreferences preferences = await SharedPreferences.getInstance();
+            preferences.setString('user_name', fullNameController.text);
+            preferences.setString('user_mobile', mobileController.text);
+            preferences.setString('user_email', emailController.text);
+            preferences.setString('user_address', addressController.text);
             // ToastMessage.msg(model.message.toString());
           } else {
             setState(() {

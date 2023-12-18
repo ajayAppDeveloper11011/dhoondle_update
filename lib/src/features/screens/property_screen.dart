@@ -92,7 +92,7 @@ class _PropertyScreenState extends State<PropertyScreen> {
                                     Get.to(PropertyDetailsScreen(
                                       property_id: _getMyPropertyList!
                                           .propertyList![index].propertyId
-                                          .toString(),
+                                          .toString(), getPropertyData: null,
                                     ))
                                   },
                                   child: Column(

@@ -85,7 +85,8 @@ class _HomeScreenState extends State<HomeScreen> {
                               Get.to(PropertyDetailsScreen(
                                 property_id: getPropertyList!
                                     .propertyList[index]!.propertyId
-                                    .toString(),
+                                    .toString(), getPropertyData:null,
+
                               ))
                               // Get.to(PropertyDetailsScreen())
                               // Get.toNamed('/propertydetail')
@@ -134,6 +135,22 @@ class _HomeScreenState extends State<HomeScreen> {
                                             ),
                                           ),
                                         ),
+                                      ),
+                                      Positioned(
+                                        top:110,
+                                        right:110,
+                                        child:Container(
+                                            width: 160,
+                                            decoration: BoxDecoration(
+                                                color: AppColors.txtgreyclr.withOpacity(0.1),
+                                                borderRadius: BorderRadius.circular(15)),
+                                            child: Row(
+                                              mainAxisAlignment: MainAxisAlignment.center,
+                                              children: [
+                                                Image.asset(Images.whiteLogo,height:30,width:30,),
+                                                Text('Dhoondhle.com',style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold),)
+                                              ],
+                                            )),
                                       ),
                                       Positioned(
                                           top: 40,

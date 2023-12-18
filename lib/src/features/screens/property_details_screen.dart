@@ -7,11 +7,14 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:pinput/pinput.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:whatsapp_unilink/whatsapp_unilink.dart';
+import '../../Models/get_property_response.dart';
 import '../../api_model/get_property_details_model.dart';
+import '../../api_model/get_property_list_model.dart';
 import '../../constants/Api.dart';
 import '../../constants/colors.dart';
 import '../../constants/helper.dart';
@@ -21,13 +24,16 @@ import 'package:http/http.dart' as http;
 
 class PropertyDetailsScreen extends StatefulWidget {
   String property_id = "";
-  PropertyDetailsScreen({required this.property_id});
+  List<PropertyData>? getPropertyData;
+  GetPropertyList? getPropertyList;
+  PropertyDetailsScreen({required this.property_id,required this.getPropertyData});
 
   @override
   State<PropertyDetailsScreen> createState() => _PropertyDetailsScreenState();
 }
 
 class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
+  List<PropertyData>? getPropertyData;
   List imgURL = [
     Images.flat,
     Images.flat,
@@ -35,10 +41,12 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
   ];
   int currentIndex = 0;
   List<String> images = <String>[
-    "https://images.unsplash.com/photo-1458071103673-6a6e4c4a3413?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
     "https://images.unsplash.com/photo-1518806118471-f28b20a1d79d?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=80",
+    "https://images.unsplash.com/photo-1473700216830-7e08d47f858e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
+    "https://images.unsplash.com/photo-1458071103673-6a6e4c4a3413?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
     "https://images.unsplash.com/photo-1470406852800-b97e5d92e2aa?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80",
-    "https://images.unsplash.com/photo-1473700216830-7e08d47f858e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=750&q=80"
+
+
   ];
   CarouselController carouselController = CarouselController();
   bool _isVisible = false;
@@ -49,6 +57,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+    getPropertyData = widget.getPropertyData;
     // Helper.checkInternet(propertydetail());
   }
 
@@ -139,20 +148,20 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                         //     :
                         CarouselSlider.builder(
                           carouselController: carouselController,
-                          itemCount: images.length,
+                          itemCount:getPropertyData != null? getPropertyData?.length:images.length,
                           // itemCount: getPropertyDetailModel!
                           //     .propertyImage!.length,
                           itemBuilder:
                               (BuildContext context, int index, int itemIndex) {
                             return Center(
                                 child: Stack(
-                              children: [
-                                Container(
-                                  height: size.height * 0.28,
-                                  width: MediaQuery.of(context).size.width,
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: 10, vertical: 0),
-                                  decoration: BoxDecoration(
+                                 children: [
+                                   Container(
+                                    height: size.height * 0.28,
+                                    width: MediaQuery.of(context).size.width,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: 10, vertical: 0),
+                                    decoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(20),
                                     // boxShadow: [
                                     //   BoxShadow(
@@ -169,7 +178,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                       // imageUrl: getPropertyDetailModel!
                                       //     .propertyImage![index].image
                                       //     .toString(),
-                                      imageUrl: images[index],
+                                      imageUrl:getPropertyData?[index].propertyImage != null ? getPropertyData![index].propertyImage.toString():images[index],
                                       fit: BoxFit.fill,
                                       height: size.height * 0.25,
                                       placeholder: (context, url) =>
@@ -213,7 +222,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                             image: DecorationImage(
                                                 image:
                                                     AssetImage(Images.Frame))),
-                                        child: Text("Rent: 9,999"))),
+                                        child: Text("Rent:${getPropertyData?[index].price!=null? {getPropertyData?[index].price}: 400 }"))),
                                 // "Rent:${getPropertyDetailModel!.propertyDetails!.price.toString()}"))),
                               ],
                             ));
@@ -259,7 +268,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20.0),
                               child: Text(
-                                "Room available for rent",
+                                "${getPropertyData?.first.name!=null ? getPropertyData?.first.name : 'Test User' } ",
                                 // "${getPropertyDetailModel!.propertyDetails!.category.toString()} available for rent",
                                 style: GoogleFonts.lato(
                                     color: AppColors.textcolor,
@@ -271,7 +280,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20.0, vertical: 10),
                               child: Text(
-                                TextScreen.Description,
+                               '${TextScreen.description} :${getPropertyData?.first.description!=null? getPropertyData?.first.description: 'This is test for rent'}',
                                 style: GoogleFonts.lato(
                                     color: AppColors.textcolor,
                                     fontWeight: FontWeight.w500,
@@ -285,7 +294,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                 // getPropertyDetailModel!
                                 //     .propertyDetails!.description
                                 //     .toString(),
-                                "Good Location Near Bus Stop",
+                                "${getPropertyData?.first.address!= null ? getPropertyData?.first.address: 'Vijay Nagar Indore'}",
                                 style: GoogleFonts.lato(
                                     color: AppColors.greycolor,
                                     fontWeight: FontWeight.w400,
@@ -315,7 +324,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                               padding:
                                   const EdgeInsets.symmetric(horizontal: 20.0),
                               child: Text(
-                                "/9999 Rs/Month",
+                                "${getPropertyData?.first.price != null? getPropertyData?.first.price: 400}",
                                 // "${getPropertyDetailModel!.propertyDetails!.price.toString()}Rs/Month",
                                 style: GoogleFonts.lato(
                                     color: AppColors.greycolor,
@@ -327,7 +336,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20.0, vertical: 10),
                               child: Text(
-                                TextScreen.Address,
+                                '${TextScreen.Address}',
                                 style: GoogleFonts.lato(
                                     color: AppColors.textcolor,
                                     fontWeight: FontWeight.w500,
@@ -340,7 +349,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                               child: Text(
                                 // getPropertyDetailModel!.propertyDetails!.address
                                 //     .toString(),
-                                "123, Jail Road , Indore",
+                                "${getPropertyData?.first.address!= null ? getPropertyData?.first.address: 'Indore,Madhya Paradesh '}",
                                 style: GoogleFonts.lato(
                                     color: AppColors.greycolor,
                                     fontWeight: FontWeight.w400,
@@ -364,7 +373,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                               child: Text(
                                 // getPropertyDetailModel!.propertyDetails!.city
                                 //     .toString(),
-                                'Indore',
+                                '${getPropertyData?.first.city != null ? getPropertyData?.first.city : 'Indore'}',
                                 style: GoogleFonts.lato(
                                     color: AppColors.greycolor,
                                     fontWeight: FontWeight.w400,
@@ -389,7 +398,7 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                                 // getPropertyDetailModel!
                                 //     .propertyDetails!.roomtype
                                 //     .toString(),
-                                'Student',
+                                '${getPropertyData?.first.propertyType!= null ? getPropertyData?.first.propertyType :'Residential'}',
                                 style: GoogleFonts.lato(
                                     color: AppColors.greycolor,
                                     fontWeight: FontWeight.w400,
@@ -432,7 +441,6 @@ class _PropertyDetailsScreenState extends State<PropertyDetailsScreen> {
                             //         fontSize: 16),
                             //   ),
                             // ),
-
                             Padding(
                               padding: const EdgeInsets.symmetric(
                                   horizontal: 20.0, vertical: 10),

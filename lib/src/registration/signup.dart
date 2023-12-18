@@ -494,7 +494,7 @@ class _SignupState extends State<Signup> {
             forceResendingToken: forceResendingToken,
             number: mobileController.text.trim(),
             verificationId: verificationId,
-            afterSignUp: true,
+            afterSignUp: true, otp: '',
           ));
         }
         else{

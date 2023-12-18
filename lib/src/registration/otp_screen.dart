@@ -29,8 +29,9 @@ class OtpScreen extends StatefulWidget {
   String verificationId;
   bool afterSignUp;
   int? forceResendingToken;
+  String? otp;
   OtpScreen({required this.number, required this.forceResendingToken, required this.verificationId,
-    required this.afterSignUp});
+    required this.afterSignUp,required this.otp});
 
   @override
   State<OtpScreen> createState() => _OtpScreenState();
@@ -40,7 +41,8 @@ class _OtpScreenState extends State<OtpScreen> {
   TextEditingController otpController = TextEditingController();
   bool isValidated = false;
   final _formKey = GlobalKey<FormState>();
-  var number= Get.arguments;
+  var number = Get.arguments;
+  var otp;
   bool _isVisible = false;
   Timer? _timer;
   int _start = 60;
@@ -69,6 +71,7 @@ class _OtpScreenState extends State<OtpScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
+   otp =  widget.otp;
     startTimer();
   }
   @override
@@ -85,62 +88,14 @@ class _OtpScreenState extends State<OtpScreen> {
                   children: [
                     //otp header section
                     Otpheader(),
-
+                    SizedBox(
+                      height:10,
+                    ),
+                    Text('OTP : ${widget.otp}'),
                     SizedBox(
                       height: 40,
                     ),
-
-                    // OTPTextField(
-                    //     //controller: otpController,
-                    //     length: 5,
-                    //
-                    //
-                    //     width: MediaQuery.of(context).size.width*0.7,
-                    //     textFieldAlignment: MainAxisAlignment.spaceAround,
-                    //     fieldWidth: 30,
-                    //
-                    //     fieldStyle: FieldStyle.underline,
-                    //     outlineBorderRadius: 15,
-                    //     style: TextStyle(fontSize: 17,),
-                    //    ),
-
-                    /* OTPTextField(
-
-                      length: 5,
-
-                      width: MediaQuery.of(context).size.width*0.6,
-
-
-                      fieldWidth: 30,
-                      style: TextStyle(
-                          fontSize: 17,
-
-
-                      ),
-                      textFieldAlignment: MainAxisAlignment.spaceAround,
-                      fieldStyle: FieldStyle.underline,
-
-                      onCompleted: (pin) {
-                        print("Completed: " + pin);
-                      },
-                    ),*/
-                    // OtpTextField(
-                    //   numberOfFields: 5,
-                    //   borderColor: Color(0xff878787),
-                    //   focusedBorderColor: Color(0xff878787),
-                    //   // styles: otpTextStyles,
-                    //   showFieldAsBox: false,
-                    //   borderWidth: 4.0,
-                    //   //runs when a code is typed in
-                    //   onCodeChanged: (String code) {
-                    //     //handle validation or checks here if necessary
-                    //   },
-                    //   //runs when every textfield is filled
-                    //   onSubmit: (String verificationCode) {},
-                    // ),
-                    //otp form section
                     Pinput(
-
                       length: 6,//4
                       // Without Validator
                       // If true error state will be applied no matter what validator returns
@@ -413,24 +368,24 @@ class _OtpScreenState extends State<OtpScreen> {
     String otp = otpController.text.trim();
     log("otp=============>$otp");
 
-    PhoneAuthCredential credential = PhoneAuthProvider.credential(
-      verificationId: widget.verificationId,
-      smsCode: otp,
+    // PhoneAuthCredential credential = PhoneAuthProvider.credential(
+    //   verificationId: widget.verificationId,
+    //   smsCode: otp,
+    //
+    // );
 
-    );
-
-    print("sms code 1==>${credential.smsCode.toString()}");
+    // print("sms code 1==>${credential.smsCode.toString()}");
     log("widget.verificationId===============>${widget.verificationId}");
     log("widget.phone===============>${widget.number}");
     try {
-      UserCredential userCredential =
-      await FirebaseAuth.instance.signInWithCredential(credential);
-      if (userCredential.user != null) {
+      // UserCredential userCredential =
+      // await FirebaseAuth.instance.signInWithCredential(credential);
+      // if (userCredential.user != null) {
         //setProgress(false);
         if (widget.afterSignUp == true) {
-          print("sms code 2==>${credential.smsCode.toString()}");
-          var userDeatils = FirebaseAuth.instance.currentUser;
-          userDeatils!.updatePhoneNumber(credential).toString();
+          // print("sms code 2==>${credential.smsCode.toString()}");
+          // var userDeatils = FirebaseAuth.instance.currentUser;
+          // userDeatils!.updatePhoneNumber(credential).toString();
           //userDeatils.updateEmail(widget.email).toString();
           //userDeatils.updateDis3playName(widget.name).toString();
 
@@ -442,7 +397,7 @@ class _OtpScreenState extends State<OtpScreen> {
           Fluttertoast.showToast(msg: "login successfully");
           Helper.moveToScreenwithPushreplaceemt(context, LogInScreen());
         }
-      }
+      // }
     } on FirebaseAuthException catch (ex) {
       setProgress(false);
       log("exception 1===>${ex.code.toString()}");

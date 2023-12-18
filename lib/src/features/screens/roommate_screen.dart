@@ -66,6 +66,9 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
                         borderRadius: BorderRadius.circular(12.0)),
                     child: TextField(
                       controller: searchController,
+                      onChanged: (value) {
+                        searchRoommates( value);
+                      },
                       autofocus: true,
                       decoration: InputDecoration(
                           border: InputBorder.none, hintText: 'Search Here'),
@@ -143,7 +146,7 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
                                       // property_id: getPropertyList!
                                       //     .propertyList[index]!.propertyId
                                       //     .toString(),
-                                      property_id: '12345'))
+                                      property_id: '12345', getPropertyData: null,))
                                   // Get.to(PropertyDetailsScreen())
                                   // Get.toNamed('/propertydetail')
                                 },
@@ -216,6 +219,22 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
                                                 ),
                                               ),
                                             ),
+                                          ),
+                                          Positioned(
+                                            top:110,
+                                            right:110,
+                                            child:Container(
+                                                width: 160,
+                                                decoration: BoxDecoration(
+                                                    color: AppColors.txtgreyclr.withOpacity(0.1),
+                                                    borderRadius: BorderRadius.circular(15)),
+                                                child: Row(
+                                                  mainAxisAlignment: MainAxisAlignment.center,
+                                                  children: [
+                                                    Image.asset(Images.whiteLogo,height:30,width:30,),
+                                                    Text('Dhoondhle.com',style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold),)
+                                                  ],
+                                                )),
                                           ),
                                           Positioned(
                                               top: 10,
@@ -500,12 +519,33 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
       print(response.reasonPhrase);
     }
 
-
-
-
-
-
   }
+  searchRoommates(String value) {
+    if (value.isEmpty) {
+      setState(() {
+        getRoommates();
+      });
+    } else {
+      final suggestions = roommatesData?.where((element) {
+        final productName = element.name?.toLowerCase() ?? '';
+        final productDescription = element.professionDescription?.toLowerCase() ?? '';
+        final productCategory = element.address?.toLowerCase() ?? '';
+        final propertyType = element.localAddress?.toLowerCase() ?? '';
+
+        final input = value.toLowerCase();
+
+        // Check if any property contains the search input
+        return productName.contains(input) ||
+            productDescription.contains(input) ||
+            productCategory.contains(input)||propertyType.contains(input);
+      }).toList();
+      setState(() {
+        roommatesData = suggestions;
+      });
+    }
+  }
+
+
 }
 
 class MultiFab extends StatelessWidget {

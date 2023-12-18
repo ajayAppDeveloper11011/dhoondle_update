@@ -15,9 +15,7 @@ import '../api_model/login_api_model.dart';
 import '../constants/Api.dart';
 import '../constants/colors.dart';
 import '../constants/helper.dart';
-import '../constants/images.dart';
-import '../features/screens/login/widgets/login_footer.dart';
-import '../features/screens/login/widgets/login_form.dart';
+
 import '../features/screens/signup/widgets/signup_header.dart';
 import '../webview.dart';
 import 'otp_screen.dart';
@@ -288,13 +286,15 @@ class _LogInScreenState extends State<LogInScreen> {
         LoginOtp model = LoginOtp.fromJson(data);
         if(model.status == 'true'){
           // Get.snackbar('Your otp is',model!.data!.otp.toString());
-
+           String otp = model.data!.otp.toString();
+           print('----------------kkk----------${otp}');
            // Helper.moveToScreenwithPush(context, OtpScreen(verificationId: '', number: '', forceResendingToken: null, afterSignUp: null,));
           Helper.moveToScreenwithPush(context, OtpScreen(
             forceResendingToken: forceResendingToken,
             number: numberController.text.trim(),
             verificationId: verificationId??'',
             afterSignUp: true,
+             otp:otp,
           ));
           // Get.toNamed('/otp',arguments: mobileController.value.text.toString());
         }

@@ -1,18 +1,146 @@
+import 'dart:convert';
+
+import 'package:dio/dio.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:share_plus/share_plus.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:http/http.dart' as http;
+import '../../api_model/logout_api_model.dart';
+import '../../api_model/profile_model_api.dart';
+import '../../constants/Api.dart';
 import '../../constants/colors.dart';
+import '../../constants/helper.dart';
 import 'edit_profile.dart';
 
-class CustomDrawer extends StatelessWidget {
+class CustomDrawer extends StatefulWidget {
   const CustomDrawer({
     Key? key,
   }) : super(key: key);
 
   @override
+  State<CustomDrawer> createState() => _CustomDrawerState();
+}
+
+class _CustomDrawerState extends State<CustomDrawer> {
+  var isLoading = false.obs;
+  String? full_name,user_mob,user_email,user_add;
+  final dio = Dio();
+  LogoutApiModel?_logoutApiModel;
+  ProfileApiModel? _getprofileApi;
+
+  @override
+  void initState() {
+    // TODO: implement initState
+
+    profileapi();
+    super.initState();
+  }
+
+
+
+  bool _isVisible = false;
+  bool _hasData = true;
+
+  setProgress(bool show) {
+    if (mounted)
+      setState(() {
+        _isVisible = show;
+      });
+  }
+
+
+  logoutApi() async {
+    print("========================logout============");
+    isLoading(true);
+    final prefs = await SharedPreferences.getInstance();
+    var user_id=   await prefs.getString('user_id');
+    if (user_id == "1") {
+      prefs.clear();
+    } else {
+      prefs.clear();
+    }
+    var res = await dio.get(Api.logout+"?user_id=${user_id}");
+    if(res.statusCode == 200){
+      // Get.toNamed('/bottom');
+      // Get.offAndToNamed('/signup');
+      Get.offAllNamed("/login");
+      isLoading(false);
+      var body = jsonDecode(res.toString());
+      _logoutApiModel = LogoutApiModel.fromJson(body);
+    }
+    else{
+      isLoading(true);
+      if (kDebugMode) {
+        print(res.statusCode.toString());
+      }
+    }
+  }
+
+
+  Future<void> profileapi() async {
+    print("<=============profileapi =============>");
+
+    final prefs = await SharedPreferences.getInstance();
+    var user_id = await prefs.getString('user_id');
+
+    setProgress(true);
+
+    try {
+      var res = await http.get(
+        Uri.parse(Api.getprofile + "?user_id=${user_id}"),
+      );
+      print("Response ============>" + res.body);
+
+      if (res.statusCode == 200) {
+        print("urvashi ============>");
+        try {
+          final jsonResponse = jsonDecode(res.body);
+          ProfileApiModel model = ProfileApiModel.fromJson(jsonResponse);
+
+          if (model.status == "true") {
+            print("Model status true");
+
+            setProgress(false);
+
+            setState(() {
+              _getprofileApi = model;
+              full_name = _getprofileApi!.data.name.toString();
+              user_mob = _getprofileApi!.data.mobile.toString();
+            });
+
+          } else {
+            setState(() {
+              _hasData = false;
+            });
+            setProgress(false);
+            print("false ### ============>");
+            ToastMessage.msg(model.message.toString());
+          }
+        } catch (e) {
+          _hasData = false;
+          print("false ============>");
+          ToastMessage.msg(StaticMessages.API_ERROR);
+          print('exception ==> ' + e.toString());
+        }
+      } else {
+        print("status code ==> " + res.statusCode.toString());
+        ToastMessage.msg(StaticMessages.API_ERROR);
+      }
+    } catch (e) {
+      _hasData = false;
+      ToastMessage.msg(StaticMessages.API_ERROR);
+      print('Exception ======> ' + e.toString());
+    }
+    setProgress(false);
+  }
+
+
+  @override
   Widget build(BuildContext context) {
+
     return ListView(
       padding: EdgeInsets.zero,
       children: [
@@ -70,19 +198,19 @@ class CustomDrawer extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         SizedBox(height:15),
-                        Text('John Luise',
+                        Text('${full_name!=null? full_name.toString():'Ajay Malviya'}',
                             style: TextStyle(
                                 color:Colors.white,
                                 fontFamily: 'Lato',
                                 fontWeight: FontWeight.w600)),
-                        SizedBox(height: 2,),
-                        Text('johan@gmail.com',
-                            style: TextStyle(
-                                color:Colors.white,
-                                fontFamily: 'Lato',
-                                fontWeight: FontWeight.w600)),
-                        SizedBox(height: 2,),
-                        Text('6265665522',
+                        // SizedBox(height: 2,),
+                        // Text(user_email==""?'':'${user_email}',
+                        //     style: TextStyle(
+                        //         color:Colors.white,
+                        //         fontFamily: 'Lato',
+                        //         fontWeight: FontWeight.w600)),
+                        SizedBox(height:3,),
+                        Text('${user_mob!=null ? user_mob : '9878xxxxxx'}',
                             style: TextStyle(
                                 color:Colors.white,
                                 fontFamily: 'Lato',
@@ -201,7 +329,10 @@ class CustomDrawer extends StatelessWidget {
                     image: 'assets/logo/sharing.png',
                     title: 'Share App',
                     subtitle: 'Dhoondle',
-                    pressevent: () {},
+                    pressevent: () {
+                      Share.share('https://play.google.com/store/apps/details?id=com.mojang.minecraftpe&hl=en&gl=US');
+
+                    },
                   ),
 
                   Padding(
@@ -218,7 +349,9 @@ class CustomDrawer extends StatelessWidget {
                     image: 'assets/logo/logout.png',
                     title: 'Log Out',
                     subtitle: 'About Dhoondle',
-                    pressevent: () {},
+                    pressevent: () {
+                      logoutApi();
+                    },
                   ),
                 ],
               ),
