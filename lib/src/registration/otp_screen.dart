@@ -367,6 +367,8 @@ class _OtpScreenState extends State<OtpScreen> {
 
   Future<void> otpVerificationFirebase() async {
     print("otpVerification===firebase");
+
+    print('${widget.afterSignUp}');
     setProgress(true);
     log("otpVerification firebase api calling");
     String otp = otpController.text.trim();
@@ -386,7 +388,7 @@ class _OtpScreenState extends State<OtpScreen> {
       // await FirebaseAuth.instance.signInWithCredential(credential);
       // if (userCredential.user != null) {
         //setProgress(false);
-        if (widget.afterSignUp == false) {
+        if (widget.afterSignUp == false||widget.afterSignUp==true) {
           // print("sms code 2==>${credential.smsCode.toString()}");
           // var userDeatils = FirebaseAuth.instance.currentUser;
           // userDeatils!.updatePhoneNumber(credential).toString();
