@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:dhoondle/src/features/screens/paymentType/payment_type.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -296,7 +297,9 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     image:'assets/logo/tasks.png',
                     title: 'Active Plan',
                     subtitle: 'Pro',
-                    pressevent: () {},
+                    pressevent: () {
+                      Get.off(PlanTypeScreen());
+                    },
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),

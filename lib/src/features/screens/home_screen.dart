@@ -148,7 +148,7 @@ class _HomeScreenState extends State<HomeScreen> {
                                               mainAxisAlignment: MainAxisAlignment.center,
                                               children: [
                                                 Image.asset(Images.whiteLogo,height:30,width:30,),
-                                                Text('Dhoondhle.com',style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold),)
+                                                Text('Dhoondle.com',style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold),)
                                               ],
                                             )),
                                       ),

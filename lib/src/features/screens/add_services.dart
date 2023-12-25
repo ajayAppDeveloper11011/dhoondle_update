@@ -814,7 +814,7 @@ class _AddServiceScreenState extends State<AddServiceScreen> {
     print('------------${user_id}');
     try {
       var res =
-          await http.get(Uri.parse(Api.getServiceList + "?user_id=${1}"));
+          await http.get(Uri.parse(Api.getServiceList + "?user_id=${user_id}"));
       // var res = await http.post(Uri.parse(Api.getMyServiceList), );
       print("Response ============>" + res.body);
 

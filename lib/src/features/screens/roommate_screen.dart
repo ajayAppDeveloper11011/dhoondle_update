@@ -232,7 +232,7 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
                                                   mainAxisAlignment: MainAxisAlignment.center,
                                                   children: [
                                                     Image.asset(Images.whiteLogo,height:30,width:30,),
-                                                    Text('Dhoondhle.com',style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold),)
+                                                    Text('Dhoondle.com',style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold),)
                                                   ],
                                                 )),
                                           ),
@@ -254,7 +254,7 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
                                         padding: const EdgeInsets.symmetric(
                                             horizontal: 20.0, vertical: 2.0),
                                         child: Text(
-                                          "${roommatesData?[index].name}",
+                                          "${roommatesData?[index].name==null ? 'Test User':roommatesData?[index].name}",
                                           style: GoogleFonts.lato(
                                               color: AppColors.textcolor,
                                               fontWeight: FontWeight.w400,
@@ -512,6 +512,7 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
      final finalResult = GetRoommatesModel.fromJson(json.decode(Result));
      setState(() {
        roommatesData = finalResult.data;
+       print('-------------kkkkmmm-----------${roommatesData?.first.name}');
      });
      setProgress(false);
     }

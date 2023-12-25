@@ -60,7 +60,7 @@ class _AddPropertynewState extends State<AddPropertynew> {
     'OFFICE',
     'GODOWNS',
     'AGRICULTURE',
-    'LAND'
+    'Plot'
   ];
   var selectedType = '';
   int? selectedTypeIndex;
@@ -2132,8 +2132,7 @@ class _AddPropertynewState extends State<AddPropertynew> {
     if (response.statusCode == 200) {
       var Result = await response.stream.bytesToString();
       final finalResult = json.decode(Result);
-      String msg = finalResult['message'];
-      print('-------------${msg}');
+      ToastMessage.msg('Add Successfully');
       setProgress(false);
       Get.toNamed('/allproperty');
     } else {

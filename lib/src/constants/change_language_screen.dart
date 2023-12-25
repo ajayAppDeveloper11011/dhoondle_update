@@ -19,7 +19,7 @@ class ChangeLanguageScreen extends StatefulWidget {
 class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
 
   int? selectLan;
-  bool isSelect =false;
+  int? isSelect=1;
 
   @override
   void initState() {
@@ -140,7 +140,7 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                     setState(() {
                       selectLan = 1; // Hindi index
                       _changeLan(langCode[1], context);
-                      isSelect = !isSelect;
+                      isSelect =0;
                     });
                   },
                   child: Container(
@@ -148,7 +148,7 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                     width:MediaQuery.of(context).size.width/1.1,
                     child: Card(
                       elevation:2,
-                      color: isSelect == true?AppColors.primaryColor:Colors.white,
+                      color: isSelect ==0?AppColors.primaryColor:Colors.white,
 
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                       child:Column(
@@ -169,7 +169,8 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                     setState(() {
                       selectLan = 0; // English index
                       _changeLan(langCode[0], context);
-                      isSelect = !isSelect;
+                      isSelect =1;
+
                     });
                   },
                   child: Container(
@@ -177,7 +178,7 @@ class _ChangeLanguageScreenState extends State<ChangeLanguageScreen> {
                     width:MediaQuery.of(context).size.width/1.1,
                     child: Card(
                       elevation:2,
-                      color: isSelect==false?AppColors.primaryColor:Colors.white,
+                      color: isSelect==1?AppColors.primaryColor:Colors.white,
 
                       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                       child:Column(
