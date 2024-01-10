@@ -28,9 +28,9 @@ class CustomDrawer extends StatefulWidget {
 
 class _CustomDrawerState extends State<CustomDrawer> {
   var isLoading = false.obs;
-  String? full_name,user_mob,user_email,user_add;
+  String? full_name, user_mob, user_email, user_add;
   final dio = Dio();
-  LogoutApiModel?_logoutApiModel;
+  LogoutApiModel? _logoutApiModel;
   ProfileApiModel? _getprofileApi;
 
   @override
@@ -40,8 +40,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
     profileapi();
     super.initState();
   }
-
-
 
   bool _isVisible = false;
   bool _hasData = true;
@@ -53,34 +51,31 @@ class _CustomDrawerState extends State<CustomDrawer> {
       });
   }
 
-
   logoutApi() async {
     print("========================logout============");
     isLoading(true);
     final prefs = await SharedPreferences.getInstance();
-    var user_id=   await prefs.getString('user_id');
+    var user_id = await prefs.getString('user_id');
     if (user_id == "1") {
       prefs.clear();
     } else {
       prefs.clear();
     }
-    var res = await dio.get(Api.logout+"?user_id=${user_id}");
-    if(res.statusCode == 200){
+    var res = await dio.get(Api.logout + "?user_id=${user_id}");
+    if (res.statusCode == 200) {
       // Get.toNamed('/bottom');
       // Get.offAndToNamed('/signup');
       Get.offAllNamed("/login");
       isLoading(false);
       var body = jsonDecode(res.toString());
       _logoutApiModel = LogoutApiModel.fromJson(body);
-    }
-    else{
+    } else {
       isLoading(true);
       if (kDebugMode) {
         print(res.statusCode.toString());
       }
     }
   }
-
 
   Future<void> profileapi() async {
     print("<=============profileapi =============>");
@@ -112,7 +107,6 @@ class _CustomDrawerState extends State<CustomDrawer> {
               full_name = _getprofileApi!.data.name.toString();
               user_mob = _getprofileApi!.data.mobile.toString();
             });
-
           } else {
             setState(() {
               _hasData = false;
@@ -139,120 +133,124 @@ class _CustomDrawerState extends State<CustomDrawer> {
     setProgress(false);
   }
 
-
   @override
   Widget build(BuildContext context) {
-
     return ListView(
       padding: EdgeInsets.zero,
       children: [
         Column(
           children: [
-            _getprofileApi == null? Text('Please Wait....'):SizedBox(
-              height:120,
-              child: DrawerHeader(
-                decoration: BoxDecoration(
-                  color: AppColors.primaryColor,
-                ),
-                child: Row(
-                  children: [
-                    Stack(
-                      children: [
-                        Container(
-                          margin: const EdgeInsetsDirectional.only(end: 20),
-                          height:100,
-                          width:90,
-                          decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              border: Border.all(
-                                  width: 1.0, color:Colors.white)),
-                          child: Card(
-                            elevation: 5,
-                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(50)),
-                            child: ClipRRect(
-                                borderRadius: BorderRadius.circular(50.0),
-                                child:CachedNetworkImage(
-                                  imageUrl:
-                                  _getprofileApi!.data.image,
-                                  fit: BoxFit.fill,
-                                  height: 100,
-                                  width: 100,
-                                  placeholder: (context, url) =>
-                                      LinearProgressIndicator(
-                                        color: Colors.white.withOpacity(0.2),
-                                        backgroundColor: Colors.white.withOpacity(.5),
-                                      ),
-                                  errorWidget: (context, url, error) => Container(
-                                    height: 100,
-                                    width: 100,
-                                    decoration: const BoxDecoration(
-                                      borderRadius: BorderRadius.all(
-                                        Radius.circular(20),
-                                      ),
-                                      color:Colors.transparent,
-                                    ),
-                                    child: Center(
-                                        child: Image.asset(
-                                         'assets/images/profile_new.png',
+            _getprofileApi == null
+                ? Text('Please Wait....')
+                : SizedBox(
+                    height: 120,
+                    child: DrawerHeader(
+                      decoration: BoxDecoration(
+                        color: AppColors.primaryColor,
+                      ),
+                      child: Row(
+                        children: [
+                          Stack(
+                            children: [
+                              Container(
+                                margin:
+                                    const EdgeInsetsDirectional.only(end: 20),
+                                height: 100,
+                                width: 90,
+                                decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                    border: Border.all(
+                                        width: 1.0, color: Colors.white)),
+                                child: Card(
+                                  elevation: 5,
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(50)),
+                                  child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(50.0),
+                                      child: CachedNetworkImage(
+                                        imageUrl: _getprofileApi!.data.image,
+                                        fit: BoxFit.fill,
+                                        height: 100,
+                                        width: 100,
+                                        placeholder: (context, url) =>
+                                            LinearProgressIndicator(
+                                          color: Colors.white.withOpacity(0.2),
+                                          backgroundColor:
+                                              Colors.white.withOpacity(.5),
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            Container(
                                           height: 100,
                                           width: 100,
-                                        )),
-                                  ),
-                                )
-
-
-
-                            ),
+                                          decoration: const BoxDecoration(
+                                            borderRadius: BorderRadius.all(
+                                              Radius.circular(20),
+                                            ),
+                                            color: Colors.transparent,
+                                          ),
+                                          child: Center(
+                                              child: Image.asset(
+                                            'assets/images/profile_new.png',
+                                            height: 100,
+                                            width: 100,
+                                          )),
+                                        ),
+                                      )),
+                                ),
+                              ),
+                              Positioned(
+                                top: 55,
+                                left: 63,
+                                child: Container(
+                                  height: 30,
+                                  width: 30,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(40)),
+                                  child: InkWell(
+                                      onTap: () {
+                                        Get.offAll(EditProfileScreen());
+                                      },
+                                      child: const Icon(
+                                        Icons.edit_outlined,
+                                        color: AppColors.primaryColor,
+                                      )),
+                                ),
+                              )
+                            ],
                           ),
-                        ),
-                        Positioned(
-                          top:55,
-                          left: 63,
-                          child: Container(
-                            height:30,
-                            width: 30,
-                            decoration: BoxDecoration(
-                                color:Colors.white,
-                                borderRadius: BorderRadius.circular(40)),
-                            child: InkWell(
-                                onTap: () {
-                                  Get.offAll(EditProfileScreen());
-                                },
-                                child: const Icon(Icons.edit_outlined,color:AppColors.primaryColor,)),
+                          SizedBox(width: 10),
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: 15),
+                              Text(
+                                  '${full_name != null ? full_name.toString() : 'Ajay Malviya'}',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Lato',
+                                      fontWeight: FontWeight.w600)),
+                              // SizedBox(height: 2,),
+                              // Text(user_email==""?'':'${user_email}',
+                              //     style: TextStyle(
+                              //         color:Colors.white,
+                              //         fontFamily: 'Lato',
+                              //         fontWeight: FontWeight.w600)),
+                              SizedBox(
+                                height: 3,
+                              ),
+                              Text(
+                                  '${user_mob != null ? user_mob : '9878xxxxxx'}',
+                                  style: TextStyle(
+                                      color: Colors.white,
+                                      fontFamily: 'Lato',
+                                      fontWeight: FontWeight.w600)),
+                            ],
                           ),
-                        )
-                      ],
+                        ],
+                      ),
                     ),
-
-                    SizedBox(width: 10),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(height:15),
-                        Text('${full_name!=null? full_name.toString():'Ajay Malviya'}',
-                            style: TextStyle(
-                                color:Colors.white,
-                                fontFamily: 'Lato',
-                                fontWeight: FontWeight.w600)),
-                        // SizedBox(height: 2,),
-                        // Text(user_email==""?'':'${user_email}',
-                        //     style: TextStyle(
-                        //         color:Colors.white,
-                        //         fontFamily: 'Lato',
-                        //         fontWeight: FontWeight.w600)),
-                        SizedBox(height:3,),
-                        Text('${user_mob!=null ? user_mob : '9878xxxxxx'}',
-                            style: TextStyle(
-                                color:Colors.white,
-                                fontFamily: 'Lato',
-                                fontWeight: FontWeight.w600)),
-                      ],
-                    ),
-
-                  ],
-                ),
-              ),
-            ),
+                  ),
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.9,
               child: ListView(
@@ -294,20 +292,20 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   //   pressevent: () {},
                   // ),
                   drawerList(
-                    image:'assets/logo/tasks.png',
+                    image: 'assets/logo/tasks.png',
                     title: 'Active Plan',
                     subtitle: 'Pro',
                     pressevent: () {
-                      Get.off(PlanTypeScreen());
+                      Get.toNamed('/planscreen');
                     },
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                        height:10,
+                        height: 10,
                         child: Divider(
-                          thickness:1,
-                          color:Colors.grey.withOpacity(0.5),
+                          thickness: 1,
+                          color: Colors.grey.withOpacity(0.5),
                         )),
                   ),
                   drawerList(
@@ -315,16 +313,16 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     title: 'Change Language',
                     subtitle: 'English',
                     pressevent: () {
-                    Get.offAllNamed('/changeLanguage');
+                      Get.toNamed('/changeLanguage');
                     },
                   ),
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                        height:10,
+                        height: 10,
                         child: Divider(
-                          thickness:1,
-                          color:Colors.grey.withOpacity(0.5),
+                          thickness: 1,
+                          color: Colors.grey.withOpacity(0.5),
                         )),
                   ),
                   drawerList(
@@ -336,10 +334,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                        height:10,
+                        height: 10,
                         child: Divider(
-                          thickness:1,
-                          color:Colors.grey.withOpacity(0.5),
+                          thickness: 1,
+                          color: Colors.grey.withOpacity(0.5),
                         )),
                   ),
                   drawerList(
@@ -351,10 +349,10 @@ class _CustomDrawerState extends State<CustomDrawer> {
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                        height:10,
+                        height: 10,
                         child: Divider(
-                          thickness:1,
-                          color:Colors.grey.withOpacity(0.5),
+                          thickness: 1,
+                          color: Colors.grey.withOpacity(0.5),
                         )),
                   ),
 
@@ -363,18 +361,18 @@ class _CustomDrawerState extends State<CustomDrawer> {
                     title: 'Share App',
                     subtitle: 'Dhoondle',
                     pressevent: () {
-                      Share.share('https://play.google.com/store/apps/details?id=com.mojang.minecraftpe&hl=en&gl=US');
-
+                      Share.share(
+                          'https://play.google.com/store/apps/details?id=com.mojang.minecraftpe&hl=en&gl=US');
                     },
                   ),
 
                   Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: Container(
-                        height:10,
+                        height: 10,
                         child: Divider(
-                          thickness:1,
-                          color:Colors.grey.withOpacity(0.5),
+                          thickness: 1,
+                          color: Colors.grey.withOpacity(0.5),
                         )),
                   ),
 
@@ -422,10 +420,10 @@ class drawerList extends StatelessWidget {
           minLeadingWidth: 0,
           leading: Container(
             height: double.infinity,
-            child:Image.asset(
+            child: Image.asset(
               image,
-              width:30,
-              color:AppColors.primaryColor,
+              width: 30,
+              color: AppColors.primaryColor,
             ),
           ),
           title: Text(title,

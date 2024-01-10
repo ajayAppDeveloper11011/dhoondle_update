@@ -24,14 +24,14 @@ class TabbarScreen extends StatefulWidget {
 
 class _TabbarScreenState extends State<TabbarScreen>
     with SingleTickerProviderStateMixin {
-  String? full_name,user_mob,user_email,user_add;
+  String? full_name, user_mob, user_email, user_add;
   int initPosition = 0;
   GetPropertyCategoryModel? _getPropertyCategoryModel;
   late TabController _tabController;
   ApiController controller = Get.put(ApiController());
   int selectedContainerIndex = -1;
   var scaffoldKey = GlobalKey<ScaffoldState>();
-var services = [
+  var services = [
     'Plumber',
     'Electrican',
     'Carpenter',
@@ -40,20 +40,19 @@ var services = [
     'Pandit'
   ];
 
-
   void initState() {
     super.initState();
     _tabController = TabController(length: 4, vsync: this);
     controller.getpropertyapi();
-    getUserData ();
+    getUserData();
     Helper.checkInternet(categoryapi());
   }
 
-  getUserData () async {
+  getUserData() async {
     SharedPreferences preferences = await SharedPreferences.getInstance();
     full_name = preferences.getString('user_name');
-    user_mob  = preferences.getString('user_mobile');
-    user_email= preferences.getString('user_email');
+    user_mob = preferences.getString('user_mobile');
+    user_email = preferences.getString('user_email');
     user_add = preferences.getString('user_address');
 
     print('-----0---------${full_name}');
@@ -64,9 +63,9 @@ var services = [
     return SafeArea(
         child: Scaffold(
       key: scaffoldKey,
-          drawer: const Drawer(
-              child: CustomDrawer(),
-          ),
+      drawer: const Drawer(
+        child: CustomDrawer(),
+      ),
       // floatingActionButton: FloatingActionButton(
       //   backgroundColor: AppColors.primaryColor,
       //   onPressed: (() {}),
@@ -76,8 +75,8 @@ var services = [
       //     color: Colors.white,
       //   ),
       // ),
-          body: SizedBox(
-               height: Get.height,
+      body: SizedBox(
+        height: Get.height,
         child: Stack(
           children: [
             Container(
@@ -109,7 +108,7 @@ var services = [
                                         175, 179, 240, 224)),
                                 child: Image.asset(
                                   Images.whiteLogo,
-                                  height:40,
+                                  height: 40,
                                   width: 40,
                                 ),
                               ),
@@ -141,7 +140,8 @@ var services = [
                                   color: const Color.fromRGBO(168, 242, 243, 1),
                                   borderRadius: BorderRadius.circular(12.0)),
                               child: Column(
-                                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
                                 children: [
                                   Image.asset(
                                     'assets/logo/house.png',
@@ -151,7 +151,8 @@ var services = [
                                   //   height: 12.0,
                                   // ),
                                   SizedBox(
-                                    child: Text(getTranslated(context, 'Room_for_Rent'),
+                                    child: Text(
+                                        getTranslated(context, 'Room_for_Rent'),
                                         textAlign: TextAlign.center,
                                         style: GoogleFonts.lato(
                                             fontSize: 14,
@@ -168,7 +169,7 @@ var services = [
                           Expanded(
                               child: GestureDetector(
                             onTap: () {
-                              Get.toNamed('/allproperty');
+                              Get.toNamed('/addpropertynew');
                             },
                             child: Container(
                               height: Get.height * .16,
@@ -186,7 +187,9 @@ var services = [
                                     height: 12.0,
                                   ),
                                   SizedBox(
-                                    child: Text(getTranslated(context, 'Selling_Property'),
+                                    child: Text(
+                                        getTranslated(
+                                            context, 'Selling_Property'),
                                         textAlign: TextAlign.center,
                                         style: GoogleFonts.lato(
                                             fontSize: 14,
@@ -219,7 +222,8 @@ var services = [
                                     height: 12.0,
                                   ),
                                   SizedBox(
-                                    child: Text(getTranslated(context, 'Find_Roommate'),
+                                    child: Text(
+                                        getTranslated(context, 'Find_Roommate'),
                                         textAlign: TextAlign.center,
                                         style: GoogleFonts.lato(
                                             fontSize: 14,
@@ -264,7 +268,7 @@ var services = [
                                   fontWeight: FontWeight.w600)),
                         ),
                       ),
-                     Container(
+                      Container(
                         padding: const EdgeInsets.symmetric(vertical: 8.0),
                         child: Row(
                           children: [
@@ -313,7 +317,8 @@ var services = [
                                 5,
                                 'Pandit',
                                 'assets/logo/pandit.png',
-                                () => Get.toNamed('/panditji')),
+                                () => Get.toNamed('/plumber',
+                                    arguments: services[5])),
                           ],
                         ),
                       ),
@@ -336,7 +341,6 @@ var services = [
           } else {
             selectContainer(-1);
           }
-          
         },
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8.0),
@@ -893,7 +897,6 @@ class CustomTabsState extends State<CustomTabView>
           padding: const EdgeInsets.symmetric(horizontal: 0.0, vertical: 10),
           margin: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10),
           width: MediaQuery.of(context).size.width,
-
           alignment:
               widget.itemCount <= 5 ? Alignment.center : Alignment.topLeft,
           child: TabBar(

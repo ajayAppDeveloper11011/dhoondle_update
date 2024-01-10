@@ -13,6 +13,7 @@ import 'package:dhoondle/src/features/screens/bottomNavigation.dart';
 import 'package:dhoondle/src/features/screens/find_roommate.dart';
 import 'package:dhoondle/src/features/screens/home_screen.dart';
 import 'package:dhoondle/src/features/screens/panditji.dart';
+import 'package:dhoondle/src/features/screens/paymentType/payment_type.dart';
 import 'package:dhoondle/src/features/screens/plumber_screen.dart';
 import 'package:dhoondle/src/features/screens/profile_screen.dart';
 import 'package:dhoondle/src/features/screens/property_details_screen.dart';
@@ -140,7 +141,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/servicescreen', page: () => ServiceScreen()),
         GetPage(name: '/property', page: () => PropertyScreen()),
         GetPage(name: '/allproperty', page: () => AllProperty()),
-        GetPage(name: '/propertydetail', page: () => PropertyDetailsScreen(property_id: '', getPropertyData: null,)),
+        GetPage(name: '/propertydetail', page: () => PropertyDetailsScreen(property_id: '')),
         GetPage(name: '/addproperty', page: () => AddPropertyScreen()),
         GetPage(name: '/addpropertynew', page: () => AddPropertynew()),
         GetPage(name: '/setting3', page: () => Setting3()),
@@ -154,6 +155,7 @@ class _MyAppState extends State<MyApp> {
         GetPage(name: '/panditji', page: () =>  PanditJiScreen()),
         GetPage(name: '/updateproperty', page: () =>  UpDateProperty()),
         GetPage(name: '/updateroommatesdetail', page: () =>  UpDateRoommatesDetails()),
+        GetPage(name: '/planscreen', page: () =>  PlanTypeScreen()),
       ],
       theme: ThemeData(
         primarySwatch: Colors.blue,

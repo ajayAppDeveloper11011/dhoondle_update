@@ -338,114 +338,96 @@ class ServiceDetailDesign extends StatelessWidget {
                 //       );
                 //     })
                 ? ListView.builder(
-                   itemCount: servicedetailController.serviceDetailModel!.data?.length,
-                  // itemCount: 6,
-                   itemBuilder:
-                (BuildContext context, int index) {
-                return InkWell(
-                onTap: () => {
-
-                },
-                child: Column(
-                  mainAxisAlignment:
-                  MainAxisAlignment.start,
-                  crossAxisAlignment:
-                  CrossAxisAlignment.start,
-                  children: [
-                    Stack(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets
-                              .symmetric(
-                              horizontal: 20.0,
-                              vertical:5),
-                          child: ClipRRect(
-                            borderRadius:
-                            BorderRadius.circular(
-                                20),
-                            // child: CachedNetworkImage(
-                            //   // imageUrl: getPropertyList!
-                            //   //     .propertyList[index]!.image
-                            //   //     .toString(),
-                            //   imageUrl:
-                            //       'https://dhoondle.com/Dhoondle/${getPropertyModel![index].propertyImage.toString()}',
-                            //   fit: BoxFit.fill,
-                            //   height:
-                            //       Get.height * 0.25,
-                            //   width: Get.width,
-                            //   placeholder: (context,
-                            //           url) =>
-                            //       LinearProgressIndicator(
-                            //     color: Colors.white
-                            //         .withOpacity(0.2),
-                            //     backgroundColor:
-                            //         Colors.white
-                            //             .withOpacity(
-                            //                 .5),
-                            //   ),
-                            //   errorWidget: (context,
-                            //           url, error) =>
-                            //       Container(
-                            //     height:
-                            //         Get.height * 0.25,
-                            //     width: Get.width,
-                            //     // padding: EdgeInsets.symmetric(horizontal: 20),
-                            //     // margin: EdgeInsets.symmetric(horizontal: 20),
-                            //     decoration: BoxDecoration(
-                            //         image: DecorationImage(
-                            //             image: AssetImage(
-                            //                 Images
-                            //                     .coming_soon),
-                            //             fit: BoxFit
-                            //                 .cover)),
-                            //   ),
-                            // ),
-                            child:CachedNetworkImage(
-                              imageUrl:
-                              servicedetailController
-                                  .serviceDetailModel!
-                                  .data![index]
-                                  .userDetails!
-                                  .image
-                                  .toString(),
-                              fit: BoxFit.fill,
-                              width: MediaQuery.of(context)
-                                  .size
-                                  .width,
-                              height: MediaQuery.of(context)
-                                  .size
-                                  .height *
-                                  0.22,
-                              placeholder: (context, url) =>
-                                  LinearProgressIndicator(
-                                    color: Colors.white
-                                        .withOpacity(0.2),
-                                    backgroundColor: Colors
-                                        .white
-                                        .withOpacity(.5),
-                                  ),
-                              errorWidget:
-                                  (context, url, error) =>
-                                  Container(
-                                    width: MediaQuery.of(context)
-                                        .size
-                                        .width,
-                                    height: MediaQuery.of(context)
-                                        .size
-                                        .height *
-                                        0.22,
-                                    // decoration:  BoxDecoration(
-                                    //   borderRadius: BorderRadius.all(
-                                    //     Radius.circular(10),
+                    itemCount: servicedetailController
+                        .serviceDetailModel!.data?.length,
+                    // itemCount: 6,
+                    itemBuilder: (BuildContext context, int index) {
+                      return InkWell(
+                        onTap: () => {},
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.only(left: 20,right: 20,top: 20,bottom: 5)
+                              ,child:
+                              Stack(
+                                children: [
+                                  ClipRRect(
+                                    borderRadius: BorderRadius.circular(20),
+                                    // child: CachedNetworkImage(
+                                    //   // imageUrl: getPropertyList!
+                                    //   //     .propertyList[index]!.image
+                                    //   //     .toString(),
+                                    //   imageUrl:
+                                    //       'https://dhoondle.com/Dhoondle/${getPropertyModel![index].propertyImage.toString()}',
+                                    //   fit: BoxFit.fill,
+                                    //   height:
+                                    //       Get.height * 0.25,
+                                    //   width: Get.width,
+                                    //   placeholder: (context,
+                                    //           url) =>
+                                    //       LinearProgressIndicator(
+                                    //     color: Colors.white
+                                    //         .withOpacity(0.2),
+                                    //     backgroundColor:
+                                    //         Colors.white
+                                    //             .withOpacity(
+                                    //                 .5),
                                     //   ),
-                                    //   border: Border.all(color: Colors.grey)
-                                    //   // color: Color(0xFFD9D9D9),
+                                    //   errorWidget: (context,
+                                    //           url, error) =>
+                                    //       Container(
+                                    //     height:
+                                    //         Get.height * 0.25,
+                                    //     width: Get.width,
+                                    //     // padding: EdgeInsets.symmetric(horizontal: 20),
+                                    //     // margin: EdgeInsets.symmetric(horizontal: 20),
+                                    //     decoration: BoxDecoration(
+                                    //         image: DecorationImage(
+                                    //             image: AssetImage(
+                                    //                 Images
+                                    //                     .coming_soon),
+                                    //             fit: BoxFit
+                                    //                 .cover)),
+                                    //   ),
                                     // ),
-                                    child: Center(
-                                        child: ClipRRect(
+                                    child: CachedNetworkImage(
+                                      imageUrl: servicedetailController
+                                          .serviceDetailModel!
+                                          .data![index]
+                                          .userDetails!
+                                          .image
+                                          .toString(),
+                                      fit: BoxFit.fill,
+                                      width: MediaQuery.of(context).size.width,
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              0.22,
+                                      placeholder: (context, url) =>
+                                          LinearProgressIndicator(
+                                        color: Colors.white.withOpacity(0.2),
+                                        backgroundColor:
+                                            Colors.white.withOpacity(.5),
+                                      ),
+                                      errorWidget: (context, url, error) =>
+                                          Container(
+                                        width:
+                                            MediaQuery.of(context).size.width,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.22,
+                                        // decoration:  BoxDecoration(
+                                        //   borderRadius: BorderRadius.all(
+                                        //     Radius.circular(10),
+                                        //   ),
+                                        //   border: Border.all(color: Colors.grey)
+                                        //   // color: Color(0xFFD9D9D9),
+                                        // ),
+                                        child: Center(
+                                            child: ClipRRect(
                                           borderRadius:
-                                          BorderRadius.circular(
-                                              20),
+                                              BorderRadius.circular(20),
                                           child: Image.asset(
                                             'assets/images/home_pic.jpg',
                                             width: MediaQuery.of(context)
@@ -454,359 +436,321 @@ class ServiceDetailDesign extends StatelessWidget {
                                             fit: BoxFit.fill,
                                           ),
                                         )),
+                                      ),
+                                    ),
+                                    // child: Container(
+                                    //   height: Get.height * 0.25,
+                                    //   width: Get.width,
+                                    //   // padding: EdgeInsets.symmetric(horizontal: 20),
+                                    //   // margin: EdgeInsets.symmetric(horizontal: 20),
+                                    //   decoration: BoxDecoration(
+                                    //       image: DecorationImage(
+                                    //           image: AssetImage(
+                                    //               'assets/images/room_img.png'),
+                                    //           fit: BoxFit.cover)),
+                                    // ),
                                   ),
-                            ),
-                            // child: Container(
-                            //   height: Get.height * 0.25,
-                            //   width: Get.width,
-                            //   // padding: EdgeInsets.symmetric(horizontal: 20),
-                            //   // margin: EdgeInsets.symmetric(horizontal: 20),
-                            //   decoration: BoxDecoration(
-                            //       image: DecorationImage(
-                            //           image: AssetImage(
-                            //               'assets/images/room_img.png'),
-                            //           fit: BoxFit.cover)),
-                            // ),
-                          ),
-                        ),
-                        Positioned(
-                            top: 10,
-                            right: 20,
-                            child: Container(
 
-                                padding:
-                                EdgeInsets.all(
-                                    25),
-                                decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                        image: AssetImage(
-                                            Images
-                                                .Frame))),
-                                child: Text(
-                                    'Rs. ${servicedetailController.serviceDetailModel!.data![index].amount.toString()}'))),
-                        Positioned(
-                          top:149,
-                          left:26,
-                          child: Row(
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context)
-                                    .size
-                                    .width *
-                                    0.4,
-                                height:40,
-                                decoration: BoxDecoration(
-                                    color:Colors.white,
-                                  borderRadius:
-                                    BorderRadius.circular(10)
-                                ),
-                                child: Center(
-                                  child: Text(
-                                      servicedetailController
-                                          .serviceDetailModel!
-                                          .data![index]
-                                          .userDetails!
-                                          .name
-                                          .toString(),
-                                      overflow:
-                                      TextOverflow.ellipsis,
-                                      style: GoogleFonts.lato(
-                                        textStyle: TextStyle(
-                                            color:
-                                            Color(0xff4C4C4C),
-                                            fontSize: 18,
-                                            fontWeight:
-                                            FontWeight.w500),
-                                      )),
-                                ),
-                              ),
-                              SizedBox(width: 25,),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.4,
-                                height:40,
-                                decoration: BoxDecoration(
-                                    color:Colors.white,
-                                    borderRadius:
-                                    BorderRadius.circular(10)
-                                ),
-                                child: Center(
-                                  child: Text(
-                                      servicedetailController
-                                          .serviceDetailModel!
-                                          .data![index].address
-                                          .toString(),
-                                      overflow:
-                                      TextOverflow.ellipsis,
-                                      style: GoogleFonts.lato(
-                                        textStyle: TextStyle(
-                                            color:
-                                            Color(0xff4C4C4C),
-                                            fontSize: 18,
-                                            fontWeight:
-                                            FontWeight.w500),
-                                      )),
-                                ),
-                              ),
-                            ],
-                          ),
-                        )
-                        // child: Text("Rent: 9,999"))),
-                      ],
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.only(left:30,right: 10,),
-                      child: Row(
-                        children: [
-                          Text("Experience: - ",
-                              style: GoogleFonts.lato(
-                                  fontSize: 16,
-                                  fontWeight:
-                                  FontWeight.w700,
-                                  color:
-                                  Color(0xff4C4C4C))),
-                          SizedBox(width: 10,),
-                          Container(
-                            width: MediaQuery.of(context)
-                                .size
-                                .width *
-                                0.2,
+                                  Positioned(
+                                    top: Get.height * .18,
 
-                            child: Text(
-                                " ${servicedetailController.serviceDetailModel!.data![index].yearsOfExperience.toString()} years",
-                                overflow:
-                                TextOverflow.ellipsis,
-                                style: GoogleFonts.lato(
-                                    fontSize: 13,
-                                    fontWeight:
-                                    FontWeight.w400,
-                                    color: Colors.black)),
-                          ),
-                          SizedBox(width: 10,),
-                          Container(
-                            decoration: BoxDecoration(
-                                color:Colors.white,
-                                borderRadius:
-                                BorderRadius.circular(10)
-                            ),
-                            child: Center(
-                              child: Row(
-                                children: [
-                                  Text(
-                                      'Service : -',
-                                      overflow:
-                                      TextOverflow.ellipsis,
-                                      style: GoogleFonts.lato(
-                                        textStyle: TextStyle(
-                                            color:
-                                            Color(0xff4C4C4C),
-                                            fontSize:16,
-                                            fontWeight:
-                                            FontWeight.w700),
-                                      )),
-                                  SizedBox(width: 10,),
-                                  Text(
-                                      servicedetailController
-                                          .serviceDetailModel!
-                                          .data![index].service
-                                          .toString(),
-                                      overflow:
-                                      TextOverflow.ellipsis,
-                                      style: GoogleFonts.lato(
-                                        textStyle: TextStyle(
-                                            color:
-                                            Color(0xff4C4C4C),
-                                            fontSize: 13,
-                                            fontWeight:
-                                            FontWeight.w500),
-                                      )),
+                                    child: Container(
+                                      width: Get.width*0.898,
+                                      height: 34,
+                                      decoration: BoxDecoration(
+                                        border: Border.all(),
+                                          color: Colors.white,
+                                          borderRadius:
+                                          BorderRadius.only(bottomRight:Radius.circular(20),bottomLeft: Radius.circular(20))),
+                                      child: Padding(
+                                        padding: const EdgeInsets.only(left: 13,right: 13),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width: Get.width/2.8,
+                                              child: Text(
+                                                  servicedetailController
+                                                      .serviceDetailModel!
+                                                      .data![index]
+                                                      .userDetails!
+                                                      .name
+                                                      .toString(),
+                                                  overflow: TextOverflow.ellipsis,
+                                                  style: GoogleFonts.lato(
+                                                    textStyle: TextStyle(
+                                                        color: Color(0xff4C4C4C),
+                                                        fontSize: 18,
+                                                        fontWeight:
+                                                        FontWeight.w500),
+                                                  )),
+                                            ),
+
+
+                                            Row(
+                                              children: [
+
+                                                Icon(Icons.location_on_outlined,color: AppColors.primaryColor,),
+                                                SizedBox(width: 4,),
+                                                Container(
+                                                  width: Get.width/2.6,
+                                                  child: Text(
+
+                                                      servicedetailController
+                                                          .serviceDetailModel!
+                                                          .data![index]
+                                                          .address
+                                                          .toString(),
+                                                     // textAlign:TextAlign.end,
+                                                      overflow: TextOverflow.ellipsis,
+                                                      style: GoogleFonts.lato(
+                                                        textStyle: TextStyle(
+                                                            color: Color(0xff4C4C4C),
+                                                            fontSize: 18,
+                                                            fontWeight:
+                                                            FontWeight.w500),
+                                                      )),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  )
                                 ],
                               ),
                             ),
-                          ),
-
-                        ],
-                      ),
-                    ),
-                    SizedBox(height: 5,),
-                    Padding(
-                      padding: const EdgeInsets.only(left:30.0,right:30),
-                      child: Row(
-                        children: [
-
-                          Text(
-                              'Description : -',
-                              overflow: TextOverflow.clip,
-                              maxLines: 3,
-                              style: GoogleFonts.lato(
-                                  fontSize: 13,
-                                  fontWeight:
-                                  FontWeight.w700,
-                                  color:
-                                  Color(0xff4C4C4C))),
-                          SizedBox(width:20,),
-                          Container(
-                            width: Get.width/1.75,
-                            child: Text(
-                                servicedetailController
-                                    .serviceDetailModel!
-                                    .data![index]
-                                    .description
-                                    .toString(),
-                                overflow: TextOverflow.ellipsis,
-                                maxLines:3,
-                                style: GoogleFonts.lato(
-                                    fontSize: 13,
-                                    fontWeight:
-                                    FontWeight.w500,
-                                    color:
-                                    Color(0xff4C4C4C))),
-                          ),
-                        ],
-                      ),
-                    ),
-
-                    Padding(
-                      padding:
-                      const EdgeInsets.symmetric(
-                          horizontal: 20.0,
-                          vertical: 10),
-                      child: Row(
-                        // mainAxisAlignment:
-                        //     MainAxisAlignment.end,
-                        children: [
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () =>
-                                  _launchPhoneCall(
-                                      'Mobile'),
-                              child: Container(
-                                height: 40,
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                    BorderRadius
-                                        .circular(
-                                        8.0),
-                                    border: Border.all(
-                                        color: AppColors
-                                            .primaryColor,
-                                        width: 1.0)),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment
-                                      .center,
-                                  children: [
-                                    Image.asset(
-                                      Images
-                                          .Telephone,
-                                      height: 20,
-                                    ),
-                                    SizedBox(
-                                      width: 12.0,
-                                    ),
-                                    Text('Call',
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                              child: Row(
+                                children: [
+                                  Text("Experience: - ",
+                                      style: GoogleFonts.lato(
+                                          fontSize: 16,
+                                          fontWeight: FontWeight.w700,
+                                          color: Color(0xff4C4C4C))),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.2,
+                                    child: Text(
+                                        " ${servicedetailController.serviceDetailModel!.data![index].yearsOfExperience.toString()} years",
+                                        overflow: TextOverflow.ellipsis,
                                         style: GoogleFonts.lato(
-                                            color: AppColors
-                                                .primaryColor,
-                                            fontWeight:
-                                            FontWeight
-                                                .w400,
-                                            fontSize:
-                                            16))
-                                  ],
-                                ),
+                                            fontSize: 13,
+                                            fontWeight: FontWeight.w400,
+                                            color: Colors.black)),
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
-                          SizedBox(
-                            width: Get.width * .05,
-                          ),
-                          Expanded(
-                            child: GestureDetector(
-                              onTap: () =>
-                                  launchWhatsApp(
-                                      'Mobile'),
-                              child: Container(
-                                height: 40,
-                                decoration: BoxDecoration(
-                                    borderRadius:
-                                    BorderRadius
-                                        .circular(
-                                        8.0),
-                                    border: Border.all(
-                                        color: AppColors
-                                            .primaryColor,
-                                        width: 1.0)),
-                                child: Row(
-                                  mainAxisAlignment:
-                                  MainAxisAlignment
-                                      .center,
-                                  children: [
-                                    Image.asset(
-                                      Images.Whatsapp,
-                                      height: 20,
+                            // SizedBox(
+                            //   height: 5,
+                            // ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 30),
+                              child: Row(
+                                children: [
+                                  Container(
+                                    decoration: BoxDecoration(
+                                        color: Colors.white,
+                                        borderRadius:
+                                            BorderRadius.circular(10)),
+                                    child: Center(
+                                      child: Row(
+                                        children: [
+                                          Text('Service : -',
+                                              overflow: TextOverflow.ellipsis,
+                                              style: GoogleFonts.lato(
+                                                textStyle: TextStyle(
+                                                    color: Color(0xff4C4C4C),
+                                                    fontSize: 16,
+                                                    fontWeight:
+                                                        FontWeight.w700),
+                                              )),
+                                          SizedBox(
+                                            width: 10,
+                                          ),
+                                          Text(
+                                              servicedetailController
+                                                  .serviceDetailModel!
+                                                  .data![index]
+                                                  .service
+                                                  .toString(),
+                                              overflow: TextOverflow.ellipsis,
+                                              style: GoogleFonts.lato(
+                                                textStyle: TextStyle(
+                                                    color: Color(0xff4C4C4C),
+                                                    fontSize: 13,
+                                                    fontWeight:
+                                                        FontWeight.w500),
+                                              )),
+                                        ],
+                                      ),
                                     ),
-                                    SizedBox(
-                                      width: 12.0,
-                                    ),
-                                    Text('WhatsApp',
-                                        style: GoogleFonts.lato(
-                                            color: AppColors
-                                                .primaryColor,
-                                            fontWeight:
-                                            FontWeight
-                                                .w400,
-                                            fontSize:
-                                            16))
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
-                          ),
-                          // InkWell(
-                          //     onTap: () {
-                          //       _launchPhoneCall(
-                          //           getPropertyList!
-                          //               .propertyList[index]!
-                          //               .mobile
-                          //               .toString());
-                          //     },
-                          //     child: Image.asset(
-                          //       Images.Telephone,
-                          //       height: size.height * 0.04,
-                          //     )),
-                          // SizedBox(
-                          //   width: size.width * 0.08,
-                          // ),
-                          // InkWell(
-                          //     onTap: () => {
-                          //           launchWhatsApp(
-                          //               getPropertyList!
-                          //                   .propertyList[
-                          //                       index]!
-                          //                   .mobile
-                          //                   .toString())
-                          //         },
-                          //     child: Image.asset(
-                          //       Images.Whatsapp,
-                          //       height: size.height * 0.04,
-                          //     ))
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding:
-                      const EdgeInsets.symmetric(
-                          horizontal: 20.0),
-                      child: Divider(
-                        thickness: 6,
-                        color: AppColors
-                            .home_divider_color,
-                      ),
-                    )
-                  ],
-                ),
-              );
-            })
+                            Padding(
+                              padding:
+                                  const EdgeInsets.only(left: 30.0, right: 30),
+                              child: Row(
+                                children: [
+                                  Text('Description : -',
+                                      overflow: TextOverflow.ellipsis,
+                                      style: GoogleFonts.lato(
+                                        textStyle: TextStyle(
+                                            color: Color(0xff4C4C4C),
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w700),
+                                      )),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Expanded(
+                                    child: Text(
+                                        servicedetailController
+                                            .serviceDetailModel!
+                                            .data![index]
+                                            .description
+                                            .toString(),
+                                        maxLines: 3,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: GoogleFonts.lato(
+                                          textStyle: TextStyle(
+                                              color: Color(0xff4C4C4C),
+                                              fontSize: 13,
+                                              fontWeight: FontWeight.w500),
+                                        )),
+                                  ),
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0, vertical: 10),
+                              child: Row(
+                                // mainAxisAlignment:
+                                //     MainAxisAlignment.end,
+                                children: [
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: () => _launchPhoneCall('Mobile'),
+                                      child: Container(
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            border: Border.all(
+                                                color: AppColors.primaryColor,
+                                                width: 1.0)),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                              Images.Telephone,
+                                              height: 20,
+                                            ),
+                                            SizedBox(
+                                              width: 12.0,
+                                            ),
+                                            Text('Call',
+                                                style: GoogleFonts.lato(
+                                                    color:
+                                                        AppColors.primaryColor,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 16))
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  SizedBox(
+                                    width: Get.width * .05,
+                                  ),
+                                  Expanded(
+                                    child: GestureDetector(
+                                      onTap: () => launchWhatsApp('Mobile'),
+                                      child: Container(
+                                        height: 40,
+                                        decoration: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(8.0),
+                                            border: Border.all(
+                                                color: AppColors.primaryColor,
+                                                width: 1.0)),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          children: [
+                                            Image.asset(
+                                              Images.Whatsapp,
+                                              height: 20,
+                                            ),
+                                            SizedBox(
+                                              width: 12.0,
+                                            ),
+                                            Text('WhatsApp',
+                                                style: GoogleFonts.lato(
+                                                    color:
+                                                        AppColors.primaryColor,
+                                                    fontWeight: FontWeight.w400,
+                                                    fontSize: 16))
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  // InkWell(
+                                  //     onTap: () {
+                                  //       _launchPhoneCall(
+                                  //           getPropertyList!
+                                  //               .propertyList[index]!
+                                  //               .mobile
+                                  //               .toString());
+                                  //     },
+                                  //     child: Image.asset(
+                                  //       Images.Telephone,
+                                  //       height: size.height * 0.04,
+                                  //     )),
+                                  // SizedBox(
+                                  //   width: size.width * 0.08,
+                                  // ),
+                                  // InkWell(
+                                  //     onTap: () => {
+                                  //           launchWhatsApp(
+                                  //               getPropertyList!
+                                  //                   .propertyList[
+                                  //                       index]!
+                                  //                   .mobile
+                                  //                   .toString())
+                                  //         },
+                                  //     child: Image.asset(
+                                  //       Images.Whatsapp,
+                                  //       height: size.height * 0.04,
+                                  //     ))
+                                ],
+                              ),
+                            ),
+                            Padding(
+                              padding:
+                                  const EdgeInsets.symmetric(horizontal: 20.0),
+                              child: Divider(
+                                thickness: 6,
+                                color: AppColors.home_divider_color,
+                              ),
+                            )
+                          ],
+                        ),
+                      );
+                    })
                 : Center(
                     child: Text('No Data Found'),
                   )));

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:dhoondle/src/constants/helper/session.dart';
+import 'package:dhoondle/src/features/screens/add_property.dart';
 import 'package:dhoondle/src/features/screens/profile_screen.dart';
 import 'package:dhoondle/src/features/screens/service_screen.dart';
 import 'package:dhoondle/src/features/screens/tabbar_screen.dart';
@@ -34,12 +35,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
     super.initState();
 
     _pageController = PageController();
-
-
   }
-
-
-
 
   @override
   void dispose() {
@@ -328,6 +324,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
             TabbarScreen(),
             // ServiceScreen(),
             TabbarScreen(),
+            AddPropertynew(),
             TabbarScreen(),
             ProfileScreen(),
           ],
@@ -589,7 +586,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
                     children: [
                       bottomSheetHandle(context),
                       const SizedBox(
-                        height: 40,
+                        height: 20,
                       ),
                       // const Text(
                       //   'Services',
@@ -598,9 +595,9 @@ class _BottomNaigationState extends State<BottomNaigation> {
                       //     fontWeight: FontWeight.w500,
                       //   ),
                       // ),
-                      const SizedBox(height: 10),
+
                       SizedBox(
-                        height: Get.height * .35,
+                        height: Get.height * .38,
                         child: Center(
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
@@ -628,7 +625,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                                         40.0)),
                                             child: Image.asset(
                                               'assets/logo/support.png',
-                                              scale: 2,
+                                              scale: 1.5,
                                               color: Colors.orange,
                                             ),
                                           ),
@@ -665,11 +662,11 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                 ),
                               )),
                               const SizedBox(
-                                height: 30,
+                                height: 20,
                               ),
                               Expanded(
                                   child: GestureDetector(
-                                onTap: () => Get.toNamed('/servicescreen'),
+                                onTap: () => Get.toNamed('/roomforrent'),
                                 child: Padding(
                                   padding: const EdgeInsets.only(
                                       left: 15.0, right: 15),
@@ -726,7 +723,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                 ),
                               )),
                               const SizedBox(
-                                height: 30.0,
+                                height: 20.0,
                               ),
                               Expanded(
                                   child: GestureDetector(
@@ -787,7 +784,7 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                 ),
                               )),
                               const SizedBox(
-                                height: 30.0,
+                                height: 20.0,
                               ),
                               Expanded(
                                   child: GestureDetector(
@@ -819,7 +816,9 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                             width: 80,
                                           ),
                                           SizedBox(
-                                            child: Text(getTranslated(context, 'Find_Roommate'),
+                                            child: Text(
+                                                getTranslated(
+                                                    context, 'Find_Roommate'),
                                                 textAlign: TextAlign.center,
                                                 style: GoogleFonts.lato(
                                                     fontSize: 15,
@@ -845,10 +844,13 @@ class _BottomNaigationState extends State<BottomNaigation> {
                                   ),
                                 ),
                               )),
+                              const SizedBox(
+                                height: 30,
+                              ),
                             ],
                           ),
                         ),
-                      )
+                      ),
                     ],
                   ),
                 ),

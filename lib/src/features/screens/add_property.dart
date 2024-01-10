@@ -2133,7 +2133,6 @@ class _AddPropertynewState extends State<AddPropertynew> {
       var Result = await response.stream.bytesToString();
       final finalResult = json.decode(Result);
       ToastMessage.msg('Add Successfully');
-      setProgress(false);
       Get.toNamed('/allproperty');
     } else {
       setProgress(true);

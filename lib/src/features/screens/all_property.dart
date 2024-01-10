@@ -75,7 +75,8 @@ class _AllPropertyState extends State<AllProperty> {
     return Scaffold(
       appBar: AppBar(
           title: searchBar == true
-              ? Container(
+              ?
+          Container(
                   alignment: Alignment.center,
                   padding: EdgeInsets.symmetric(horizontal: 8.0),
                   height: 40,
@@ -97,21 +98,21 @@ class _AllPropertyState extends State<AllProperty> {
               : Text(getTranslated(context, 'Property')),
           backgroundColor: AppColors.primaryColor,
           actions: [
-            IconButton(
-                onPressed: () {
-                  setState(() {
-                    if (searchBar == true) {
-                      searchBar = false;
-                    } else {
-                      searchBar = true;
-                    }
-                    print('-------tell me ----${searchBar}');
-                  });
-                },
-                icon: Icon(
-                  searchBar == true ? Icons.clear : Icons.search,
-                  color: Colors.white,
-                ))
+            // IconButton(
+            //     onPressed: () {
+            //       setState(() {
+            //         if (searchBar == true) {
+            //           searchBar = false;
+            //         } else {
+            //           searchBar = true;
+            //         }
+            //         print('-------tell me ----${searchBar}');
+            //       });
+            //     },
+            //     icon: Icon(
+            //       searchBar == true ? Icons.clear : Icons.search,
+            //       color: Colors.white,
+            //     ))
           ]),
       // floatingActionButton: MultiFab(),
       floatingActionButton: FloatingActionButton.extended(
@@ -141,7 +142,7 @@ class _AllPropertyState extends State<AllProperty> {
                         isSelectedResidential = !isSelectedResidential;
                         residential = 'Residential';
                         print('---p-----${residential}');
-                        PropertyFilter();
+                        // PropertyFilter();
                       });
                     },
                     child: Container(
@@ -171,7 +172,7 @@ class _AllPropertyState extends State<AllProperty> {
                         isSelectedResidential = !isSelectedResidential;
                         commercial = 'Commercial';
                         print('----s------${commercial}');
-                        PropertyFilter();
+                        // PropertyFilter();
                       });
                     },
                     child: Container(
@@ -288,9 +289,9 @@ class _AllPropertyState extends State<AllProperty> {
                         )
                       :getPropertyModel == null
                         ? Container(
-                      height: 400,
-                        child: Center(
-                            child: Text("No property found")),
+                          height: 400,
+                            child: Center(
+                              child: Text("No property found")),
                     )
                         : Container(
                             height: Get.height/1.45,
@@ -300,12 +301,12 @@ class _AllPropertyState extends State<AllProperty> {
                               physics:ScrollPhysics(),
                           // itemCount: 6,
                           itemBuilder:
-                       (BuildContext context, int index) {
+                                  (BuildContext context, int index) {
                             return InkWell(
                        onTap: () => {
                            Get.to(() => PropertyDetailsScreen(
                                property_id: '12345',
-                                getPropertyData: [ getPropertyModel![index]],
+                                getPropertyData:getPropertyModel?[index],
                            ))
                        },
                        child: Padding(
@@ -384,10 +385,9 @@ class _AllPropertyState extends State<AllProperty> {
                                            decoration: BoxDecoration(
                                                image: DecorationImage(
                                                    image: AssetImage(
-                                                       Images
-                                                           .Frame))),
+                                                       Images.Frame))),
                                            child: Text(
-                                               'Rs. ${getPropertyModel![index].price.toString()}'))),
+                                               '${getPropertyModel![index].price.toString()}'))),
                                    // child: Text("Rent: 9,999"))),
                                  ],
                                ),
@@ -397,7 +397,7 @@ class _AllPropertyState extends State<AllProperty> {
                                      horizontal: 20.0,
                                      vertical: 2.0),
                                  child: Text(
-                                   "${getPropertyModel![index].name.toString()} available for rent",
+                                   "${getPropertyModel![index].propertyType==""?'1BHK':getPropertyModel![index].propertyType.toString()} available for sell",
                                    maxLines: 1,
                                    overflow:
                                    TextOverflow.ellipsis,
@@ -649,6 +649,7 @@ class _AllPropertyState extends State<AllProperty> {
     '3BHK',
     'VILLA',
     'INDEPENDENT HOUSE'
+    'New colony'
   ];
 
   List categoryList2 = [
@@ -657,6 +658,8 @@ class _AllPropertyState extends State<AllProperty> {
     'GODOWN',
     'OFFICE',
     'AGRICULTURE LAND',
+    'Plot',
+
   ];
 
   _launchPhoneCall(String phoneNumber) async {

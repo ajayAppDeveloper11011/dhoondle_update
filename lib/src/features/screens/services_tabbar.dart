@@ -1,5 +1,3 @@
-
-import 'package:dhoondle/src/constants/helper/session.dart';
 import 'package:dhoondle/src/features/screens/property_screen.dart';
 import 'package:dhoondle/src/features/screens/service_property_screen.dart';
 import 'package:flutter/material.dart';
@@ -8,7 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 import '../../constants/colors.dart';
 import '../../constants/images.dart';
 import '../../constants/text.dart';
-
+import 'bottomNavigation.dart';
+import 'home_screen.dart';
 
 class ServicesTabbar extends StatefulWidget {
   const ServicesTabbar({Key? key}) : super(key: key);
@@ -21,10 +20,6 @@ class _ServicesTabbarState extends State<ServicesTabbar>
     with SingleTickerProviderStateMixin {
   late TabController _tabController;
 
-
-
-
-
   void initState() {
     // TODO: implement initState
     super.initState();
@@ -33,253 +28,183 @@ class _ServicesTabbarState extends State<ServicesTabbar>
 
   @override
   Widget build(BuildContext context) {
-    final size = MediaQuery.of(context).size;
+    final size=MediaQuery.of(context).size;
     return SafeArea(
       child: Scaffold(
-          appBar: AppBar(
+          appBar:AppBar(
             backgroundColor: AppColors.primaryColor,
             toolbarHeight: 80,
             leading: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 5.0),
-              child: Image.asset(
-                Images.logo,
-                height: 200,
-              ),
+              child: Image.asset(Images.logo,height: 200,),
             ),
             centerTitle: true,
             elevation: 0,
-            title: Text(TextScreen.service_provider,
-                style: GoogleFonts.lato(
-                  textStyle: TextStyle(
-                      color: Colors.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w500),
-                )),
+            title: Text(TextScreen.service_provider, style: GoogleFonts.roboto(
+              textStyle: TextStyle(
+                  color:
+                  Colors.white,
+                  fontSize: 20,
+                  fontWeight:
+                  FontWeight.w500),
+            )),
             // actions: [
             //   Padding(
             //     padding: const EdgeInsets.all(25),
             //     child: Image.asset(Images.search,),
             //   ),
             // ],
-          ),
+          ) ,
           body: SafeArea(
             child: Container(
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height,
-              child: DefaultTabController(
-                  length: 2,
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: EdgeInsets.only(top: 10),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                            children: [
-                              Container(
-                                width: MediaQuery.of(context).size.width,
-                                child: TabBar(
-                                  automaticIndicatorColorAdjustment: true,
-                                  isScrollable: false,
-                                  labelStyle: GoogleFonts.openSans(
-                                      textStyle: TextStyle(
-                                    fontSize: 15,
-                                    fontWeight: FontWeight.w500,
-                                    color: Colors.white,
-                                  )),
-                                  unselectedLabelColor: AppColors.greycolor,
-                                  labelColor: Colors.grey,
-                                  controller: _tabController,
-                                  indicatorSize: TabBarIndicatorSize.tab,
-                                  indicatorWeight: 2,
-                                  indicatorColor: AppColors.textcolor,
-                                  tabs: [
-                                    Tab(
-                                      child: InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            _tabController.index = 0;
-                                          });
-                                        },
-                                        child: Center(
-                                            child: _tabController.index == 0
-                                                ? Container(
-                                                    // padding: EdgeInsets.symmetric(horizontal: 0,vertical: 0),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
-                                                    ),
-                                                    child: MaterialButton(
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                                horizontal: 0,
-                                                                vertical: 0),
-                                                        // textColor: Colors.white,
-                                                        child: Text(
-                                                            getTranslated(context, TextScreen.Property),
-                                                            style: GoogleFonts
-                                                                .lato(
-                                                              textStyle: TextStyle(
-                                                                  color: AppColors
-                                                                      .textcolor,
-                                                                  fontSize: 16,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500),
-                                                            )),
-                                                        onPressed: () {}),
-                                                  )
-                                                : Text(getTranslated(context, TextScreen.Property),
-                                                    style: GoogleFonts.lato(
-                                                      textStyle: TextStyle(
-                                                          color: AppColors
-                                                              .greycolor,
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w500),
-                                                    ))),
-                                      ),
-                                    ),
-                                    Tab(
-                                      child: InkWell(
-                                        onTap: () {
-                                          setState(() {
-                                            _tabController.index = 1;
-                                          });
-                                        },
-                                        child: Center(
-                                            child: _tabController.index == 01
-                                                ? Container(
-                                                    // padding: EdgeInsets.symmetric(horizontal: 0,vertical: 0),
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius.circular(
-                                                              20),
-                                                    ),
-                                                    child: MaterialButton(
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                                horizontal: 0,
-                                                                vertical: 0),
-                                                        // textColor: Colors.white,
-                                                        child: Text(
-                                                            getTranslated(context, TextScreen.Services),
-                                                            style: GoogleFonts
-                                                                .lato(
-                                                              textStyle: TextStyle(
-                                                                  color: AppColors
-                                                                      .textcolor,
-                                                                  fontSize: 16,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500),
-                                                            )),
-                                                        onPressed: () {}),
-                                                  )
-                                                : Text(getTranslated(context, TextScreen.Services),
-                                                    style: GoogleFonts.lato(
-                                                      textStyle: TextStyle(
-                                                          color: AppColors
-                                                              .greycolor,
-                                                          fontSize: 16,
-                                                          fontWeight:
-                                                              FontWeight.w500),
-                                                    ))),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                              // Image.asset(ProjectImage.search,height: 40,),
-                              // SizedBox(width: 10,),
-                              // Image.asset(ProjectImage.home,height: 40,)                      ],
-                            ]),
-                      ),
-                      Expanded(
-                        child:Column(
-                          // controller: _tabController,
-                          // physics: NeverScrollableScrollPhysics(),
-                          children: [
-                            // PropertyScreen(),
-                            // ServiceScreenTabbar(),
-
-                            // Padding(
-                            //   padding: const EdgeInsets.only(left: 10.0, right: 10),
-                            //   child: Container(
-                            //     height: 50,
-                            //     width: MediaQuery.of(context).size.width,
-                            //     child: ListView.builder(
-                            //       padding: EdgeInsets.zero,
-                            //       scrollDirection: Axis.horizontal,
-                            //       shrinkWrap: true,
-                            //       itemCount:_tabController.index == 0?categoryList.length:categoryList2.length,
-                            //       itemBuilder: (context, index) {
-                            //         return Padding(
-                            //           padding: const EdgeInsets.only(left: 5, right: 5),
-                            //           child: InkWell(
-                            //             onTap: () {
-                            //
-                            //
-                            //             },
-                            //             child: Column(
-                            //               crossAxisAlignment: CrossAxisAlignment.center,
-                            //               children: [
-                            //                 Container(
-                            //                   height: 35,
-                            //                   width: 100,
-                            //                   decoration: BoxDecoration(
-                            //                       color: AppColors.primaryColor,
-                            //                       borderRadius: BorderRadius.circular(20),
-                            //                       border: Border.all(color: AppColors.primaryColor)
-                            //                   ),
-                            //                   child: Center(
-                            //                     child: Text(_tabController.index == 0?categoryList[index]:categoryList2[index],
-                            //                       style: TextStyle(
-                            //                         color:Colors.black,
-                            //                         fontWeight: FontWeight.w500,
-                            //                         fontSize: 15,
-                            //                       ),
-                            //                     ),
-                            //                   ),
-                            //                 ),
-                            //               ],
-                            //             ),
-                            //           ),
-                            //         );
-                            //       },
-                            //     ),
-                            //   ),
-                            // ),
-
-                          ],
-                        ),
-                      ),
-                    ],
-                  )),
+              child:
+              ServiceScreenTabbar(),
+              // DefaultTabController(
+              //     length: 2,
+              //     child: Column(
+              //       children: <Widget>[
+              //         Padding(
+              //           padding: EdgeInsets.only(top: 10),
+              //           child: Row(
+              //               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              //               children: [
+              //                 Container(
+              //                   width: MediaQuery.of(context).size.width,
+              //                   child: TabBar(
+              //                     automaticIndicatorColorAdjustment: true,
+              //                     isScrollable: false,
+              //                     labelStyle: GoogleFonts.openSans(
+              //                         textStyle: TextStyle(
+              //                           fontSize: 15,
+              //                           fontWeight: FontWeight.w500,
+              //                           color: Colors.white,
+              //                         )),
+              //                     unselectedLabelColor: AppColors.greycolor,
+              //                     labelColor: Colors.grey,
+              //                     controller: _tabController,
+              //                     indicatorSize: TabBarIndicatorSize.tab,
+              //                     indicatorWeight: 2,
+              //                     indicatorColor: AppColors.textcolor,
+              //                     tabs: [
+              //                       Tab(
+              //                         child: InkWell(
+              //                           onTap: () {
+              //                             setState(() {
+              //                               _tabController.index = 0;
+              //                             });
+              //                           },
+              //                           child: Center(
+              //                               child: _tabController.index == 0
+              //                                   ? Container(
+              //                                 // padding: EdgeInsets.symmetric(horizontal: 0,vertical: 0),
+              //                                 decoration: BoxDecoration(
+              //                                   borderRadius:
+              //                                   BorderRadius.circular(
+              //                                       20),
+              //                                 ),
+              //                                 child: MaterialButton(
+              //                                     padding:
+              //                                     EdgeInsets.symmetric(
+              //                                         horizontal: 0,
+              //                                         vertical: 0),
+              //                                     // textColor: Colors.white,
+              //                                     child: Text(TextScreen.Property,
+              //                                         style: GoogleFonts
+              //                                             .roboto(
+              //                                           textStyle: TextStyle(
+              //                                               color: AppColors
+              //                                                   .textcolor,
+              //                                               fontSize: 16,
+              //                                               fontWeight:
+              //                                               FontWeight
+              //                                                   .w500),
+              //                                         )),
+              //                                     onPressed: () {}),
+              //                               )
+              //                                   : Text(TextScreen.Property,
+              //                                   style: GoogleFonts.roboto(
+              //                                     textStyle: TextStyle(
+              //                                         color:
+              //                                         AppColors.greycolor,
+              //                                         fontSize: 16,
+              //                                         fontWeight:
+              //                                         FontWeight.w500),
+              //                                   ))),
+              //                         ),
+              //                       ),
+              //                       Tab(
+              //                         child: InkWell(
+              //                           onTap: () {
+              //                             setState(() {
+              //                               _tabController.index = 1;
+              //                             });
+              //                           },
+              //                           child: Center(
+              //                               child: _tabController.index == 01
+              //                                   ? Container(
+              //                                 // padding: EdgeInsets.symmetric(horizontal: 0,vertical: 0),
+              //                                 decoration: BoxDecoration(
+              //                                   borderRadius:
+              //                                   BorderRadius.circular(
+              //                                       20),
+              //                                 ),
+              //                                 child: MaterialButton(
+              //                                     padding:
+              //                                     EdgeInsets.symmetric(
+              //                                         horizontal: 0,
+              //                                         vertical: 0),
+              //                                     // textColor: Colors.white,
+              //                                     child: Text(TextScreen.Services,
+              //                                         style: GoogleFonts
+              //                                             .roboto(
+              //                                           textStyle: TextStyle(
+              //                                               color:AppColors.textcolor,
+              //                                               fontSize: 16,
+              //                                               fontWeight:
+              //                                               FontWeight
+              //                                                   .w500),
+              //                                         )),
+              //                                     onPressed: () {}),
+              //                               )
+              //                                   : Text(TextScreen.Services,
+              //                                   style: GoogleFonts.roboto(
+              //                                     textStyle: TextStyle(
+              //                                         color:
+              //                                         AppColors.greycolor,
+              //                                         fontSize: 16,
+              //                                         fontWeight:
+              //                                         FontWeight.w500),
+              //                                   ))),
+              //                         ),
+              //                       ),
+              //                     ],
+              //                   ),
+              //                 ),
+              //                 // Image.asset(ProjectImage.search,height: 40,),
+              //                 // SizedBox(width: 10,),
+              //                 // Image.asset(ProjectImage.home,height: 40,)                      ],
+              //               ]),
+              //         ),
+              //         Expanded(
+              //           child: TabBarView(
+              //             controller: _tabController,
+              //             // physics: NeverScrollableScrollPhysics(),
+              //             children: [
+              //
+              //               PropertyScreen(),
+              //               ServiceScreenTabbar(),
+              //
+              //
+              //
+              //             ],
+              //           ),
+              //         ),
+              //       ],
+              //     )),
             ),
           )),
     );
   }
-
-
-  List categoryList = [
-    'RK',
-    '1BHK',
-    '2BHK',
-    '3BHK',
-    'VILLA',
-    'INDEPENDENT HOUSE'
-  ];
-
-  List categoryList2 = [
-    'SHOP',
-    'SHOWROOM',
-    'GODOWN',
-    'OFFICE',
-    'AGRICULTURE LAND',
-
-  ];
-
-
-
 }

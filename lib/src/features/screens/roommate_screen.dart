@@ -143,10 +143,11 @@ class _RoomMateScreenState extends State<RoomMateScreen> {
                               return InkWell(
                                 onTap: () => {
                                   Get.to(PropertyDetailsScreen(
-                                      // property_id: getPropertyList!
+                                      property_id: getPropertyList.toString(),
                                       //     .propertyList[index]!.propertyId
                                       //     .toString(),
-                                      property_id: '12345', getPropertyData: null,))
+                                      // property_id: '12345'
+                                  ))
                                   // Get.to(PropertyDetailsScreen())
                                   // Get.toNamed('/propertydetail')
                                 },

@@ -187,7 +187,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                             Get.to(PropertyDetailsScreen(
                                               property_id: results[index]
                                                       ['property_id']
-                                                  .toString(), getPropertyData: null,
+                                                  .toString(),
                                             ))
 
                                             // Get.to(PropertyDetailsScreen())
@@ -387,7 +387,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                         Get.to(PropertyDetailsScreen(
                                           property_id: getPropertyList!
                                               .propertyList[index].propertyId
-                                              .toString(), getPropertyData: null,
+                                              .toString(),
                                         ))
                                         // Get.to(PropertyDetailsScreen())
                                         // Get.toNamed('/propertydetail')

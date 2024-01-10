@@ -46,230 +46,230 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Scaffold(
-        // appBar:AppBar(
-        //   backgroundColor: AppColors.primaryColor,
-        //   leading: Padding(
-        //     padding: const EdgeInsets.all(10.0),
-        //     child: Image.asset(Images.logo),
-        //   ),
-        //   centerTitle: true,
-        //   elevation: 0,
-        //   title: Text(TextScreen.Home),
-        //   actions: [
-        //     Padding(
-        //       padding: const EdgeInsets.all(15.0),
-        //       child: Image.asset(Images.search,height:size.height*0.1 ,),
-        //     ),
-        //   ],
-        // ) ,
+      // appBar:AppBar(
+      //   backgroundColor: AppColors.primaryColor,
+      //   leading: Padding(
+      //     padding: const EdgeInsets.all(10.0),
+      //     child: Image.asset(Images.logo),
+      //   ),
+      //   centerTitle: true,
+      //   elevation: 0,
+      //   title: Text(TextScreen.Home),
+      //   actions: [
+      //     Padding(
+      //       padding: const EdgeInsets.all(15.0),
+      //       child: Image.asset(Images.search,height:size.height*0.1 ,),
+      //     ),
+      //   ],
+      // ) ,
         body: Stack(
-      children: [
-        getPropertyList == null
-            ? Container(
+          children: [
+            getPropertyList == null
+                ? Container(
+              height: 400,
+              child: Center(child: Text("No property found")),
+            )
+                : Container(
+              height: size.height,
+              width: size.width,
+              child: getPropertyList!.propertyList.isEmpty
+                  ? Container(
                 height: 400,
                 child: Center(child: Text("No property found")),
               )
-            : Container(
-                height: size.height,
-                width: size.width,
-                child: getPropertyList!.propertyList.isEmpty
-                    ? Container(
-                        height: 400,
-                        child: Center(child: Text("No property found")),
-                      )
-                    : ListView.builder(
-                        itemCount: getPropertyList!.propertyList.length,
-                        itemBuilder: (BuildContext context, int index) {
-                          return InkWell(
-                            onTap: () => {
-                              Get.to(PropertyDetailsScreen(
-                                property_id: getPropertyList!
-                                    .propertyList[index]!.propertyId
-                                    .toString(), getPropertyData:null,
+                  : ListView.builder(
+                  itemCount: getPropertyList!.propertyList.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    return InkWell(
+                      onTap: () => {
+                        Get.to(PropertyDetailsScreen(
+                          property_id: getPropertyList!
+                              .propertyList[index]!.propertyId
+                              .toString(),
 
-                              ))
-                              // Get.to(PropertyDetailsScreen())
-                              // Get.toNamed('/propertydetail')
-                            },
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 0.0, vertical: 0),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  Stack(
-                                    children: [
-                                      Padding(
-                                        padding: const EdgeInsets.symmetric(
-                                            horizontal: 20.0, vertical: 10),
-                                        child: ClipRRect(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          child: CachedNetworkImage(
-                                            imageUrl: getPropertyList!
-                                                .propertyList[index]!.image
-                                                .toString(),
-                                            fit: BoxFit.fill,
+                        ))
+                        // Get.to(PropertyDetailsScreen())
+                        // Get.toNamed('/propertydetail')
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 0.0, vertical: 0),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Stack(
+                              children: [
+                                Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: 20.0, vertical: 10),
+                                  child: ClipRRect(
+                                    borderRadius:
+                                    BorderRadius.circular(20),
+                                    child: CachedNetworkImage(
+                                      imageUrl: getPropertyList!
+                                          .propertyList[index]!.image
+                                          .toString(),
+                                      fit: BoxFit.fill,
+                                      height: size.height * 0.25,
+                                      width: size.width,
+                                      placeholder: (context, url) =>
+                                          LinearProgressIndicator(
+                                            color:
+                                            Colors.white.withOpacity(0.2),
+                                            backgroundColor:
+                                            Colors.white.withOpacity(.5),
+                                          ),
+                                      errorWidget:
+                                          (context, url, error) =>
+                                          Container(
                                             height: size.height * 0.25,
                                             width: size.width,
-                                            placeholder: (context, url) =>
-                                                LinearProgressIndicator(
-                                              color:
-                                                  Colors.white.withOpacity(0.2),
-                                              backgroundColor:
-                                                  Colors.white.withOpacity(.5),
-                                            ),
-                                            errorWidget:
-                                                (context, url, error) =>
-                                                    Container(
-                                              height: size.height * 0.25,
-                                              width: size.width,
-                                              // padding: EdgeInsets.symmetric(horizontal: 20),
-                                              // margin: EdgeInsets.symmetric(horizontal: 20),
-                                              decoration: BoxDecoration(
-                                                  image: DecorationImage(
-                                                      image: AssetImage(
-                                                          Images.coming_soon),
-                                                      fit: BoxFit.cover)),
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Positioned(
-                                        top:110,
-                                        right:110,
-                                        child:Container(
-                                            width: 160,
+                                            // padding: EdgeInsets.symmetric(horizontal: 20),
+                                            // margin: EdgeInsets.symmetric(horizontal: 20),
                                             decoration: BoxDecoration(
-                                                color: AppColors.txtgreyclr.withOpacity(0.1),
-                                                borderRadius: BorderRadius.circular(15)),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                Image.asset(Images.whiteLogo,height:30,width:30,),
-                                                Text('Dhoondle.com',style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold),)
-                                              ],
-                                            )),
-                                      ),
-                                      Positioned(
-                                          top: 40,
-                                          right: 20,
-                                          child: Container(
-                                              padding: EdgeInsets.all(20),
-                                              decoration: BoxDecoration(
-                                                  image: DecorationImage(
-                                                      image: AssetImage(
-                                                          Images.Frame))),
-                                              child: Text(
-                                                  "Rent:${getPropertyList!.propertyList[index]!.price.toString()}"))),
-                                    ],
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20.0),
-                                    child: Text(
-                                      "${getPropertyList!.propertyList![index].category.toString()} available for rent",
-                                      style: GoogleFonts.lato(
-                                          color: AppColors.textcolor,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 16),
+                                                image: DecorationImage(
+                                                    image: AssetImage(
+                                                        Images.coming_soon),
+                                                    fit: BoxFit.cover)),
+                                          ),
                                     ),
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20.0),
-                                    child: Text(
-                                      getPropertyList!
-                                          .propertyList[index]!.address
-                                          .toString(),
-                                      style: GoogleFonts.lato(
-                                          color: AppColors.greycolor,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14),
-                                    ),
+                                ),
+                                Positioned(
+                                  top:110,
+                                  right:110,
+                                  child:Container(
+                                      width: 160,
+                                      decoration: BoxDecoration(
+                                          color: AppColors.txtgreyclr.withOpacity(0.1),
+                                          borderRadius: BorderRadius.circular(15)),
+                                      child: Row(
+                                        mainAxisAlignment: MainAxisAlignment.center,
+                                        children: [
+                                          Image.asset(Images.whiteLogo,height:30,width:30,),
+                                          Text('Dhoondle.com',style: TextStyle(color:Colors.white,fontWeight: FontWeight.bold),)
+                                        ],
+                                      )),
+                                ),
+                                Positioned(
+                                    top: 40,
+                                    right: 20,
+                                    child: Container(
+                                        padding: EdgeInsets.all(20),
+                                        decoration: BoxDecoration(
+                                            image: DecorationImage(
+                                                image: AssetImage(
+                                                    Images.Frame))),
+                                        child: Text(
+                                            "Rent:${getPropertyList!.propertyList[index]!.price.toString()}"))),
+                              ],
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0),
+                              child: Text(
+                                "${getPropertyList!.propertyList![index].category.toString()} available for rent",
+                                style: GoogleFonts.lato(
+                                    color: AppColors.textcolor,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0),
+                              child: Text(
+                                getPropertyList!
+                                    .propertyList[index]!.address
+                                    .toString(),
+                                style: GoogleFonts.lato(
+                                    color: AppColors.greycolor,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0),
+                              child: Text(
+                                getPropertyList!.propertyList[index]!.city
+                                    .toString(),
+                                style: GoogleFonts.lato(
+                                    color: AppColors.greycolor,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0),
+                              child: Text(
+                                getPropertyList!
+                                    .propertyList[index]!.description
+                                    .toString(),
+                                style: GoogleFonts.lato(
+                                    color: AppColors.greycolor,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 14),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0, vertical: 10),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.end,
+                                children: [
+                                  InkWell(
+                                      onTap: () {
+                                        _launchPhoneCall(getPropertyList!
+                                            .propertyList[index]!.mobile
+                                            .toString());
+                                      },
+                                      child: Image.asset(
+                                        Images.Telephone,
+                                        height: size.height * 0.04,
+                                      )),
+                                  SizedBox(
+                                    width: size.width * 0.08,
                                   ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20.0),
-                                    child: Text(
-                                      getPropertyList!.propertyList[index]!.city
-                                          .toString(),
-                                      style: GoogleFonts.lato(
-                                          color: AppColors.greycolor,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20.0),
-                                    child: Text(
-                                      getPropertyList!
-                                          .propertyList[index]!.description
-                                          .toString(),
-                                      style: GoogleFonts.lato(
-                                          color: AppColors.greycolor,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 14),
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20.0, vertical: 10),
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.end,
-                                      children: [
-                                        InkWell(
-                                            onTap: () {
-                                              _launchPhoneCall(getPropertyList!
-                                                  .propertyList[index]!.mobile
-                                                  .toString());
-                                            },
-                                            child: Image.asset(
-                                              Images.Telephone,
-                                              height: size.height * 0.04,
-                                            )),
-                                        SizedBox(
-                                          width: size.width * 0.08,
-                                        ),
-                                        InkWell(
-                                            onTap: () => {
-                                                  launchWhatsApp(
-                                                      getPropertyList!
-                                                          .propertyList[index]!
-                                                          .mobile
-                                                          .toString())
-                                                },
-                                            child: Image.asset(
-                                              Images.Whatsapp,
-                                              height: size.height * 0.04,
-                                            ))
-                                      ],
-                                    ),
-                                  ),
-                                  Padding(
-                                    padding: const EdgeInsets.symmetric(
-                                        horizontal: 20.0),
-                                    child: Divider(
-                                      thickness: 6,
-                                      color: AppColors.home_divider_color,
-                                    ),
-                                  )
+                                  InkWell(
+                                      onTap: () => {
+                                        launchWhatsApp(
+                                            getPropertyList!
+                                                .propertyList[index]!
+                                                .mobile
+                                                .toString())
+                                      },
+                                      child: Image.asset(
+                                        Images.Whatsapp,
+                                        height: size.height * 0.04,
+                                      ))
                                 ],
                               ),
                             ),
-                          );
-                        }),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 20.0),
+                              child: Divider(
+                                thickness: 6,
+                                color: AppColors.home_divider_color,
+                              ),
+                            )
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+            Positioned(
+              child: Align(
+                alignment: Alignment.center,
+                child: HelperClass.getProgressBar(context, _isVisible),
               ),
-        Positioned(
-          child: Align(
-            alignment: Alignment.center,
-            child: HelperClass.getProgressBar(context, _isVisible),
-          ),
-        )
-      ],
-    ));
+            )
+          ],
+        ));
   }
 
   _launchPhoneCall(String phoneNumber) async {
